@@ -57,7 +57,7 @@ public class partie {
         bot bot4 = new bot(null, false, true, 0, 0);
         bot bot5 = new bot(null, false, true, 0, 0);
 
-        System.out.println("\tChoisissez le nombre de joueurs (entre 1 et 6): ");
+        System.out.println("\tChoisissez le nombre de joueurs humains (entre 1 et 6): ");
         nbJoueur = ReadConsole.nextInt();
         switch(nbJoueur){
             case 1 : {
@@ -206,4 +206,5 @@ public class partie {
         }
 
     }
+    
 }

@@ -50,4 +50,6 @@ public class joueur {
         this.nom = nom;
     }
 
+    //public joueur changerJoueur() {} 
+    
 }
