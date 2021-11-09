@@ -1,11 +1,11 @@
 package cartes;
 
 public class carte {
-	String rum;
+	String typeo;
 	String nom;
 	
-	public carte(String rum, String nom) {
-		this.rum=rum;
+	public carte(String typeo, String nom) {
+		this.typeo=typeo;
 		this.nom=nom;
 		
 	}
