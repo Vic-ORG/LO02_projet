@@ -1,4 +1,5 @@
 package cartes;
+import cartes.carte;
 
 //----------------------------------------------
 import java.util.ArrayList;
@@ -51,6 +52,18 @@ public class jeuCarte {
 	//Verifier si tas de jeu est vide
 	public boolean isEmpty() {
 		return this.jeu.isEmpty();
+	}
+	
+	public carte getOneCardAsTalon() {
+		if (this.jeu.size() > 0) {
+			// Retourner derniere carte du talon extraction
+			carte carte = (this.jeu.remove(this.jeu.size() - 1));
+			return carte;
+		}
+		else {
+			// Si il n'ya plus de carte
+			return null;
+		}
 	}
 
 }

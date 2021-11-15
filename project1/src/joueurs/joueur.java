@@ -1,4 +1,7 @@
 package joueurs;
+import cartes.carte;
+import cartes.jeuCarte;
+import java.util.ArrayList;
 
 import cartes.carte_role;
 
@@ -7,12 +10,16 @@ public class joueur {
     private boolean etat;
     private boolean identite = carte_role.isRole();
     private int score;
+    private ArrayList<carte> main;
+    private ArrayList<carte> defausse;
 
     public joueur(String nom, boolean etat, boolean identite, int score) {
         this.nom = nom;
         this.etat = etat;
         this.identite = identite;
         this.score = score;
+        this.setMain(new jeuCarte());
+        this.setDefausse(new jeuCarte());
     }
     
     public joueur() {
@@ -49,6 +56,22 @@ public class joueur {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+	public jeuCarte getMain() {
+		return main;
+	}
+
+	public void setMain(jeuCarte carteMain) {
+		this.main = carteMain;
+	}
+
+	public ArrayList<carte> getDefausse() {
+		return defausse;
+	}
+
+	public void setDefausse(ArrayList<carte> defausse) {
+		this.defausse = defausse;
+	}
 
     //public joueur changerJoueur() {} 
     

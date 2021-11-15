@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import cartes.jeuCarte;
 import joueurs.bot;
 import joueurs.joueur;
 
@@ -204,6 +205,12 @@ public class partie {
             System.out.println("\tAjouter des bots (y/n): ");
             addBot = ReadConsole.next();
         }
+        
+        //Initialisation du paquet de carte
+        jeuCarte jeuActu = new jeuCarte();
+        jeuActu = jeuCarte.createJeuCartes();
+        jeuActu.melangeJeu();
+        //joueur1.getMain().jeuActu.getOneCardAsTalon();
 
     }
     
