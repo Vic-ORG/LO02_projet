@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 
 import cartes.jeuCarte;
 import joueurs.bot;
@@ -39,7 +41,7 @@ public class partie {
         }
     }
 
-    private static void initGame() {
+    public static void initGame() {
         int nbJoueur = 0;
         int nbBot = 0;
         String addBot;
@@ -210,7 +212,17 @@ public class partie {
         jeuCarte jeuActu = new jeuCarte();
         jeuActu = jeuCarte.createJeuCartes();
         jeuActu.melangeJeu();
-        //joueur1.getMain().jeuActu.getOneCardAsTalon();
+        
+        //distribution des cartes
+        while(jeuActu.size()>0) {
+        	joueur1.getMain().addCarte(jeuActu.getOneCardAsTalon());
+        	joueur2.getMain().addCarte(jeuActu.getOneCardAsTalon());
+        	joueur3.getMain().addCarte(jeuActu.getOneCardAsTalon());
+        	joueur4.getMain().addCarte(jeuActu.getOneCardAsTalon());
+        	joueur5.getMain().addCarte(jeuActu.getOneCardAsTalon());
+        	joueur6.getMain().addCarte(jeuActu.getOneCardAsTalon());
+        }
+        
 
     }
     

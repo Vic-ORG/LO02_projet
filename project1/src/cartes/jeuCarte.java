@@ -1,5 +1,7 @@
 package cartes;
 import cartes.carte;
+import java.util.ArrayList;
+
 
 //----------------------------------------------
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class jeuCarte {
 	}
 
 	//Ajoute cette carte au jeu.
-	private boolean addCarte(carte carte) {
+	public boolean addCarte(carte carte) {
 		return this.jeu.add(carte);
 	}
 

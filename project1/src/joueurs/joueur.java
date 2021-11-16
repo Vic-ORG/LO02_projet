@@ -18,8 +18,8 @@ public class joueur {
         this.etat = etat;
         this.identite = identite;
         this.score = score;
-        this.setMain(new jeuCarte());
-        this.setDefausse(new jeuCarte());
+        this.main = new ArrayList<carte>();
+        this.defausse = new ArrayList<carte>();
     }
     
     public joueur() {
@@ -61,17 +61,12 @@ public class joueur {
 		return main;
 	}
 
-	public void setMain(jeuCarte carteMain) {
-		this.main = carteMain;
+	public void setMain(jeuCarte main) {
+		this.main = main;
 	}
 
-	public ArrayList<carte> getDefausse() {
-		return defausse;
-	}
 
-	public void setDefausse(ArrayList<carte> defausse) {
-		this.defausse = defausse;
-	}
+	
 
     //public joueur changerJoueur() {} 
     
