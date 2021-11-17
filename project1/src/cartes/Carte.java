@@ -1,10 +1,10 @@
 package cartes;
 
-public class carte {
+public class Carte {
 	String typeo;
 	String nom;
 	
-	public carte(String typeo, String nom) {
+	public Carte(String typeo, String nom) {
 		this.typeo=typeo;
 		this.nom=nom;
 		

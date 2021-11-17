@@ -1,6 +1,6 @@
 package cartes;
 
-public class carte_role extends carte{
+public class carte_role extends Carte{
     private static boolean role;
     private String nomCarte = "Carte Role";
 

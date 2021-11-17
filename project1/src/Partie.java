@@ -1,15 +1,78 @@
 import java.util.Scanner;
-import java.util.ArrayList;
+import cartes.*;
+import joueurs.*;
+import java.util.*;
 
 
-import cartes.jeuCarte;
-import joueurs.bot;
-import joueurs.joueur;
+import cartes.JeuCarte;
+import joueurs.Bot;
+import joueurs.Joueur;
 
-public class partie {
+public class Partie {
+	
+	private ArrayList<Joueur> joueurs;
+	private JeuCarte cartes;
+	private boolean partieEnCours;
 
     static Scanner ReadConsole = new Scanner(System.in);
-
+    
+    public Partie() {
+    	joueurs = new ArrayList<Joueur>();
+    	cartes = new JeuCarte();
+    	cartes.melanger();
+    	partieEnCours = false;
+    	}
+    
+    	public void ajouterJoueur(Joueur joueur) {
+    	if (partieEnCours == false) {
+    	joueurs.add(joueur);
+    	}
+    	}
+    	
+    	public void retirerJoueur(Joueur joueur) {
+    		joueurs.remove(joueur);
+    	}
+    	
+    	public void distribuerCartes() {
+    		this.partieEnCours = true;
+    		while (cartes.estVide() == false) {
+    			Iterator<Joueur> it = joueurs.iterator();
+    			while (it.hasNext()) {
+    				Joueur j = (Joueur) it.next();
+    				j.prendreCarte(cartes.tirerCarteDuDessus());
+    			}
+    		}
+    	}
+    		
+    	public void jouer() {
+    		ArrayList<Carte> cartesJouees = this.jouerCartes();
+    		System.out.println("Cartes jouées : " + cartesJouees);
+    	}
+    	
+    	private ArrayList<Carte> jouerCartes() {
+    		ArrayList<Carte> cartesJouees = new ArrayList<Carte>();
+    		Iterator<Joueur> itDepot = joueurs.iterator();
+    		while (itDepot.hasNext()) {
+    			Joueur j = (Joueur) itDepot.next();
+    			cartesJouees.add(j.jouerCarte());
+    		}
+    		return cartesJouees;
+    	}
+    		
+    	private void retirerPerdants() {
+    	}
+    	
+    	private Joueur joueurGagnant(Carte carte) {
+    		Joueur gagnant = null;
+    		return gagnant;
+    	}
+    	
+    	public String toString() {
+    		return joueurs.toString();
+    	}
+    
+    
+    //--------------------------------------------------------
     public static void menu(){
     
         int sousmenu = 0;
@@ -47,21 +110,28 @@ public class partie {
         String addBot;
         String nom;
         
-        joueur joueur1 = new joueur(null, false, true, 0);
-        joueur joueur2 = new joueur(null, false, true, 0);
-        joueur joueur3 = new joueur(null, false, true, 0);
-        joueur joueur4 = new joueur(null, false, true, 0);
-        joueur joueur5 = new joueur(null, false, true, 0);
-        joueur joueur6 = new joueur(null, false, true, 0);
+        /*Joueur joueur1 = new Joueur(null, false, true, 0);
+        Joueur joueur2 = new Joueur(null, false, true, 0);
+        Joueur joueur3 = new Joueur(null, false, true, 0);
+        Joueur joueur4 = new Joueur(null, false, true, 0);
+        Joueur joueur5 = new Joueur(null, false, true, 0);
+        Joueur joueur6 = new Joueur(null, false, true, 0);
 
-        bot bot1 = new bot(null, false, true, 0, 0);
-        bot bot2 = new bot(null, false, true, 0, 0);
-        bot bot3 = new bot(null, false, true, 0, 0);
-        bot bot4 = new bot(null, false, true, 0, 0);
-        bot bot5 = new bot(null, false, true, 0, 0);
+        Bot bot1 = new Bot(null, false, true, 0, 0);
+        Bot bot2 = new Bot(null, false, true, 0, 0);
+        Bot bot3 = new Bot(null, false, true, 0, 0);
+        Bot bot4 = new Bot(null, false, true, 0, 0);
+        Bot bot5 = new Bot(null, false, true, 0, 0);*/
 
         System.out.println("\tChoisissez le nombre de joueurs humains (entre 1 et 6): ");
         nbJoueur = ReadConsole.nextInt();
+        int i=0;
+        for(i=1; i<=nbJoueur; i++) {
+        	System.out.println("\tNom du joueur " + i + " :  ");
+            nom = ReadConsole.next();
+            joueurs.add(new Joueur(nom, true, false, 0));
+        }
+        /*
         switch(nbJoueur){
             case 1 : {
                 System.out.println("\tNom du premier joueur : ");
@@ -182,8 +252,20 @@ public class partie {
                 
             } break;
             default : break;
-        }
+        }*/
         
+        System.out.println("\tAjouter des bots (y/n): ");
+        addBot = ReadConsole.next();
+        if (addBot.equals("y")){
+            System.out.println("\tChoisissez le nombre de bots (maximum " + (6-nbBot-nbJoueur) + "): ");
+            nbBot = ReadConsole.nextInt();
+            for(i=1; i<=nbBot; i++) {
+            	System.out.println("\tNom du Bot " + i + " :  ");
+                nom = ReadConsole.next();
+                bot.add(new Bot(nom, true, false, 0, 0));
+            	}
+            }
+        /*
         System.out.println("\tAjouter des bots (y/n): ");
         addBot = ReadConsole.next();
         if (addBot.equals("y")){
@@ -206,22 +288,15 @@ public class partie {
         else{
             System.out.println("\tAjouter des bots (y/n): ");
             addBot = ReadConsole.next();
-        }
+        }*/
         
         //Initialisation du paquet de carte
-        jeuCarte jeuActu = new jeuCarte();
-        jeuActu = jeuCarte.createJeuCartes();
-        jeuActu.melangeJeu();
+        JeuCarte jeuActu = new JeuCarte();
+        jeuActu.melanger();
         
         //distribution des cartes
-        while(jeuActu.size()>0) {
-        	joueur1.getMain().addCarte(jeuActu.getOneCardAsTalon());
-        	joueur2.getMain().addCarte(jeuActu.getOneCardAsTalon());
-        	joueur3.getMain().addCarte(jeuActu.getOneCardAsTalon());
-        	joueur4.getMain().addCarte(jeuActu.getOneCardAsTalon());
-        	joueur5.getMain().addCarte(jeuActu.getOneCardAsTalon());
-        	joueur6.getMain().addCarte(jeuActu.getOneCardAsTalon());
-        }
+        Partie partie = new Partie();
+        partie.distribuerCartes();
         
 
     }
