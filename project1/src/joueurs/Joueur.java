@@ -11,6 +11,7 @@ public class Joueur {
     private int score;
     private LinkedList<Carte> main;
     private LinkedList<Carte> defausse;
+    private int resultat; // 0=neutre, 1=vainqueur, 2=perdant (pour savoir avec qui démarré le round)
     
     private Carte derniereCarteJouee;
 
@@ -100,6 +101,12 @@ public class Joueur {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    
+    public int getResultat() {
+        return this.resultat;
+    }
+    
+    
 
     
 }

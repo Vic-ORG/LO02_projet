@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import cartes.*;
 import joueurs.*;
 import java.util.*;
@@ -10,7 +9,7 @@ import joueurs.Joueur;
 
 public class Partie {
 	
-	private ArrayList<Joueur> joueurs;
+	private static ArrayList<Joueur> joueurs;
 	private JeuCarte cartes;
 	private boolean partieEnCours;
 
@@ -22,6 +21,10 @@ public class Partie {
     	cartes.melanger();
     	partieEnCours = false;
     	}
+    public ArrayList<Joueur> recupListeJ() {
+    	return joueurs;
+    	
+    }
     
     	public void ajouterJoueur(Joueur joueur) {
     	if (partieEnCours == false) {
@@ -129,6 +132,7 @@ public class Partie {
         for(i=1; i<=nbJoueur; i++) {
         	System.out.println("\tNom du joueur " + i + " :  ");
             nom = ReadConsole.next();
+            //joueurs.ajouterJoueur(new Joueur(nom, true, false, 0));
             joueurs.add(new Joueur(nom, true, false, 0));
         }
         /*
@@ -262,7 +266,8 @@ public class Partie {
             for(i=1; i<=nbBot; i++) {
             	System.out.println("\tNom du Bot " + i + " :  ");
                 nom = ReadConsole.next();
-                bot.add(new Bot(nom, true, false, 0, 0));
+                joueurs.add(new Bot(nom, true, false, 0, 0));
+                //Bot.add(new Bot(nom, true, false, 0, 0));
             	}
             }
         /*
@@ -290,15 +295,8 @@ public class Partie {
             addBot = ReadConsole.next();
         }*/
         
-        //Initialisation du paquet de carte
-        JeuCarte jeuActu = new JeuCarte();
-        jeuActu.melanger();
-        
-        //distribution des cartes
-        Partie partie = new Partie();
-        partie.distribuerCartes();
-        
-
     }
+    
+    
     
 }
