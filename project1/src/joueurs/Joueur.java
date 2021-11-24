@@ -26,6 +26,10 @@ public class Joueur {
     
     //------------------------------------
     
+    public LinkedList<Carte> getMain(){
+    	return this.main;
+    }
+    
     public void prendreCarte(Carte carte) {
     	main.add(carte);
     }
