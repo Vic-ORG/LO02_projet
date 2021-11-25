@@ -1,7 +1,12 @@
 package cartes;
 
 public class carte_role extends Carte{
-    private static boolean role;
+    public carte_role(String typeo, String nom) {
+		super(typeo, nom);
+		// TODO Auto-generated constructor stub
+	}
+
+	private static boolean role;
     private String nomCarte = "Carte Role";
 
     public String getNomCarte() {

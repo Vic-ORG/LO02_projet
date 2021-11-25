@@ -10,7 +10,7 @@ import joueurs.Joueur;
 
 public class Partie {
 	
-	private static ArrayList<Joueur> joueurs;
+	private ArrayList<Joueur> joueurs;
 	private JeuCarte cartes;
 	private boolean partieEnCours;
 
@@ -77,7 +77,7 @@ public class Partie {
     
     
     //--------------------------------------------------------
-    public static void menu(){
+    public void menu(){
     
         int sousmenu = 0;
         boolean arret = false;   
@@ -108,11 +108,11 @@ public class Partie {
         }
     }
 
-    public static void initGame() {
+    public void initGame() {
         int nbJoueur = 0;
         int nbBot = 0;
         String addBot;
-        String nom;
+        String nom, id;
         
         /*Joueur joueur1 = new Joueur(null, false, true, 0);
         Joueur joueur2 = new Joueur(null, false, true, 0);
@@ -133,8 +133,36 @@ public class Partie {
         for(i=1; i<=nbJoueur; i++) {
         	System.out.println("\tNom du joueur " + i + " :  ");
             nom = ReadConsole.next();
-            //joueurs.ajouterJoueur(new Joueur(nom, true, false, 0));
-            joueurs.add(new Joueur(nom, false, true, false, 0));
+            System.out.println("\tIdentité du joueur (sor ou vil) " + i + " :  ");
+            id = ReadConsole.next();
+            switch(id){
+     	   
+            case "sor": 
+                System.out.println("Bonjour");
+                System.out.println("\tSORCIERE ");
+            	ajouterJoueur(new Joueur(nom, false, true, true, 0));
+                break;
+        
+            case "vil":
+                System.out.println("Hello");
+                System.out.println("\t Villageois ");
+            	ajouterJoueur(new Joueur(nom, false, true, false, 0));
+                break;
+            default:
+                System.out.println("Choix incorrect");
+                break;
+        	}
+            /*if(id=="vil") {
+            	System.out.println("\t Villageois ");
+            	ajouterJoueur(new Joueur(nom, false, true, false, 0));
+            }
+            else if(id=="sor") {
+            	System.out.println("\tSORCIERE ");
+            	ajouterJoueur(new Joueur(nom, false, true, true, 0));
+            }*/
+            
+            
+            //joueurs.add(new Joueur(nom, false, true, false, 0));
         }
         /*
         switch(nbJoueur){
@@ -267,10 +295,25 @@ public class Partie {
             for(i=1; i<=nbBot; i++) {
             	System.out.println("\tNom du Bot " + i + " :  ");
                 nom = ReadConsole.next();
-                joueurs.add(new Bot(nom, false, true, false, 0, 0));
+                ajouterJoueur(new Bot(nom, false, true, false, 0, 0));
+                //joueurs.add(new Bot(nom, false, true, false, 0, 0));
                 //Bot.add(new Bot(nom, true, false, 0, 0));
             	}
             }
+        else if (addBot.equals("n")){
+            //lancer partie
+        	Iterator<Joueur> itJ = joueurs.iterator();
+			//on affiche les joueurs ayant leur carte encore secrète et pas notre joueur
+			while(itJ.hasNext()) {
+				Joueur J=itJ.next();
+				System.out.println("index : " + joueurs.indexOf(J) + "  Joueur : " + J.getNom());
+			}
+        }
+        else{
+            System.out.println("\tAjouter des bots (y/n): ");
+            addBot = ReadConsole.next();
+        }
+        return;
         /*
         System.out.println("\tAjouter des bots (y/n): ");
         addBot = ReadConsole.next();

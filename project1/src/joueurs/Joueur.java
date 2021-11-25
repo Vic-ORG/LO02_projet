@@ -8,7 +8,7 @@ public class Joueur {
     private String nom;
     private boolean etatCarte; //true=idendité revelé, false = identité encore secrète
     private boolean etatJeu; // true = en vie dans le round, false = mort dans le round
-    private boolean identite = carte_role.isRole();
+    private boolean identite = carte_role.isRole(); //sorciere true, villageois false
     private int score;
     private LinkedList<Carte> main;
     private LinkedList<Carte> defausse;

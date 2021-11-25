@@ -19,10 +19,12 @@ public class app {
     	int nbJrevel; //pour compter le nombre de joueur ayant une carte identité revelé
     	
     	ArrayList<Joueur> listJ;
-    	Partie.menu();
-        Partie.initGame();
     	
-        Partie partie = new Partie();
+    	Partie partie = new Partie();
+    	partie.menu();
+        //partie.initGame();
+    	
+        
         listJ = partie.recupListeJ();
 		Iterator<Joueur> it = listJ.iterator(); //liste des joueurs complète
 		Iterator<Joueur> itA = listJ.iterator(); //liste des joueurs pour accusation (differente car on utulise l'autre dans le while)
@@ -56,12 +58,13 @@ public class app {
 	        while(nbJrevel>1) //un round ne s'arrete que lorsque 1 personne a encore sa carte identité caché
 	        {
 	        	Joueur jActu=listJ.get(index);
-	        	System.out.println("Joueur actuel :" + jActu.getNom() + "Index dans list : " +index);
+	        	System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index);
 	        	//Afficher les cartes en mains :
 	        	System.out.println("Vos carte en main :");
 	        	Iterator<Carte> main = jActu.getMain().iterator();
 	        	while(main.hasNext()) {
-	        		System.out.println(main.next());
+	        		Carte C=main.next();
+	        		System.out.println(C.getNom());
 	        	}
 	        	System.out.println("Choississez votre action : 1 pour accuser, 2 pour utiliser carte rumeur");
 				choix=scanner.nextInt();
@@ -71,8 +74,9 @@ public class app {
 					itA = listJ.iterator();
 					//on affiche les joueurs ayant leur carte encore secrète et pas notre joueur
 					while(itA.hasNext()) {
-						if(itA.next().getEtatcarte()==false && listJ.indexOf(itA.next())!=index) {
-						System.out.println("index : " + listJ.indexOf(itA.next()) + "Joueur : " + itA.next().getNom());} 
+						Joueur A=itA.next();
+						if(A.getEtatcarte()==false && listJ.indexOf(A)!=index) {
+						System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
 					}
 					
 					System.out.println("Choississez le joueur à accuser (sauf vous meme numero : " + index + " )");
@@ -147,7 +151,7 @@ public class app {
 	        }//fin boucle round avec condition le nbcarterevel
 	        
 		}//fin boucle d'une partie avec condition de point
-		
+		System.out.println("Programme fini gagnant : " + gagnant);
 		scanner.close();
     }// fin main
     
