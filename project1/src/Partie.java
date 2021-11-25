@@ -1,5 +1,6 @@
-import cartes.*;
-import joueurs.*;
+//import cartes.*;
+
+//import joueurs.*;
 import java.util.*;
 
 
@@ -47,7 +48,7 @@ public class Partie {
     		}
     	}
     		
-    	public void jouer() {
+    	/*public void jouer() {
     		ArrayList<Carte> cartesJouees = this.jouerCartes();
     		System.out.println("Cartes jouées : " + cartesJouees);
     	}
@@ -60,15 +61,15 @@ public class Partie {
     			cartesJouees.add(j.jouerCarte());
     		}
     		return cartesJouees;
-    	}
+    	}*/
     		
-    	private void retirerPerdants() {
+    	/*private void retirerPerdants() {
     	}
     	
     	private Joueur joueurGagnant(Carte carte) {
     		Joueur gagnant = null;
     		return gagnant;
-    	}
+    	}*/
     	
     	public String toString() {
     		return joueurs.toString();

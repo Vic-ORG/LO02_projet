@@ -18,4 +18,13 @@ public class Carte {
     public void setType(boolean type) {
         this.type = type;
     }
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+    
 }

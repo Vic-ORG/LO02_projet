@@ -12,7 +12,7 @@ public class app {
     	boolean overideJoueur=false;
     	Scanner scanner = new Scanner(System.in);
     	int choix;
-    	int choix2=0;
+    	//int choix2=0;
     	boolean ScoredeFin=false; //true=qqun a plus de 5points, false l'inverse
     	int nbgagnant=0; //On comptabilise le nombre de joueurs qui pourrait avoir plus de 5pt
     	Joueur[] gagnant = new Joueur[5];
@@ -56,7 +56,7 @@ public class app {
 	        while(nbJrevel>1) //un round ne s'arrete que lorsque 1 personne a encore sa carte identité caché
 	        {
 	        	Joueur jActu=listJ.get(index);
-	        	System.out.println("Joueur :" + jActu.getNom() + "Index dans list : " +index);
+	        	System.out.println("Joueur actuel :" + jActu.getNom() + "Index dans list : " +index);
 	        	//Afficher les cartes en mains :
 	        	System.out.println("Vos carte en main :");
 	        	Iterator<Carte> main = jActu.getMain().iterator();
@@ -92,6 +92,8 @@ public class app {
 							//listJ.remove(index2);
 							Jaccuser.setEtatjeu(false);
 							Jaccuser.setEtatcarte(true);
+							nbJrevel=nbJrevel-1; //Parmi la totalité des joueurs, 1 a révélé sa carte
+							listJ.set(index2, Jaccuser); //on met à jour dans listJ
 							jActu.setScore(1);
 						}
 						else {
@@ -104,25 +106,55 @@ public class app {
 							
 						}
 					}
-				}
+				} //fin du if accusation
+				
 				else if(choix==2) {
 					//Afficher carte rumeur jouable
+					//Afficher les cartes en mains :
+		        	System.out.println("Vos carte en main :");
+		        	main = jActu.getMain().iterator();
+		        	while(main.hasNext()) {
+		        		System.out.println("Carte index" + jActu.getMain().indexOf(main.next()) + " nom : " + main.next().getNom());
+		        	}
+		        	System.out.println("Choississez votre action : entrer l'index de la carte que vous souhaitez jouer");
+					int choixcarte=scanner.nextInt();
+					System.out.println("Carte choisi : " + jActu.getMain().get(choixcarte).getNom());
+					//on appel la carte et utiliser ces fonctions
+					jActu.jouerCarte(jActu.getMain().get(choixcarte)); //dans joueur, compléter la fonction en fonction de la carte
+					//dans la fonction au dessus, je met la carte dans la deffausse du joueur
+									
+					//on retire la carte de la main du joueur
+					jActu.getMain().remove(jActu.getMain().get(choixcarte));
 				}
 			
 				//on remplace le joueur qu'on a pris avec les valeur de joueur actuelle, par exemple pour changé score
 				listJ.set(index, jActu);
+				
 				//Si Joueur suivant changé, on affecte la valeur de son index2 à l'index.
 				if(overideJoueur==true) {
 					index=index2;
 				}
+				
+				/*it = listJ.iterator();
+				while(it.hasNext()) {
+					if(it.next().getEtatcarte()==true) {
+						nbJrevel=
+					}
+				}*/
 	        
 	        	
 	        	
-	        }
-		}
-    }
-}
+	        }//fin boucle round avec condition le nbcarterevel
 	        
+		}//fin boucle d'une partie avec condition de point
+		
+		scanner.close();
+    }// fin main
+    
+}//fin class
+
+	        //MAuvais et ancien :
+
 	        /*// on sélectionne le joueur actuelle dans la liste
 	        while (it.hasNext()) {
 	        	if(overideJoueur==false) {

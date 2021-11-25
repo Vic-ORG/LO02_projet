@@ -36,9 +36,46 @@ public class Joueur {
     	main.add(carte);
     }
     	
-    public Carte jouerCarte() {
-    	derniereCarteJouee = main.pop();
-    	return derniereCarteJouee;
+    public void jouerCarte(Carte carteChoisi) {
+    	//derniereCarteJouee = carteChoisi;
+    	switch(carteChoisi.getNom()){
+    	   
+        case "Angry Mob": 
+            System.out.println("Bonjour");
+            break;
+    
+        case "The Inquisition":
+            System.out.println("Hello");
+            break;
+    
+        case "Pointed Hat":
+            System.out.println("Buenos dias");
+            break;
+        case "Hooked Nose":
+        	break;
+        case "Broomstick":
+        	break;
+        case "Wart":
+        	break;
+        case "Ducking Stool":
+        	break;
+        case "Cauldron":
+        	break;
+        case "Evil Eye":
+        	break;
+        case "Toad":
+        	break;
+        case "Black Cat":
+        	break;
+        case "Pet Newt":
+        	break;     	
+        default:
+            System.out.println("Choix incorrect");
+            break;
+    	}
+    	
+    	
+    	defausse.add(carteChoisi);
     	}
     	
     public Carte derniereCarteJouee() {
