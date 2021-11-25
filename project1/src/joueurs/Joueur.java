@@ -6,7 +6,8 @@ import cartes.carte_role;
 
 public class Joueur {
     private String nom;
-    private boolean etat;
+    private boolean etatCarte; //true=idendité revelé, false = identité encore secrète
+    private boolean etatJeu; // true = en vie dans le round, false = mort dans le round
     private boolean identite = carte_role.isRole();
     private int score;
     private LinkedList<Carte> main;
@@ -15,9 +16,10 @@ public class Joueur {
     
     private Carte derniereCarteJouee;
 
-    public Joueur(String nom, boolean etat, boolean identite, int score) {
+    public Joueur(String nom, boolean etatCarte, boolean etatJeu, boolean identite, int score) {
         this.nom = nom;
-        this.etat = etat;
+        this.etatCarte = etatCarte;
+        this.etatJeu = etatJeu;
         this.identite = identite;
         this.score = score;
         main = new LinkedList<Carte>();
@@ -94,12 +96,21 @@ public class Joueur {
         this.identite = identite;
     }
 
-    public boolean isEtat() {
+    /*public boolean isEtat() {
         return etat;
-    }
+    }*/
 
-    public void setEtat(boolean etat) {
-        this.etat = etat;
+    public void setEtatcarte(boolean etatCarte) {
+        this.etatCarte = etatCarte;
+    }
+    public boolean getEtatcarte() {
+        return this.etatCarte;
+    }
+    public void setEtatjeu(boolean etatJeu) {
+        this.etatJeu = etatJeu;
+    }
+    public boolean getEtatjeu() {
+        return this.etatJeu;
     }
 
     public void setNom(String nom) {

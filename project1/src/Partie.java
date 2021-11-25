@@ -133,7 +133,7 @@ public class Partie {
         	System.out.println("\tNom du joueur " + i + " :  ");
             nom = ReadConsole.next();
             //joueurs.ajouterJoueur(new Joueur(nom, true, false, 0));
-            joueurs.add(new Joueur(nom, true, false, 0));
+            joueurs.add(new Joueur(nom, false, true, false, 0));
         }
         /*
         switch(nbJoueur){
@@ -266,7 +266,7 @@ public class Partie {
             for(i=1; i<=nbBot; i++) {
             	System.out.println("\tNom du Bot " + i + " :  ");
                 nom = ReadConsole.next();
-                joueurs.add(new Bot(nom, true, false, 0, 0));
+                joueurs.add(new Bot(nom, false, true, false, 0, 0));
                 //Bot.add(new Bot(nom, true, false, 0, 0));
             	}
             }
