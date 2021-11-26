@@ -32,6 +32,10 @@ public class Joueur {
     	return this.main;
     }
     
+    public LinkedList<Carte> getDefausse(){
+    	return this.defausse;
+    }
+    
     public void prendreCarte(Carte carte) {
     	main.add(carte);
     }
