@@ -349,6 +349,8 @@ public class Partie {
     	boolean ScoredeFin=false; //true=qqun a plus de 5points, false l'inverse
     	int nbJrevel; //pour compter le nombre de joueur ayant une carte identité revelé
     	String id, effet;
+    	int[] restrictChoix=new int[6];
+    	int restrict=0;
     	
     	//ArrayList<Joueur> listJ;
     	//listJ=joueurs;
@@ -409,8 +411,10 @@ public class Partie {
 	        	Carte C=main.next();
 	        	System.out.println(C.getNom());
 	        }
-	        System.out.println("Choississez votre action : 1 pour accuser, 2 pour utiliser carte rumeur");
-			choix=scanner.nextInt();
+	        //actionTour pour soit accuser soit chasser
+	        choix=jActu.actionTour();
+	        /*System.out.println("Choississez votre action : 1 pour accuser, 2 pour utiliser carte rumeur");
+			choix=scanner.nextInt();*/
 				
 			if(choix==1) {
 			//Accuser joueur
@@ -419,15 +423,22 @@ public class Partie {
 			while(itA.hasNext()) {
 				Joueur A=itA.next();
 				if(A.getEtatcarte()==false && listJ.indexOf(A)!=index) {
+					restrictChoix[restrict]=listJ.indexOf(A);
+					restrict++;
 				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
 			}
-					
-			System.out.println("Choississez le joueur à accuser (sauf vous meme numero : " + index + " )");
+			//Choisir qui accuser
+			Joueur Jaccuser=jActu.choisirVictime(restrictChoix, listJ, index2);
+			index2=listJ.indexOf(Jaccuser);
+			
+			//répondre accusation
+			int choix3 = Jaccuser.repondreAccu();
+			/*System.out.println("Choississez le joueur à accuser (sauf vous meme numero : " + index + " )");
 			index2=scanner.nextInt();
 			Joueur Jaccuser = listJ.get(index2);
 			System.out.println("Joueur : "+ Jaccuser.getNom() + ", vous etes accusé.");
-			System.out.println("Choississez si vous révélez votre identité : 0 non et 1 oui");
-			int choix3=scanner.nextInt();
+			System.out.println("Choississez si vous révélez votre identité : 0 non et 1 oui");*/
+			//int choix3=scanner.nextInt();
 				
 					
 			if(choix3==1) {
@@ -444,7 +455,7 @@ public class Partie {
 					jActu.setScore(1);
 				}
 				else {
-				System.out.println("Le joueur accusé est un villageois !");
+				System.out.println("Le joueur accusé à index   " + index2 + Jaccuser.getNom() +  "   est un villageois !");
 				System.out.println("Le joueur accusé reprend la main (commence le prochain tour) !");
 				System.out.println("Personne ne gagne ou perd de points !");
 				//comme il reprend la main l'index du joueur accusé devient l'index qui sera utilisé pour le début de boucle
@@ -469,11 +480,14 @@ public class Partie {
 		        	if(jouable==true) {
 		        	System.out.println("Les cartes jouables sont : \n");
 		        	System.out.println(C.getNom() + "à index :  "+ jActu.getMain().indexOf(C));}
-		        	
 		        }
+		        System.out.println("Choississez votre action : entrer l'index de la carte que vous souhaitez jouer");
+				int choixcarte=scanner.nextInt();
+				System.out.println("Carte choisi : " + jActu.getMain().get(choixcarte).getNom());
+				jActu.jouerCarte(jActu.getMain().get(choixcarte), effet, listJ, index2, overideJoueur);
 				
 				
-			//Afficher carte rumeur jouable
+			/*//Afficher carte rumeur jouable
 			//Afficher les cartes en mains :
 		    System.out.println("Vos carte en main :");
 		    main = jActu.getMain().iterator();
@@ -481,11 +495,11 @@ public class Partie {
 		        System.out.println("Carte index" + jActu.getMain().indexOf(main.next()) + " nom : " + main.next().getNom());
 		        }
 		        System.out.println("Choississez votre action : entrer l'index de la carte que vous souhaitez jouer");
-				int choixcarte=scanner.nextInt();
+				//int choixcarte=scanner.nextInt();
 				System.out.println("Carte choisi : " + jActu.getMain().get(choixcarte).getNom());
 				//on appel la carte et utiliser ces fonctions
 				jActu.jouerCarte(jActu.getMain().get(choixcarte)); //dans joueur, compléter la fonction en fonction de la carte
-				//dans la fonction au dessus, je met la carte dans la deffausse du joueur
+				//dans la fonction au dessus, je met la carte dans la deffausse du joueur*/
 								
 				//on retire la carte de la main du joueur
 				jActu.getMain().remove(jActu.getMain().get(choixcarte));
