@@ -26,8 +26,9 @@ public class Bot extends Joueur {
     	return chxb;
     }
     
-    public Joueur choisirVictime(int[] restrictChoix, ArrayList<Joueur> listJ, int index2) {
+    public Joueur choisirVictime(int[] restrictChoix, ArrayList<Joueur> listJ) {
     	Random rand = new Random();
+    	int index2;
         index2 = rand.nextInt(restrictChoix.length);
 		return listJ.get(index2);
     	

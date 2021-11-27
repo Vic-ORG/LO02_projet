@@ -344,6 +344,7 @@ public class Partie {
     
     public boolean round(ArrayList<Joueur> listJ) {
     	boolean overideJoueur=false;
+    	boolean overideJautre=false;
     	Scanner scanner = new Scanner(System.in);
     	int choix;
     	boolean ScoredeFin=false; //true=qqun a plus de 5points, false l'inverse
@@ -362,9 +363,11 @@ public class Partie {
 		//Initialisation du paquet de carte
 	    JeuCarte jeuActu = new JeuCarte();
 	    jeuActu.melanger();
-	    distribuerCartes();   
+	    distribuerCartes();
+	    int i;
 	    int index=0;
 	    int index2=0;
+	    int indextemp=0;
 	    
 	    it = listJ.iterator();
     	//on affiche les joueurs ayant leur carte encore secrète et pas notre joueur
@@ -428,9 +431,16 @@ public class Partie {
 				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
 			}
 			//Choisir qui accuser
-			Joueur Jaccuser=jActu.choisirVictime(restrictChoix, listJ, index2);
+			System.out.println("Choississez le joueur à accuser : ");
+			Joueur Jaccuser=jActu.choisirVictime(restrictChoix, listJ);
 			index2=listJ.indexOf(Jaccuser);
 			
+			//Tableau reinistialiser valeur
+			for(i=0; i<restrictChoix.length; i++) {
+				restrictChoix[i]=-1;
+			}
+    		restrict=0;
+    		
 			//répondre accusation
 			int choix3 = Jaccuser.repondreAccu();
 			/*System.out.println("Choississez le joueur à accuser (sauf vous meme numero : " + index + " )");
@@ -467,6 +477,41 @@ public class Partie {
 					
 				}
 			}
+			else {
+				effet="witch";
+				//Afficher les cartes en mains :
+		        System.out.println("Vos carte en main :");
+		        main = Jaccuser.getMain().iterator();
+		        while(main.hasNext()) {
+		        	Carte C=main.next();
+		        	boolean jouable=C.jouabiliteCarte(effet, Jaccuser);
+		        	if(jouable==true) {
+		        	System.out.println("Les cartes jouables sont : \n");
+		        	System.out.println(C.getNom() + "à index :  "+ Jaccuser.getMain().indexOf(C));
+		        	restrictChoix[restrict]=Jaccuser.getMain().indexOf(C);
+					restrict++;}
+		        }
+		        System.out.println("Choississez votre action : entrer l'index de la carte que vous souhaitez jouer");
+		        Carte carteRecup=Jaccuser.choisirCarte(restrictChoix, Jaccuser.getMain());
+		        //int choixcarte=scanner.nextInt();
+				
+				
+				System.out.println("Carte choisi : " + carteRecup.getNom());
+				Joueur Jtemp=Jaccuser.jouerCarte(carteRecup, effet, listJ, index, index2);
+				indextemp=listJ.indexOf(Jtemp);
+				
+				if(indextemp != index && indextemp != index2) {
+					overideJautre=true;
+					listJ.set(indextemp, Jtemp);
+					listJ.set(index2, Jaccuser);
+				}
+				else if(indextemp==index2) {
+					overideJoueur=true;
+					Jaccuser=Jtemp;
+					listJ.set(index2, Jaccuser);
+				}
+				
+			}
 		} //fin du if accusation
 				
 			else if(choix==2) {
@@ -479,13 +524,23 @@ public class Partie {
 		        	boolean jouable=C.jouabiliteCarte(effet, jActu);
 		        	if(jouable==true) {
 		        	System.out.println("Les cartes jouables sont : \n");
-		        	System.out.println(C.getNom() + "à index :  "+ jActu.getMain().indexOf(C));}
+		        	System.out.println(C.getNom() + "à index :  "+ jActu.getMain().indexOf(C));
+		        	restrictChoix[restrict]=jActu.getMain().indexOf(C);
+					restrict++;}
 		        }
 		        System.out.println("Choississez votre action : entrer l'index de la carte que vous souhaitez jouer");
-				int choixcarte=scanner.nextInt();
-				System.out.println("Carte choisi : " + jActu.getMain().get(choixcarte).getNom());
-				jActu.jouerCarte(jActu.getMain().get(choixcarte), effet, listJ, index2, overideJoueur);
-				
+		        Carte carteRecup=jActu.choisirCarte(restrictChoix, jActu.getMain());
+		        
+		        System.out.println("Carte choisi : " + carteRecup.getNom());
+				Joueur Jtemp=jActu.jouerCarte(carteRecup, effet, listJ, index, index2);
+				indextemp=listJ.indexOf(Jtemp);
+				if(indextemp == index) {
+					jActu=Jtemp;
+				}
+				else if(indextemp!=index) {
+					listJ.set(indextemp, Jtemp);
+					overideJautre=true;
+				}
 				
 			/*//Afficher carte rumeur jouable
 			//Afficher les cartes en mains :
@@ -502,7 +557,7 @@ public class Partie {
 				//dans la fonction au dessus, je met la carte dans la deffausse du joueur*/
 								
 				//on retire la carte de la main du joueur
-				jActu.getMain().remove(jActu.getMain().get(choixcarte));
+				//jActu.getMain().remove(jActu.getMain().get(choixcarte));
 			}
 			
 			//on remplace le joueur qu'on a pris avec les valeur de joueur actuelle, par exemple pour changé score
@@ -511,8 +566,19 @@ public class Partie {
 			//Si Joueur suivant changé, on affecte la valeur de son index2 à l'index.
 			if(overideJoueur==true) {
 				index=index2;
+				overideJoueur=false;
 			}
-			overideJoueur=false;
+			else if(overideJautre==true) {
+				index=indextemp;
+				overideJautre=false;
+			}
+			
+			//Tableau reinistialiser valeur
+			for(i=0; i<restrictChoix.length; i++) {
+				restrictChoix[i]=-1;
+			}
+    		restrict=0;
+			
 			
 				
 				       
