@@ -141,7 +141,7 @@ public class Joueur {
     			//on affiche les joueurs encore en jeux et pas notre joueur
     			while(itfct.hasNext()) {
     				Joueur A=itfct.next();
-    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=indexActu) {
+    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this)) {
     					restrictChoix[restrict]=listJ.indexOf(A);
     					restrict++;
     				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
@@ -197,7 +197,7 @@ public class Joueur {
     			//on affiche les joueurs encore en jeux et pas notre joueur
     			while(itfct.hasNext()) {
     				Joueur A=itfct.next();
-    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=indexActu) {
+    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this)) {
     					restrictChoix[restrict]=listJ.indexOf(A);
     					restrict++;
     				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
@@ -223,7 +223,7 @@ public class Joueur {
     			//on affiche les joueurs encore en jeux et pas notre joueur
     			while(itfct.hasNext()) {
     				Joueur A=itfct.next();
-    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=indexActu) {
+    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this)) {
     					restrictChoix[restrict]=listJ.indexOf(A);
     					restrict++;
     				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom() + "Nombre de carte en main :  "+ A.getMain().size() );} 
@@ -255,7 +255,7 @@ public class Joueur {
     			//on affiche les joueurs encore en jeux et pas notre joueur
     			while(itfct.hasNext()) {
     				Joueur A=itfct.next();
-    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=indexActu) {
+    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this)) {
     					restrictChoix[restrict]=listJ.indexOf(A);
     					restrict++;
     				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
@@ -278,7 +278,7 @@ public class Joueur {
     			//on affiche les joueurs encore en jeux et pas notre joueur
     			while(itfct.hasNext()) {
     				Joueur A=itfct.next();
-    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=indexActu) {
+    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this)) {
     					restrictChoix[restrict]=listJ.indexOf(A);
     					restrict++;
     				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
@@ -327,7 +327,7 @@ public class Joueur {
     			//on affiche les joueurs encore en jeux et pas notre joueur
     			while(itfct.hasNext()) {
     				Joueur A=itfct.next();
-    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=indexActu) {
+    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this)) {
     					restrictChoix[restrict]=listJ.indexOf(A);
     					restrict++;
     				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
@@ -343,7 +343,7 @@ public class Joueur {
     			//on affiche les joueurs encore en jeux et pas notre joueur
     			while(itfct.hasNext()) {
     				Joueur A=itfct.next();
-    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=indexActu) {
+    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this)) {
     					restrictChoix[restrict]=listJ.indexOf(A);
     					restrict++;
     				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
@@ -390,7 +390,7 @@ public class Joueur {
     			//on affiche les joueurs encore en jeux et pas notre joueur
     			while(itfct.hasNext()) {
     				Joueur A=itfct.next();
-    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=indexActu && A.getDefausse().size()>0) {
+    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this) && A.getDefausse().size()>0) {
     					restrictChoix[restrict]=listJ.indexOf(A);
     					restrict++;
     				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom() + "Nombre de carte en révélé :  "+ A.getDefausse().size() );
@@ -405,8 +405,12 @@ public class Joueur {
     		        	Carte C=cartfct.next();
     		        	System.out.println(C.getNom() + "à index :  "+ deffoss.indexOf(C));
     		        	}
-    				} 
+    				}
+    				else {
+        				System.out.println("Impossible de jouer cette carte");
+        			}
     			}
+    			
     			//Choisir qui joueur
     			System.out.println("Choississez le joueur à qui prendre une carte révélé :");
     			Jdesigner=this.choisirVictime(restrictChoix, listJ);

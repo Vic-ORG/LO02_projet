@@ -410,8 +410,14 @@ public class Partie {
 	        //Afficher les cartes en mains :
 	        System.out.println("Vos carte en main :");
 	        Iterator<Carte> main = jActu.getMain().iterator();
+	        Iterator<Carte> deffausse = jActu.getDefausse().iterator();
 	        while(main.hasNext()) {
 	        	Carte C=main.next();
+	        	System.out.println(C.getNom());
+	        }
+	        System.out.println("Vos cartes révélés :");
+	        while(deffausse.hasNext()) {
+	        	Carte C=deffausse.next();
 	        	System.out.println(C.getNom());
 	        }
 	        //actionTour pour soit accuser soit chasser
