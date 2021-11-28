@@ -11,10 +11,13 @@ import joueurs.Joueur;
 public class Partie {
 	
 	private ArrayList<Joueur> joueurs;
+	private LinkedList<Carte> deffausseG = new LinkedList<Carte>();
 	private JeuCarte cartes;
 	private boolean partieEnCours;
 
     static Scanner ReadConsole = new Scanner(System.in);
+    
+    
     
     public Partie() {
     	joueurs = new ArrayList<Joueur>();
@@ -22,6 +25,7 @@ public class Partie {
     	cartes.melanger();
     	partieEnCours = false;
     	}
+    
     public ArrayList<Joueur> recupListeJ() {
     	return joueurs;
     	
@@ -37,14 +41,31 @@ public class Partie {
     		joueurs.remove(joueur);
     	}
     	
-    	public void distribuerCartes() {
+    	public void distribuerCartes(int tailleJ) {
     		this.partieEnCours = true;
-    		while (cartes.estVide() == false) {
+    		int compt=0;
+    		if(tailleJ==5) {
+    		while (cartes.NOMBRE_DE_CARTES-compt != 2) {
+    			compt++;
     			Iterator<Joueur> it = joueurs.iterator();
     			while (it.hasNext()) {
     				Joueur j = (Joueur) it.next();
     				j.prendreCarte(cartes.tirerCarteDuDessus());
     			}
+    		}
+    		while (cartes.estVide() == false) {
+    			deffausseG.add(cartes.tirerCarteDuDessus());
+    		}
+    		}
+    		else {
+    			while (cartes.estVide() == false) {
+        			Iterator<Joueur> it = joueurs.iterator();
+        			while (it.hasNext()) {
+        				Joueur j = (Joueur) it.next();
+        				j.prendreCarte(cartes.tirerCarteDuDessus());
+        			}
+        		}
+    			
     		}
     	}
     		
@@ -352,10 +373,14 @@ public class Partie {
     	String id, effet;
     	int[] restrictChoix=new int[6];
     	int restrict=0;
+    	LinkedList<Carte> deffausseGen = new LinkedList<Carte>();
+    	
+    	
+    	
     	
     	//ArrayList<Joueur> listJ;
     	//listJ=joueurs;
-    	
+    	int tailleJ=listJ.size();
 		Iterator<Joueur> it = listJ.iterator(); //liste des joueurs complète
 		Iterator<Joueur> itA = listJ.iterator(); //liste des joueurs pour accusation (differente car on utulise l'autre dans le while)
 			
@@ -363,7 +388,7 @@ public class Partie {
 		//Initialisation du paquet de carte
 	    JeuCarte jeuActu = new JeuCarte();
 	    jeuActu.melanger();
-	    distribuerCartes();
+	    distribuerCartes(tailleJ);
 	    int i;
 	    int index=0;
 	    int index2=0;
@@ -503,7 +528,7 @@ public class Partie {
 				
 				
 				System.out.println("Carte choisi : " + carteRecup.getNom());
-				Joueur Jtemp=Jaccuser.jouerCarte(carteRecup, effet, listJ, index, index2);
+				Joueur Jtemp=Jaccuser.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen);
 				indextemp=listJ.indexOf(Jtemp);
 				
 				if(indextemp != index && indextemp != index2) {
@@ -514,6 +539,14 @@ public class Partie {
 				else if(indextemp==index2) {
 					overideJoueur=true;
 					Jaccuser=Jtemp;
+					listJ.set(index2, Jaccuser);
+				}
+				else if(indextemp==index) {
+					//Jaccuser a été modifié en appelant la fonction mais pas accusateur qui est dans Jtemp 
+					//Utile pour Hooked nose
+					overideJoueur=true;
+					jActu=Jtemp;
+					listJ.set(index, jActu);
 					listJ.set(index2, Jaccuser);
 				}
 				
@@ -538,14 +571,15 @@ public class Partie {
 		        Carte carteRecup=jActu.choisirCarte(restrictChoix, jActu.getMain());
 		        
 		        System.out.println("Carte choisi : " + carteRecup.getNom());
-				Joueur Jtemp=jActu.jouerCarte(carteRecup, effet, listJ, index, index2);
+				Joueur Jtemp=jActu.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen);
 				indextemp=listJ.indexOf(Jtemp);
 				if(indextemp == index) {
 					jActu=Jtemp;
 				}
 				else if(indextemp!=index) {
 					listJ.set(indextemp, Jtemp);
-					overideJautre=true;
+					if(Jtemp.getEtatjeu()==true) {
+						overideJautre=true;}
 				}
 				
 			/*//Afficher carte rumeur jouable
@@ -608,6 +642,21 @@ public class Partie {
 	    				G.setScore(1);
 	    			}
 	    			listJ.set(listJ.indexOf(G), G);
+	    		}
+	    		//On rénitialise les jours et on vide leur main
+	    		G.setEtatjeu(true);
+	    		G.setEtatcarte(false);
+	    		LinkedList<Carte> m1=G.getMain();
+	    		Iterator<Carte> cartereset=m1.iterator();
+	    		while(cartereset.hasNext()) {
+	    			Carte cr=cartereset.next();
+	    			m1.remove(cr);
+	    		}
+	    		LinkedList<Carte> deffG=G.getDefausse();
+	    		cartereset=deffG.iterator();
+	    		while(cartereset.hasNext()) {
+	    			Carte cr=cartereset.next();
+	    			deffG.remove(cr);
 	    		}
 		}
 	    	//Vérifier point de joueur et mettre si ScoredeFin=true ou false

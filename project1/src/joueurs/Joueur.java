@@ -102,7 +102,7 @@ public class Joueur {
     
 
     
-    public Joueur jouerCarte(Carte carteChoisi, String effet, ArrayList<Joueur> listJ, int indexActu, int indexdelautre) {
+    public Joueur jouerCarte(Carte carteChoisi, String effet, ArrayList<Joueur> listJ, int indexActu, int indexdelautre, LinkedList<Carte> deffausseGeneral) {
     	//derniereCarteJouee = carteChoisi;
     	Iterator<Joueur> itfct;
     	Iterator<Carte> cartfct;
@@ -124,6 +124,37 @@ public class Joueur {
         		//System.out.println("Vous rejouez un tour !");
         	}
         	else if(effet=="hunt"){
+        		itfct = listJ.iterator();
+    			//on affiche les joueurs encore en jeux et pas notre joueur
+    			while(itfct.hasNext()) {
+    				Joueur A=itfct.next();
+    				if(A.getEtatjeu()==true && A.getEtatcarte()==false && listJ.indexOf(A)!=listJ.indexOf(this)) {
+    					restrictChoix[restrict]=listJ.indexOf(A);
+    					restrict++;
+    				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
+    			}
+    			//Choisir qui joueur
+    			System.out.println("Choississez le joueur à qui révéler son identité de manière forcé");
+    			Jdesigner=this.choisirVictime(restrictChoix, listJ);
+    			Jdesigner.setEtatcarte(true);
+    			System.out.println("*******************************************************************************");
+    			System.out.println("************Révélation de l'identité du joueur :  " + Jdesigner.getNom() + "***********");
+    			if(Jdesigner.isIdentite()==true) {
+    				System.out.println("Identité du joueur désigné : SORCIERE ");
+    				Jdesigner.setEtatjeu(false);
+    				System.out.println("*Joueur :  " + Jdesigner.getNom() + " est exlus du round ***********");
+    				this.setScore(2);
+    				System.out.println("Accusatueur :  " + this.getNom() + " gagne 2points ***********");
+    				System.out.println("Accusatueur :  " + this.getNom() + " rejout ***********");
+    			}
+    			else {
+    				System.out.println("************Identité du joueur désigné : VILLAGEOIS ");
+    				this.setScore(-2);
+    				System.out.println("Accusatueur :  " + this.getNom() + " pert 2points ***********");
+    				System.out.println("Accusé :  " + Jdesigner.getNom() + " prend la main ***********");
+    			}
+    			System.out.println("*******************************************************************************");
+        		
         		//carteChoisi
         	}
             
@@ -132,6 +163,32 @@ public class Joueur {
         case "The Inquisition":
         	if(effet=="witch") {
         		//prendre le tour suivant
+        		m1=this.getMain();
+        		cartfct=m1.iterator();
+        		
+        		System.out.println("Vos carte en main :");
+		        
+		        while(cartfct.hasNext()) {
+		        	Carte C=cartfct.next();
+		        	System.out.println("Les cartes en main sont : \n");
+		        	System.out.println(C.getNom() + "à index :  "+ m1.indexOf(C));
+		        	restrictChoix[restrict]=m1.indexOf(C);
+					restrict++;}
+		        System.out.println("Choississez la carte à mettre en défausse générale : entrer l'index de la carte");
+		        Carte carteRecup=this.choisirCarte(restrictChoix, m1);
+				System.out.println("Carte choisi et en défausse générale : " + carteRecup.getNom());
+				this.getMain().remove(carteRecup);
+				deffausseGeneral.add(carteRecup);
+		        //erreur de compréhension de ma part sur les cartes rejetés
+				//this.getDefausse().add(carteRecup);
+				
+		      //Tableau reinistialiser valeur
+				for(i=0; i<restrictChoix.length; i++) {
+					restrictChoix[i]=-1;
+				}
+	    		restrict=0;
+				
+        		
         		System.out.println("Le joueur actuel   " + this.getNom() + "  joue le prochain tour");
         		
         	}
@@ -165,6 +222,24 @@ public class Joueur {
             
         case "Pointed Hat":
         	if(effet=="witch") {
+        		deffoss=this.getDefausse();
+        		cartfct=deffoss.iterator();
+        		
+        		System.out.println("Vos carte joué et révélé :");
+		        
+		        while(cartfct.hasNext()) {
+		        	Carte C=cartfct.next();
+		        	System.out.println("Les cartes révélé sont : \n");
+		        	System.out.println(C.getNom() + "à index :  "+ deffoss.indexOf(C));
+		        	restrictChoix[restrict]=deffoss.indexOf(C);
+					restrict++;}
+		        System.out.println("Entrer l'index de la carte que vous souhaitez récupérer en main parmi carte déjà joué");
+		        Carte carteRecup=this.choisirCarte(restrictChoix, deffoss);
+				System.out.println("Carte choisi et récupérer dans la main : " + carteRecup.getNom());
+				this.getMain().add(carteRecup);
+		        this.getDefausse().remove(carteRecup);
+				
+        		
         		//prendre le tour suivant
         		System.out.println("Le joueur actuel   " + this.getNom() + "  joue le prochain tour");
         		
@@ -181,7 +256,7 @@ public class Joueur {
 		        	System.out.println(C.getNom() + "à index :  "+ deffoss.indexOf(C));
 		        	restrictChoix[restrict]=deffoss.indexOf(C);
 					restrict++;}
-		        System.out.println("Choississez votre action : entrer l'index de la carte que vous souhaitez jouer");
+		        System.out.println("Entrer l'index de la carte que vous souhaitez récupérer en main parmi carte déjà joué");
 		        Carte carteRecup=this.choisirCarte(restrictChoix, deffoss);
 				System.out.println("Carte choisi et récupérer dans la main : " + carteRecup.getNom());
 				this.getMain().add(carteRecup);
@@ -214,8 +289,17 @@ public class Joueur {
             
         case "Hooked Nose":
         	if(effet=="witch") {
+        		Joueur Accusateur=listJ.get(indexActu);
+        		int taillelist= Accusateur.getMain().size();
+    	    	Carte carteVoulu = Accusateur.getMain().get(rand.nextInt(taillelist));
+    	    	System.out.println("Carte  " + carteVoulu.getNom() + " prise au joueur :  " + Accusateur.getNom());
+    	        this.getMain().add(carteVoulu);
+    	        Accusateur.getMain().remove(carteVoulu);
+        		
         		//prendre le tour suivant
         		System.out.println("Le joueur actuel   " + this.getNom() + "  joue le prochain tour");
+        		//cas de force majeur mais ça devrait marcher j'espère ????
+        		listJ.set(indexActu, Accusateur);
         		
         	}
         	else if(effet=="hunt"){
@@ -233,7 +317,7 @@ public class Joueur {
     			Jdesigner=this.choisirVictime(restrictChoix, listJ);
     			
     			int taillelist= Jdesigner.getMain().size();
-    	    	Carte carteVoulu = Jdesigner.getMain().get(taillelist);
+    	    	Carte carteVoulu = Jdesigner.getMain().get(rand.nextInt(taillelist));
     	    	System.out.println("Carte  " + carteVoulu.getNom() + " prise au joueur :  " + Jdesigner.getNom());
     	        this.getMain().add(carteVoulu);
     	        Jdesigner.getMain().remove(carteVoulu);
@@ -308,16 +392,120 @@ public class Joueur {
         		
         	}
         	else if(effet=="hunt"){
+        		itfct = listJ.iterator();
+    			//on affiche les joueurs encore en jeux et pas notre joueur
+    			while(itfct.hasNext()) {
+    				Joueur A=itfct.next();
+    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this)) {
+    					restrictChoix[restrict]=listJ.indexOf(A);
+    					restrict++;
+    				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
+    			}
+    			//Choisir qui joueur
+    			System.out.println("Choississez le joueur qui devra faire un grand choix :");
+    			Jdesigner=this.choisirVictime(restrictChoix, listJ);
+    			System.out.println("Joueur  " + Jdesigner.getNom()  +  "choisisser si vous voulez réléver identité :  ");
+    			int choix=Jdesigner.repondreAccu();
+    			if(choix==0) {
+    				//prendre le tour suivant
+            		m1=Jdesigner.getMain();
+            		cartfct=m1.iterator();
+            		
+            		System.out.println("Vos carte en main :");
+    		        
+    		        while(cartfct.hasNext()) {
+    		        	Carte C=cartfct.next();
+    		        	System.out.println("Les cartes en main sont : \n");
+    		        	System.out.println(C.getNom() + "à index :  "+ m1.indexOf(C));
+    		        	restrictChoix[restrict]=m1.indexOf(C);
+    					restrict++;}
+    		        System.out.println("Choississez la carte à mettre en défausse générale : entrer l'index de la carte");
+    		        Carte carteRecup=this.choisirCarte(restrictChoix, m1);
+    				System.out.println("Carte choisi et en défausse générale : " + carteRecup.getNom());
+    				Jdesigner.getMain().remove(carteRecup);
+    				deffausseGeneral.add(carteRecup);
+    		        //erreur de compréhension de ma part sur les cartes rejetés
+    				//this.getDefausse().add(carteRecup);
+    				
+    				//Jdesigner reprend la main
+    				
+    			}
+    			else {
+    				if(Jdesigner.isIdentite()==true) {
+    					System.out.println("Joueur sélectionné est une sorciere");
+    					Jdesigner.setEtatcarte(true);
+    					Jdesigner.setEtatjeu(false);
+    					this.setScore(1);
+    					//Jdesigner sera hors jeu et Jactu continue de jouer
+    				}
+    				else {
+    					System.out.println("Joueur sélectionné est un villageois");
+    					Jdesigner.setEtatcarte(true);
+    					this.setScore(-1);
+    					//Jdesinger reprend la main
+    					
+    				}
+	    			
+	    			
+	    		}
+    			//Tableau reinistialiser valeur
+				for(i=0; i<restrictChoix.length; i++) {
+					restrictChoix[i]=-1;
+				}
+	    		restrict=0;
+	    		
+	    		
+    			
         		
         	}
         	break;
         case "Cauldron":
         	if(effet=="witch") {
         		//prendre le tour suivant
+        		Joueur Accusateur=listJ.get(indexActu);
+        		int taillelist= Accusateur.getMain().size();
+    	    	Carte carteVoulu = Accusateur.getMain().get(rand.nextInt(taillelist));
+    	    	System.out.println("Carte  " + carteVoulu.getNom() + " prise au joueur :  " + Accusateur.getNom() + "et mise dans deffausse generale");
+    	        deffausseGeneral.add(carteVoulu);
+    	        Accusateur.getMain().remove(carteVoulu);
+    	        listJ.set(indexActu, Accusateur);
+    	        
         		System.out.println("Le joueur actuel   " + this.getNom() + "  joue le prochain tour");
         		
         	}
         	else if(effet=="hunt"){
+        		System.out.println("Le joueur actuel   " + this.getNom() + "  révèle son identité !!!");
+        		if(this.isIdentite()==true) {
+        			System.out.println("************Identité du joueur désigné : SORCIERE ");
+        			this.setEtatcarte(true);
+        			this.setEtatjeu(false);
+        			listJ.set(indexActu, this);
+        			int indtamp=indexActu;
+        			while(listJ.get(indtamp).getEtatjeu()==false) {
+        				indtamp++;
+        			}
+        			Jdesigner=listJ.get(indtamp);
+        			}
+        			else {
+        				System.out.println("************Identité du joueur désigné : VILLAGEOIS ");
+        				//il faut choisir le prochain joueur
+        				itfct = listJ.iterator();
+            			//on affiche les joueurs encore en jeux et pas notre joueur
+            			while(itfct.hasNext()) {
+            				Joueur A=itfct.next();
+            				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this)) {
+            					restrictChoix[restrict]=listJ.indexOf(A);
+            					restrict++;
+            				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
+            			}
+            			//Choisir qui joueur
+            			System.out.println("Choississez le joueur qui commencera le tour prochain");
+            			Jdesigner=this.choisirVictime(restrictChoix, listJ);
+            			//indexdeux=listJ.indexOf(Jdesigner);
+        				
+        			}
+        			System.out.println("*******************************************************************************");
+        			
         		
         	}
         	break;
@@ -362,6 +550,38 @@ public class Joueur {
         		
         	}
         	else if(effet=="hunt"){
+        		System.out.println("Le joueur actuel   " + this.getNom() + "  révèle son identité !!!");
+        		if(this.isIdentite()==true) {
+        			System.out.println("************Identité du joueur désigné : SORCIERE ");
+        			this.setEtatcarte(true);
+        			this.setEtatjeu(false);
+        			listJ.set(indexActu, this);
+        			int indtamp=indexActu;
+        			while(listJ.get(indtamp).getEtatjeu()==false) {
+        				indtamp++;
+        			}
+        			Jdesigner=listJ.get(indtamp);
+        			}
+        			else {
+        				System.out.println("************Identité du joueur désigné : VILLAGEOIS ");
+        				//il faut choisir le prochain joueur
+        				itfct = listJ.iterator();
+            			//on affiche les joueurs encore en jeux et pas notre joueur
+            			while(itfct.hasNext()) {
+            				Joueur A=itfct.next();
+            				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this)) {
+            					restrictChoix[restrict]=listJ.indexOf(A);
+            					restrict++;
+            				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
+            			}
+            			//Choisir qui joueur
+            			System.out.println("Choississez le joueur qui commencera le tour prochain");
+            			Jdesigner=this.choisirVictime(restrictChoix, listJ);
+            			//indexdeux=listJ.indexOf(Jdesigner);
+        				
+        			}
+        			System.out.println("*******************************************************************************");
+        			
         		
         	}
         	break;
@@ -372,6 +592,31 @@ public class Joueur {
         		
         	}
         	else if(effet=="hunt"){
+        		//prendre le tour suivant
+        		cartfct=deffausseGeneral.iterator();
+        		
+        		System.out.println("Vos carte en main :");
+		        
+		        while(cartfct.hasNext()) {
+		        	Carte C=cartfct.next();
+		        	System.out.println("Les cartes en main sont : \n");
+		        	System.out.println(C.getNom() + "à index :  "+ deffausseGeneral.indexOf(C));
+		        	restrictChoix[restrict]=deffausseGeneral.indexOf(C);
+					restrict++;}
+		        System.out.println("Choississez la carte de la défausse générale à prendre en main : entrer l'index de la carte");
+		        Carte carteRecup=this.choisirCarte(restrictChoix, deffausseGeneral);
+				System.out.println("Carte choisi et prise en main " + carteRecup.getNom());
+				this.getMain().add(carteRecup);
+				deffausseGeneral.remove(carteRecup);
+		        //erreur de compréhension de ma part sur les cartes rejetés
+				//this.getDefausse().add(carteRecup);
+				
+		      //Tableau reinistialiser valeur
+				for(i=0; i<restrictChoix.length; i++) {
+					restrictChoix[i]=-1;
+				}
+	    		restrict=0;
+        		
         		//prendre le tour suivant
         		System.out.println("Le joueur actuel   " + this.getNom() + "  joue le prochain tour");
         		
@@ -434,8 +679,28 @@ public class Joueur {
 		        System.out.println("Carte  " + carteVoulu.getNom() + " prise au joueur :  " + Jdesigner.getNom());
     	        this.getMain().add(carteVoulu);
     	        Jdesigner.getMain().remove(carteVoulu);
+    	        listJ.set(listJ.indexOf(Jdesigner), Jdesigner);
     	        
     	        //Probleme pour choisir le joueur suivant
+    	      //Tableau reinistialiser valeur
+				for(i=0; i<restrictChoix.length; i++) {
+					restrictChoix[i]=-1;
+				}
+	    		restrict=0;
+	    		itfct = listJ.iterator();
+    			//on affiche les joueurs encore en jeux et pas notre joueur
+    			while(itfct.hasNext()) {
+    				Joueur A=itfct.next();
+    				if(A.getEtatjeu()==true && listJ.indexOf(A)!=listJ.indexOf(this)) {
+    					restrictChoix[restrict]=listJ.indexOf(A);
+    					restrict++;
+    				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
+    			}
+    			//Choisir qui joueur
+    			System.out.println("Choississez le joueur qui commencera le tour prochain");
+    			Jdesigner=this.choisirVictime(restrictChoix, listJ);
+    			//indexdeux=listJ.indexOf(Jdesigner);
+	    		
         	}
         	break;     	
         default:
