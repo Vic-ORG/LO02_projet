@@ -1,6 +1,8 @@
 //import cartes.*;
 
 //import joueurs.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 import cartes.Carte;
@@ -16,6 +18,7 @@ public class Partie {
 	private boolean partieEnCours;
 
     static Scanner ReadConsole = new Scanner(System.in);
+	private static Scanner scan;
     
     
     
@@ -71,7 +74,7 @@ public class Partie {
     		
     	/*public void jouer() {
     		ArrayList<Carte> cartesJouees = this.jouerCartes();
-    		System.out.println("Cartes jouées : " + cartesJouees);
+    		System.out.println("Cartes jouï¿½es : " + cartesJouees);
     	}
     	
     	private ArrayList<Carte> jouerCartes() {
@@ -98,7 +101,7 @@ public class Partie {
     
     
     //--------------------------------------------------------
-    public void menu(){
+    public void menu() throws FileNotFoundException{
     
         int sousmenu = 0;
         boolean arret = false;   
@@ -118,8 +121,8 @@ public class Partie {
             
             switch(sousmenu){
                 case 1 : initGame(); arret = true; break;
-                case 2 : System.out.println("Sous menu 2"); break;
-                case 9 : arret = true; break;
+				case 2 : rule(); break;                
+				case 9 : arret = true; break;
                 default : {
                     System.out.println("\tâ–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’â–’");
                     System.out.println("\tâ–’â–’ entrez un choix entre 1 et 3 â–’â–’");
@@ -129,24 +132,21 @@ public class Partie {
         }
     }
 
+	private static void rule() throws FileNotFoundException{
+        File regle = new File("project1\\rules.txt");
+        scan = new Scanner(regle);
+
+        while(scan.hasNextLine()){
+            System.out.println(scan.nextLine());
+        }
+
+    }
+
     public void initGame() {
         int nbJoueur = 0;
         int nbBot = 0;
         String addBot;
         String nom, id;
-        
-        /*Joueur joueur1 = new Joueur(null, false, true, 0);
-        Joueur joueur2 = new Joueur(null, false, true, 0);
-        Joueur joueur3 = new Joueur(null, false, true, 0);
-        Joueur joueur4 = new Joueur(null, false, true, 0);
-        Joueur joueur5 = new Joueur(null, false, true, 0);
-        Joueur joueur6 = new Joueur(null, false, true, 0);
-
-        Bot bot1 = new Bot(null, false, true, 0, 0);
-        Bot bot2 = new Bot(null, false, true, 0, 0);
-        Bot bot3 = new Bot(null, false, true, 0, 0);
-        Bot bot4 = new Bot(null, false, true, 0, 0);
-        Bot bot5 = new Bot(null, false, true, 0, 0);*/
 
         System.out.println("\tChoisissez le nombre de joueurs humains (entre 1 et 6): ");
         nbJoueur = ReadConsole.nextInt();
@@ -155,7 +155,7 @@ public class Partie {
         	System.out.println("\tNom du joueur " + i + " :  ");
             nom = ReadConsole.next();
             ajouterJoueur(new Joueur(nom, false, true, true, 0));
-            /*System.out.println("\tIdentité du joueur (sor ou vil) " + i + " :  ");
+            /*System.out.println("\tIdentitï¿½ du joueur (sor ou vil) " + i + " :  ");
             id = ReadConsole.next();
             switch(id){
      	   
@@ -186,128 +186,6 @@ public class Partie {
             
             //joueurs.add(new Joueur(nom, false, true, false, 0));
         }
-        /*
-        switch(nbJoueur){
-            case 1 : {
-                System.out.println("\tNom du premier joueur : ");
-                nom = ReadConsole.next();
-                joueur1.setNom(nom);
-                joueur1.setEtat(true);
-            } break;
-            case 2 : {
-               System.out.println("\tNom du premier joueur : ");
-                nom = ReadConsole.next();
-                joueur1.setNom(nom);
-                joueur1.setEtat(true);
-
-                System.out.println("\tNom du deuxiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur2.setNom(nom);
-                joueur2.setEtat(true);
-
-                System.out.println("\tNom du premier bot : ");
-                nom = ReadConsole.next();
-                bot1.setNom(nom);
-                bot1.setEtat(true);
-            } break;
-            case 3 : {
-                System.out.println("\tNom du premier joueur : ");
-                nom = ReadConsole.next();
-                joueur1.setNom(nom);
-                joueur1.setEtat(true);
-
-                System.out.println("\tNom du deuxiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur2.setNom(nom);
-                joueur2.setEtat(true);
-
-                System.out.println("\tNom du troisiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur3.setNom(nom);
-                joueur3.setEtat(true);
-            } break;
-            case 4 : {
-                System.out.println("\tNom du premier joueur : ");
-                nom = ReadConsole.next();
-                joueur1.setNom(nom);
-                joueur1.setEtat(true);
-
-                System.out.println("\tNom du deuxiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur2.setNom(nom);
-                joueur2.setEtat(true);
-
-                System.out.println("\tNom du troisiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur3.setNom(nom);
-                joueur3.setEtat(true);
-
-                System.out.println("\tNom du quatriÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur4.setNom(nom);
-                joueur4.setEtat(true);
-            } break;
-            case 5 : {
-                System.out.println("\tNom du premier joueur : ");
-                nom = ReadConsole.next();
-                joueur1.setNom(nom);
-                joueur1.setEtat(true);
-
-                System.out.println("\tNom du deuxiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur2.setNom(nom);
-                joueur2.setEtat(true);
-
-                System.out.println("\tNom du troisiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur3.setNom(nom);
-                joueur3.setEtat(true);
-
-                System.out.println("\tNom du quatriÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur4.setNom(nom);
-                joueur4.setEtat(true);
-
-                System.out.println("\tNom du cinquiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur5.setNom(nom);
-                joueur5.setEtat(true);
-                
-            } break; 
-            case 6 : {
-                System.out.println("\tNom du premier joueur : ");
-                nom = ReadConsole.next();
-                joueur1.setNom(nom);
-                joueur1.setEtat(true);
-
-                System.out.println("\tNom du deuxiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur2.setNom(nom);
-                joueur2.setEtat(true);
-
-                System.out.println("\tNom du troisiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur3.setNom(nom);
-                joueur3.setEtat(true);
-
-                System.out.println("\tNom du quatriÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur4.setNom(nom);
-                joueur4.setEtat(true);
-
-                System.out.println("\tNom du cinquiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur5.setNom(nom);
-                joueur5.setEtat(true);
-
-                System.out.println("\tNom du sixiÃ¨me joueur : ");
-                nom = ReadConsole.next();
-                joueur6.setNom(nom);
-                joueur6.setEtat(true);
-                
-            } break;
-            default : break;
-        }*/
         
         System.out.println("\tAjouter des bots (y/n): ");
         addBot = ReadConsole.next();
@@ -325,7 +203,7 @@ public class Partie {
         else if (addBot.equals("n")){
             //lancer partie
         	Iterator<Joueur> itJ = joueurs.iterator();
-			//on affiche les joueurs ayant leur carte encore secrète et pas notre joueur
+			//on affiche les joueurs ayant leur carte encore secrï¿½te et pas notre joueur
 			while(itJ.hasNext()) {
 				Joueur J=itJ.next();
 				System.out.println("index : " + joueurs.indexOf(J) + "  Joueur : " + J.getNom());
@@ -336,30 +214,7 @@ public class Partie {
             addBot = ReadConsole.next();
         }
         return;
-        /*
-        System.out.println("\tAjouter des bots (y/n): ");
-        addBot = ReadConsole.next();
-        if (addBot.equals("y")){
-            System.out.println("\tChoisissez le nombre de bots (maximum " + (6-nbBot-nbJoueur) + "): ");
-            nbBot = ReadConsole.nextInt();
-
-            switch(nbBot){
-
-            }
-        }
-        else if (addBot.equals("n")){
-            //lancer partie
-            System.out.println(joueur1.getNom());
-            System.out.println(joueur2.getNom());
-            System.out.println(joueur3.getNom());
-            System.out.println(joueur4.getNom());
-            System.out.println(joueur5.getNom());
-            System.out.println(joueur6.getNom());
-        }
-        else{
-            System.out.println("\tAjouter des bots (y/n): ");
-            addBot = ReadConsole.next();
-        }*/
+   
         
     }
     
@@ -369,7 +224,7 @@ public class Partie {
     	Scanner scanner = new Scanner(System.in);
     	int choix;
     	boolean ScoredeFin=false; //true=qqun a plus de 5points, false l'inverse
-    	int nbJrevel; //pour compter le nombre de joueur ayant une carte identité revelé
+    	int nbJrevel; //pour compter le nombre de joueur ayant une carte identitï¿½ revelï¿½
     	String id, effet;
     	int[] restrictChoix=new int[6];
     	int restrict=0;
@@ -381,10 +236,10 @@ public class Partie {
     	//ArrayList<Joueur> listJ;
     	//listJ=joueurs;
     	int tailleJ=listJ.size();
-		Iterator<Joueur> it = listJ.iterator(); //liste des joueurs complète
+		Iterator<Joueur> it = listJ.iterator(); //liste des joueurs complï¿½te
 		Iterator<Joueur> itA = listJ.iterator(); //liste des joueurs pour accusation (differente car on utulise l'autre dans le while)
 			
-		//Début d'un round
+		//Dï¿½but d'un round
 		//Initialisation du paquet de carte
 	    JeuCarte jeuActu = new JeuCarte();
 	    jeuActu.melanger();
@@ -397,14 +252,14 @@ public class Partie {
 	    boolean overideAccuse=false;
 	    
 	    it = listJ.iterator();
-    	//on affiche les joueurs ayant leur carte encore secrète et pas notre joueur
+    	//on affiche les joueurs ayant leur carte encore secrï¿½te et pas notre joueur
     	while(it.hasNext()) {
     		Joueur G=it.next();
     		G.setEtatjeu(true);
 			G.setEtatcarte(false);
     		System.out.println("Joueur:" + G.getNom() + "  Score : " + G.getScore());
 
-            System.out.println("\tIdentité du joueur" + G.getNom() + " pour ce round (sor ou vil) :  ");
+            System.out.println("\tIdentitï¿½ du joueur" + G.getNom() + " pour ce round (sor ou vil) :  ");
             id = ReadConsole.next();
             switch(id){
      	   
@@ -427,13 +282,13 @@ public class Partie {
     	}
 	        
 	    it = listJ.iterator();
-	    nbJrevel=listJ.size(); //les cartes identité sont du nombre de joueur dans la liste
+	    nbJrevel=listJ.size(); //les cartes identitï¿½ sont du nombre de joueur dans la liste
 	    System.out.println("******\n nombre de cartes non revele : " + nbJrevel);
 	        
-	    while(nbJrevel>1) //un round ne s'arrete que lorsque 1 personne a encore sa carte identité caché
+	    while(nbJrevel>1) //un round ne s'arrete que lorsque 1 personne a encore sa carte identitï¿½ cachï¿½
 	    {
 	    	Joueur jActu=listJ.get(index);
-	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index + "  Status identité : " + jActu.isIdentite());
+	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index + "  Status identitï¿½ : " + jActu.isIdentite());
 	        //Afficher les cartes en mains :
 	        System.out.println("Vos carte en main :");
 	        Iterator<Carte> main = jActu.getMain().iterator();
@@ -442,7 +297,7 @@ public class Partie {
 	        	Carte C=main.next();
 	        	System.out.println(C.getNom());
 	        }
-	        System.out.println("\nVos cartes révélés :");
+	        System.out.println("\nVos cartes rï¿½vï¿½lï¿½s :");
 	        while(deffausse.hasNext()) {
 	        	Carte C=deffausse.next();
 	        	System.out.println(C.getNom());
@@ -473,7 +328,7 @@ public class Partie {
 			if(choix==1) {
 			//Accuser joueur
 			itA = listJ.iterator();
-			//on affiche les joueurs ayant leur carte encore secrète et pas notre joueur
+			//on affiche les joueurs ayant leur carte encore secrï¿½te et pas notre joueur
 			while(itA.hasNext()) {
 				Joueur A=itA.next();
 				if(A.getEtatcarte()==false && listJ.indexOf(A)!=index) {
@@ -482,7 +337,7 @@ public class Partie {
 				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
 			}
 			//Choisir qui accuser
-			System.out.println("Choississez le joueur à accuser : ");
+			System.out.println("Choississez le joueur ï¿½ accuser : ");
 			Joueur Jaccuser=jActu.choisirVictime(restrictChoix, listJ);
 			index2=listJ.indexOf(Jaccuser);
 			
@@ -509,39 +364,39 @@ public class Partie {
 	        else {choix3=Jaccuser.repondreAccu();}
 	        overideAccuse=false;
     		
-			//répondre accusation
+			//rï¿½pondre accusation
 			
-			/*System.out.println("Choississez le joueur à accuser (sauf vous meme numero : " + index + " )");
+			/*System.out.println("Choississez le joueur ï¿½ accuser (sauf vous meme numero : " + index + " )");
 			index2=scanner.nextInt();
 			Joueur Jaccuser = listJ.get(index2);
-			System.out.println("Joueur : "+ Jaccuser.getNom() + ", vous etes accusé.");
-			System.out.println("Choississez si vous révélez votre identité : 0 non et 1 oui");*/
+			System.out.println("Joueur : "+ Jaccuser.getNom() + ", vous etes accusï¿½.");
+			System.out.println("Choississez si vous rï¿½vï¿½lez votre identitï¿½ : 0 non et 1 oui");*/
 			//int choix3=scanner.nextInt();
 				
 					
 			if(choix3==1) {
-				if(Jaccuser.isIdentite()==true) { //si le joueur accusé est une sorciere
-					System.out.println("Le joueur : " + Jaccuser.getNom() + "accusé est une sorciere !");
-					System.out.println("Le joueur accusé " + Jaccuser.getNom() + " est exclus du round !");
-					System.out.println("Le joueur qui a accusé gagne 1 point. Il rejout !");
+				if(Jaccuser.isIdentite()==true) { //si le joueur accusï¿½ est une sorciere
+					System.out.println("Le joueur : " + Jaccuser.getNom() + "accusï¿½ est une sorciere !");
+					System.out.println("Le joueur accusï¿½ " + Jaccuser.getNom() + " est exclus du round !");
+					System.out.println("Le joueur qui a accusï¿½ gagne 1 point. Il rejout !");
 					//Comme il rejout, index ne change pas pour qu'il reprenne la main lors du prochain tour de boucle
 					//listJ.remove(index2);
 					Jaccuser.setEtatjeu(false);
 					Jaccuser.setEtatcarte(true);
-					nbJrevel=nbJrevel-1; //Parmi la totalité des joueurs, 1 a révélé sa carte
-					listJ.set(index2, Jaccuser); //on met à jour dans listJ
+					nbJrevel=nbJrevel-1; //Parmi la totalitï¿½ des joueurs, 1 a rï¿½vï¿½lï¿½ sa carte
+					listJ.set(index2, Jaccuser); //on met ï¿½ jour dans listJ
 					jActu.setScore(1);
 				}
 				else {
-				System.out.println("Le joueur accusé à index   " + index2 + Jaccuser.getNom() +  "   est un villageois !");
-				System.out.println("Le joueur accusé reprend la main (commence le prochain tour) !");
+				System.out.println("Le joueur accusï¿½ ï¿½ index   " + index2 + Jaccuser.getNom() +  "   est un villageois !");
+				System.out.println("Le joueur accusï¿½ reprend la main (commence le prochain tour) !");
 				System.out.println("Personne ne gagne ou perd de points !");
-				//comme il reprend la main l'index du joueur accusé devient l'index qui sera utilisé pour le début de boucle
-				//faire en sorte que Jaccuser soit le bon en recommençant la boucle
+				//comme il reprend la main l'index du joueur accusï¿½ devient l'index qui sera utilisï¿½ pour le dï¿½but de boucle
+				//faire en sorte que Jaccuser soit le bon en recommenï¿½ant la boucle
 				overideJoueur=true;
 				Jaccuser.setEtatcarte(true);
 				nbJrevel=nbJrevel-1;
-				listJ.set(index2, Jaccuser); //on met à jour dans listJ
+				listJ.set(index2, Jaccuser); //on met ï¿½ jour dans listJ
 					
 				}
 			}
@@ -555,7 +410,7 @@ public class Partie {
 		        	boolean jouable=C.jouabiliteCarte(effet, Jaccuser);
 		        	if(jouable==true) {
 		        	System.out.println("Les cartes jouables sont : \n");
-		        	System.out.println(C.getNom() + "à index :  "+ Jaccuser.getMain().indexOf(C));
+		        	System.out.println(C.getNom() + "ï¿½ index :  "+ Jaccuser.getMain().indexOf(C));
 		        	restrictChoix[restrict]=Jaccuser.getMain().indexOf(C);
 					restrict++;}
 		        }
@@ -579,7 +434,7 @@ public class Partie {
 					listJ.set(index2, Jaccuser);
 				}
 				else if(indextemp==index) {
-					//Jaccuser a été modifié en appelant la fonction mais pas accusateur qui est dans Jtemp 
+					//Jaccuser a ï¿½tï¿½ modifiï¿½ en appelant la fonction mais pas accusateur qui est dans Jtemp 
 					//Utile pour Hooked nose
 					overideJoueur=true;
 					jActu=Jtemp;
@@ -600,7 +455,7 @@ public class Partie {
 		        	boolean jouable=C.jouabiliteCarte(effet, jActu);
 		        	if(jouable==true) {
 		        	System.out.println("Les cartes jouables sont : \n");
-		        	System.out.println(C.getNom() + "à index :  "+ jActu.getMain().indexOf(C));
+		        	System.out.println(C.getNom() + "ï¿½ index :  "+ jActu.getMain().indexOf(C));
 		        	restrictChoix[restrict]=jActu.getMain().indexOf(C);
 					restrict++;}
 		        }
@@ -630,17 +485,17 @@ public class Partie {
 				//int choixcarte=scanner.nextInt();
 				System.out.println("Carte choisi : " + jActu.getMain().get(choixcarte).getNom());
 				//on appel la carte et utiliser ces fonctions
-				jActu.jouerCarte(jActu.getMain().get(choixcarte)); //dans joueur, compléter la fonction en fonction de la carte
+				jActu.jouerCarte(jActu.getMain().get(choixcarte)); //dans joueur, complï¿½ter la fonction en fonction de la carte
 				//dans la fonction au dessus, je met la carte dans la deffausse du joueur*/
 								
 				//on retire la carte de la main du joueur
 				//jActu.getMain().remove(jActu.getMain().get(choixcarte));
 			}
 			
-			//on remplace le joueur qu'on a pris avec les valeur de joueur actuelle, par exemple pour changé score
+			//on remplace le joueur qu'on a pris avec les valeur de joueur actuelle, par exemple pour changï¿½ score
 			listJ.set(index, jActu);
 			
-			//Si Joueur suivant changé, on affecte la valeur de son index2 à l'index.
+			//Si Joueur suivant changï¿½, on affecte la valeur de son index2 ï¿½ l'index.
 			if(overideJoueur==true) {
 				index=index2;
 				overideJoueur=false;
@@ -663,24 +518,24 @@ public class Partie {
 	        	
 	        }//fin boucle round avec condition le nbcarterevel
 	    
-	        //Vérifier point de joueur et mettre si ScoredeFin=true ou false
+	        //Vï¿½rifier point de joueur et mettre si ScoredeFin=true ou false
 	    	it = listJ.iterator();
-	    	//on affiche les joueurs ayant leur carte encore secrète et pas notre joueur
+	    	//on affiche les joueurs ayant leur carte encore secrï¿½te et pas notre joueur
 	    	while(it.hasNext()) {
 	    		Joueur G=it.next();
 	    		if(G.getEtatcarte()==false) {
-	    			System.out.println("index : " + listJ.indexOf(G) + "Joueur : " + G.getNom() + "est le dernier a avoir sa carte identité secrète");
+	    			System.out.println("index : " + listJ.indexOf(G) + "Joueur : " + G.getNom() + "est le dernier a avoir sa carte identitï¿½ secrï¿½te");
 	    			if(G.isIdentite()==true) {
-	    				System.out.println("Son identité est : sorcière, il gagne 2 points");
+	    				System.out.println("Son identitï¿½ est : sorciï¿½re, il gagne 2 points");
 	    				G.setScore(2);
 	    			}
 	    			else {
-	    				System.out.println("Son identité est : villageois. Il gagne 1 points");
+	    				System.out.println("Son identitï¿½ est : villageois. Il gagne 1 points");
 	    				G.setScore(1);
 	    			}
 	    			listJ.set(listJ.indexOf(G), G);
 	    		}
-	    		//On rénitialise les jours et on vide leur main
+	    		//On rï¿½nitialise les jours et on vide leur main
 	    		G.setEtatjeu(true);
 	    		G.setEtatcarte(false);
 	    		LinkedList<Carte> m1=G.getMain();
@@ -696,7 +551,7 @@ public class Partie {
 	    			deffG.remove(cr);
 	    		}
 		}
-	    	//Vérifier point de joueur et mettre si ScoredeFin=true ou false
+	    	//Vï¿½rifier point de joueur et mettre si ScoredeFin=true ou false
 	    	it = listJ.iterator();
 	    	while (it.hasNext()) {
 				Joueur j = (Joueur) it.next();
