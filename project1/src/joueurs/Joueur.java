@@ -102,7 +102,7 @@ public class Joueur {
     
 
     
-    public Joueur jouerCarte(Carte carteChoisi, String effet, ArrayList<Joueur> listJ, int indexActu, int indexdelautre, LinkedList<Carte> deffausseGeneral) {
+    public Joueur jouerCarte(Carte carteChoisi, String effet, ArrayList<Joueur> listJ, int indexActu, int indexdelautre, LinkedList<Carte> deffausseGeneral, boolean overideAccuse) {
     	//derniereCarteJouee = carteChoisi;
     	Iterator<Joueur> itfct;
     	Iterator<Carte> cartfct;
@@ -420,7 +420,7 @@ public class Joueur {
     		        	restrictChoix[restrict]=m1.indexOf(C);
     					restrict++;}
     		        System.out.println("Choississez la carte à mettre en défausse générale : entrer l'index de la carte");
-    		        Carte carteRecup=this.choisirCarte(restrictChoix, m1);
+    		        Carte carteRecup=Jdesigner.choisirCarte(restrictChoix, m1);
     				System.out.println("Carte choisi et en défausse générale : " + carteRecup.getNom());
     				Jdesigner.getMain().remove(carteRecup);
     				deffausseGeneral.add(carteRecup);
@@ -522,6 +522,7 @@ public class Joueur {
     			}
     			//Choisir qui joueur
     			System.out.println("Choississez le joueur qui commencera le tour prochain");
+    			overideAccuse=true;
     			Jdesigner=this.choisirVictime(restrictChoix, listJ);
     			//indexdeux=listJ.indexOf(Jdesigner);
         		
@@ -538,6 +539,7 @@ public class Joueur {
     			}
     			//Choisir qui joueur
     			System.out.println("Choississez le joueur qui commencera le tour prochain");
+    			overideAccuse=true;
     			Jdesigner=this.choisirVictime(restrictChoix, listJ);
     			//indexdeux=listJ.indexOf(Jdesigner);
         		

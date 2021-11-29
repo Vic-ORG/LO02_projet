@@ -390,9 +390,11 @@ public class Partie {
 	    jeuActu.melanger();
 	    distribuerCartes(tailleJ);
 	    int i;
+	    int choix3=0;
 	    int index=0;
 	    int index2=0;
 	    int indextemp=0;
+	    boolean overideAccuse=false;
 	    
 	    it = listJ.iterator();
     	//on affiche les joueurs ayant leur carte encore secrète et pas notre joueur
@@ -431,7 +433,7 @@ public class Partie {
 	    while(nbJrevel>1) //un round ne s'arrete que lorsque 1 personne a encore sa carte identité caché
 	    {
 	    	Joueur jActu=listJ.get(index);
-	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index);
+	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index + "  Status identité : " + jActu.isIdentite());
 	        //Afficher les cartes en mains :
 	        System.out.println("Vos carte en main :");
 	        Iterator<Carte> main = jActu.getMain().iterator();
@@ -440,13 +442,31 @@ public class Partie {
 	        	Carte C=main.next();
 	        	System.out.println(C.getNom());
 	        }
-	        System.out.println("Vos cartes révélés :");
+	        System.out.println("\nVos cartes révélés :");
 	        while(deffausse.hasNext()) {
 	        	Carte C=deffausse.next();
 	        	System.out.println(C.getNom());
 	        }
 	        //actionTour pour soit accuser soit chasser
-	        choix=jActu.actionTour();
+	        
+	        effet="hunt";
+			//Afficher les cartes en mains :
+	        
+	        main = jActu.getMain().iterator();
+	        while(main.hasNext()) {
+	        	Carte C=main.next();
+	        	boolean jouable=C.jouabiliteCarte(effet, jActu);
+	        	if(jouable==true) {
+	        		overideAccuse=false;
+	        	}
+	        }
+	        if(overideAccuse==true) {
+	        	choix=1;
+	        }
+	        else {choix=jActu.actionTour();}
+	        overideAccuse=false;
+	        
+	        
 	        /*System.out.println("Choississez votre action : 1 pour accuser, 2 pour utiliser carte rumeur");
 			choix=scanner.nextInt();*/
 				
@@ -472,8 +492,25 @@ public class Partie {
 			}
     		restrict=0;
     		
+    		effet="witch";
+			//Afficher les cartes en mains :
+	        
+	        main = Jaccuser.getMain().iterator();
+	        while(main.hasNext()) {
+	        	Carte C=main.next();
+	        	boolean jouable=C.jouabiliteCarte(effet, jActu);
+	        	if(jouable==true) {
+	        		overideAccuse=false;
+	        	}
+	        }
+	        if(overideAccuse==true) {
+	        	choix3=1;
+	        }
+	        else {choix3=Jaccuser.repondreAccu();}
+	        overideAccuse=false;
+    		
 			//répondre accusation
-			int choix3 = Jaccuser.repondreAccu();
+			
 			/*System.out.println("Choississez le joueur à accuser (sauf vous meme numero : " + index + " )");
 			index2=scanner.nextInt();
 			Joueur Jaccuser = listJ.get(index2);
@@ -528,7 +565,7 @@ public class Partie {
 				
 				
 				System.out.println("Carte choisi : " + carteRecup.getNom());
-				Joueur Jtemp=Jaccuser.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen);
+				Joueur Jtemp=Jaccuser.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse);
 				indextemp=listJ.indexOf(Jtemp);
 				
 				if(indextemp != index && indextemp != index2) {
@@ -571,7 +608,7 @@ public class Partie {
 		        Carte carteRecup=jActu.choisirCarte(restrictChoix, jActu.getMain());
 		        
 		        System.out.println("Carte choisi : " + carteRecup.getNom());
-				Joueur Jtemp=jActu.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen);
+				Joueur Jtemp=jActu.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse);
 				indextemp=listJ.indexOf(Jtemp);
 				if(indextemp == index) {
 					jActu=Jtemp;
