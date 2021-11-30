@@ -404,7 +404,7 @@ public class Joueur {
     			//Choisir qui joueur
     			System.out.println("Choississez le joueur qui devra faire un grand choix :");
     			Jdesigner=this.choisirVictime(restrictChoix, listJ);
-    			System.out.println("Joueur  " + Jdesigner.getNom()  +  "choisisser si vous voulez réléver identité :  ");
+    			System.out.println("Joueur  " + Jdesigner.getNom()  +  "choisisser si vous voulez réléver identité : 0 non et 1 oui  ");
     			int choix=Jdesigner.repondreAccu();
     			if(choix==0) {
     				//prendre le tour suivant
@@ -595,29 +595,35 @@ public class Joueur {
         	}
         	else if(effet=="hunt"){
         		//prendre le tour suivant
-        		cartfct=deffausseGeneral.iterator();
         		
-        		System.out.println("Vos carte en main :");
-		        
-		        while(cartfct.hasNext()) {
-		        	Carte C=cartfct.next();
-		        	System.out.println("Les cartes en main sont : \n");
-		        	System.out.println(C.getNom() + "à index :  "+ deffausseGeneral.indexOf(C));
-		        	restrictChoix[restrict]=deffausseGeneral.indexOf(C);
-					restrict++;}
-		        System.out.println("Choississez la carte de la défausse générale à prendre en main : entrer l'index de la carte");
-		        Carte carteRecup=this.choisirCarte(restrictChoix, deffausseGeneral);
-				System.out.println("Carte choisi et prise en main " + carteRecup.getNom());
-				this.getMain().add(carteRecup);
-				deffausseGeneral.remove(carteRecup);
-		        //erreur de compréhension de ma part sur les cartes rejetés
-				//this.getDefausse().add(carteRecup);
-				
-		      //Tableau reinistialiser valeur
-				for(i=0; i<restrictChoix.length; i++) {
-					restrictChoix[i]=-1;
-				}
-	    		restrict=0;
+        		if(deffausseGeneral.size()>0) {
+        			cartfct=deffausseGeneral.iterator();
+        			System.out.println("Vos carte en dans la déffausse Général :");
+    		        
+    		        while(cartfct.hasNext()) {
+    		        	Carte C=cartfct.next();
+    		        	System.out.println("Les cartes en main sont : \n");
+    		        	System.out.println(C.getNom() + "à index :  "+ deffausseGeneral.indexOf(C));
+    		        	restrictChoix[restrict]=deffausseGeneral.indexOf(C);
+    					restrict++;}
+    		        System.out.println("Choississez la carte de la défausse générale à prendre en main : entrer l'index de la carte");
+    		        Carte carteRecup=this.choisirCarte(restrictChoix, deffausseGeneral);
+    				System.out.println("Carte choisi et prise en main " + carteRecup.getNom());
+    				this.getMain().add(carteRecup);
+    				deffausseGeneral.remove(carteRecup);
+    		        //erreur de compréhension de ma part sur les cartes rejetés
+    				//this.getDefausse().add(carteRecup);
+    				
+    		      //Tableau reinistialiser valeur
+    				for(i=0; i<restrictChoix.length; i++) {
+    					restrictChoix[i]=-1;
+    				}
+    	    		restrict=0;
+        			
+        		}
+        		else {
+        		System.out.println("Déffausse vide, vous rejouez juste");
+        		}
         		
         		//prendre le tour suivant
         		System.out.println("Le joueur actuel   " + this.getNom() + "  joue le prochain tour");
@@ -709,7 +715,13 @@ public class Joueur {
             System.out.println("Choix incorrect");
             break;
     	}    	
-    	this.getDefausse().add(carteChoisi);
+    	if(carteChoisi.getNom()=="black cat") {
+    		deffausseGeneral.add(carteChoisi);
+    	}
+    	else {
+    		this.getDefausse().add(carteChoisi);
+    	}
+    	
     	this.getMain().remove(carteChoisi);
     	
     	

@@ -48,7 +48,7 @@ public class Partie {
     		this.partieEnCours = true;
     		int compt=0;
     		if(tailleJ==5) {
-    		while (cartes.NOMBRE_DE_CARTES-compt != 2) {
+    		while (12-compt != 10) {
     			compt++;
     			Iterator<Joueur> it = joueurs.iterator();
     			while (it.hasNext()) {
@@ -288,7 +288,8 @@ public class Partie {
 	    while(nbJrevel>1) //un round ne s'arrete que lorsque 1 personne a encore sa carte identitï¿½ cachï¿½
 	    {
 	    	Joueur jActu=listJ.get(index);
-	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index + "  Status identitï¿½ : " + jActu.isIdentite());
+	    	System.out.println("\n\n\n******************:");
+	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index + "  Status identité : " + jActu.isIdentite() + "  Score : " + jActu.getScore());
 	        //Afficher les cartes en mains :
 	        System.out.println("Vos carte en main :");
 	        Iterator<Carte> main = jActu.getMain().iterator();
@@ -297,7 +298,7 @@ public class Partie {
 	        	Carte C=main.next();
 	        	System.out.println(C.getNom());
 	        }
-	        System.out.println("\nVos cartes rï¿½vï¿½lï¿½s :");
+	        System.out.println("\nVos cartes révélés :");
 	        while(deffausse.hasNext()) {
 	        	Carte C=deffausse.next();
 	        	System.out.println(C.getNom());
@@ -327,6 +328,7 @@ public class Partie {
 				
 			if(choix==1) {
 			//Accuser joueur
+			System.out.println("Liste de joueurs accusable :");
 			itA = listJ.iterator();
 			//on affiche les joueurs ayant leur carte encore secrï¿½te et pas notre joueur
 			while(itA.hasNext()) {
@@ -337,7 +339,7 @@ public class Partie {
 				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
 			}
 			//Choisir qui accuser
-			System.out.println("Choississez le joueur ï¿½ accuser : ");
+			System.out.println("\nChoississez le joueur ï¿½ accuser : ");
 			Joueur Jaccuser=jActu.choisirVictime(restrictChoix, listJ);
 			index2=listJ.indexOf(Jaccuser);
 			
