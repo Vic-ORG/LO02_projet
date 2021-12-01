@@ -44,28 +44,28 @@ public class Partie {
     		joueurs.remove(joueur);
     	}
     	
-    	public void distribuerCartes(int tailleJ) {
+    	public void distribuerCartes(int tailleJ, ArrayList<Joueur> listJ, JeuCarte jeuActu) {
     		this.partieEnCours = true;
     		int compt=0;
     		if(tailleJ==5) {
     		while (12-compt != 10) {
     			compt++;
-    			Iterator<Joueur> it = joueurs.iterator();
+    			Iterator<Joueur> it = listJ.iterator();
     			while (it.hasNext()) {
     				Joueur j = (Joueur) it.next();
-    				j.prendreCarte(cartes.tirerCarteDuDessus());
+    				j.prendreCarte(jeuActu.tirerCarteDuDessus());
     			}
     		}
     		while (cartes.estVide() == false) {
-    			deffausseG.add(cartes.tirerCarteDuDessus());
+    			deffausseG.add(jeuActu.tirerCarteDuDessus());
     		}
     		}
     		else {
-    			while (cartes.estVide() == false) {
-        			Iterator<Joueur> it = joueurs.iterator();
+    			while (jeuActu.estVide() == false) {
+        			Iterator<Joueur> it = listJ.iterator();
         			while (it.hasNext()) {
         				Joueur j = (Joueur) it.next();
-        				j.prendreCarte(cartes.tirerCarteDuDessus());
+        				j.prendreCarte(jeuActu.tirerCarteDuDessus());
         			}
         		}
     			
@@ -242,9 +242,7 @@ public class Partie {
 			
 		//D�but d'un round
 		//Initialisation du paquet de carte
-	    JeuCarte jeuActu = new JeuCarte();
-	    jeuActu.melanger();
-	    distribuerCartes(tailleJ);
+	    
 	    int i;
 	    int choix3=0;
 	    int index=0;
@@ -281,13 +279,18 @@ public class Partie {
         	}
             listJ.set(listJ.indexOf(G), G);
     	}
-	        
+	    
+    	JeuCarte jeuActu = new JeuCarte();
+	    jeuActu.melanger();
+	    distribuerCartes(tailleJ, listJ, jeuActu);
+    	
 	    it = listJ.iterator();
 	    nbJrevel=listJ.size(); //les cartes identit� sont du nombre de joueur dans la liste
 	    System.out.println("******\n nombre de cartes non revele : " + nbJrevel);
 	        
 	    while(nbJrevel>1) //un round ne s'arrete que lorsque 1 personne a encore sa carte identit� cach�
 	    {
+	    	
 	    	System.out.println("******\n nombre de cartes non revele : " + nbJrevel);
 	    	Joueur jActu=listJ.get(index);
 	    	System.out.println("\n\n\n******************:");
@@ -579,6 +582,8 @@ public class Partie {
 	    	it = listJ.iterator();
 	    	while (it.hasNext()) {
 				Joueur j = (Joueur) it.next();
+				j.getMain().removeAll(j.getMain());
+				j.getDefausse().removeAll(j.getDefausse());
 				if(j.getScore()>=5) {
 					ScoredeFin=true;
 				}
