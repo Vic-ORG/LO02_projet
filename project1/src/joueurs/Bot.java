@@ -458,6 +458,8 @@ public class Bot extends Joueur {
         		if(this.isIdentite()==true) {
         			System.out.println("************Identité du joueur désigné : SORCIERE ");
         			this.setEtatcarte(true);
+        			nbJrevel=nbJrevel-1;
+        			System.out.println("nbJrevel : " + nbJrevel);
         			this.setEtatjeu(false);
         			listJ.set(indexActu, this);
         			int indtamp=indexActu;
@@ -468,6 +470,10 @@ public class Bot extends Joueur {
         			}
         			else {
         				System.out.println("************Identité du joueur désigné : VILLAGEOIS ");
+        				this.setEtatcarte(true);
+        				nbJrevel=nbJrevel-1;
+        				System.out.println("nbJrevel : " + nbJrevel);
+        				listJ.set(indexActu, this);
         				//il faut choisir le prochain joueur
         				itfct = listJ.iterator();
             			//on affiche les joueurs encore en jeux et pas notre joueur
@@ -482,10 +488,11 @@ public class Bot extends Joueur {
             			System.out.println("Choississez le joueur qui commencera le tour prochain");
             			Jdesigner=this.choisirVictime(restrictChoix, listJ);
             			//indexdeux=listJ.indexOf(Jdesigner);
+            			
         				
         			}
         			System.out.println("*******************************************************************************");
-        			nbJrevel=nbJrevel-1;
+        			
         		
         	}
         	break;

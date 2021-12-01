@@ -288,6 +288,7 @@ public class Partie {
 	        
 	    while(nbJrevel>1) //un round ne s'arrete que lorsque 1 personne a encore sa carte identitï¿½ cachï¿½
 	    {
+	    	System.out.println("******\n nombre de cartes non revele : " + nbJrevel);
 	    	Joueur jActu=listJ.get(index);
 	    	System.out.println("\n\n\n******************:");
 	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index + "  Status identité : " + jActu.isIdentite() + "  Score : " + jActu.getScore());
@@ -315,6 +316,7 @@ public class Partie {
 	        	Carte C=main.next();
 	        	jouable=C.jouabiliteCarte(effet, jActu);
 	        	if(jouable==true) {
+	        		jouable=false;
 	        		overideAccuse=false;
 	        	}
 	        }
@@ -360,6 +362,7 @@ public class Partie {
 	        	Carte C=main.next();
 	        	jouable=C.jouabiliteCarte(effet, jActu);
 	        	if(jouable==true) {
+	        		jouable=false;
 	        		overideAccuse=false;
 	        	}
 	        }
@@ -413,11 +416,17 @@ public class Partie {
 		        while(main.hasNext()) {
 		        	Carte C=main.next();
 		        	jouable=C.jouabiliteCarte(effet, Jaccuser);
+		        	System.out.println("Jouable :  " +jouable);
 		        	if(jouable==true) {
+		        		
+		        		jouable=false;
 		        	System.out.println("Les cartes jouables sont : \n");
 		        	System.out.println(C.getNom() + "ï¿½ index :  "+ Jaccuser.getMain().indexOf(C));
 		        	restrictChoix[restrict]=Jaccuser.getMain().indexOf(C);
 					restrict++;}
+		        	else {
+		        		System.out.println("Carte injouable :  " +C.getNom() + "ï¿½ index :  "+ Jaccuser.getMain().indexOf(C));
+		        	}
 		        }
 		        System.out.println("Choississez votre action : entrer l'index de la carte que vous souhaitez jouer");
 		        Carte carteRecup=Jaccuser.choisirCarte(restrictChoix, Jaccuser.getMain());
@@ -427,7 +436,9 @@ public class Partie {
 				System.out.println("Carte choisi : " + carteRecup.getNom());
 				Joueur Jtemp=Jaccuser.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse, nbJrevel);
 				indextemp=listJ.indexOf(Jtemp);
-				
+				if(jActu.getEtatcarte()==true || Jtemp.getEtatcarte()==true || Jaccuser.getEtatcarte()==true) {
+					nbJrevel--;
+				}
 				if(indextemp != index && indextemp != index2) {
 					overideJautre=true;
 					listJ.set(indextemp, Jtemp);
@@ -447,6 +458,7 @@ public class Partie {
 					listJ.set(index2, Jaccuser);
 				}
 				
+				
 			}
 		} //fin du if accusation
 				
@@ -458,7 +470,9 @@ public class Partie {
 		        while(main.hasNext()) {
 		        	Carte C=main.next();
 		        	jouable=C.jouabiliteCarte(effet, jActu);
+		        	System.out.println("Jouable :  " +jouable);
 		        	if(jouable==true) {
+		        		jouable=false;
 		        	System.out.println("Les cartes jouables sont : \n");
 		        	System.out.println(C.getNom() + "ï¿½ index :  "+ jActu.getMain().indexOf(C));
 		        	restrictChoix[restrict]=jActu.getMain().indexOf(C);
@@ -470,6 +484,9 @@ public class Partie {
 		        System.out.println("Carte choisi : " + carteRecup.getNom());
 				Joueur Jtemp=jActu.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse, nbJrevel);
 				indextemp=listJ.indexOf(Jtemp);
+				if(jActu.getEtatcarte()==true || Jtemp.getEtatcarte()==true) {
+					nbJrevel--;
+				}
 				if(indextemp == index) {
 					jActu=Jtemp;
 				}
@@ -544,17 +561,19 @@ public class Partie {
 	    		G.setEtatjeu(true);
 	    		G.setEtatcarte(false);
 	    		LinkedList<Carte> m1=G.getMain();
-	    		Iterator<Carte> cartereset=m1.iterator();
+	    		m1.removeAll(m1);
+	    		/*Iterator<Carte> cartereset=m1.iterator();
 	    		while(cartereset.hasNext()) {
 	    			Carte cr=cartereset.next();
 	    			m1.remove(cr);
-	    		}
+	    		}*/
 	    		LinkedList<Carte> deffG=G.getDefausse();
-	    		cartereset=deffG.iterator();
+	    		deffG.removeAll(deffG);
+	    		/*cartereset=deffG.iterator();
 	    		while(cartereset.hasNext()) {
 	    			Carte cr=cartereset.next();
 	    			deffG.remove(cr);
-	    		}
+	    		}*/
 		}
 	    	//Vï¿½rifier point de joueur et mettre si ScoredeFin=true ou false
 	    	it = listJ.iterator();

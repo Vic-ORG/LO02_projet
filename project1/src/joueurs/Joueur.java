@@ -479,6 +479,8 @@ public class Joueur {
         		if(this.isIdentite()==true) {
         			System.out.println("************Identité du joueur désigné : SORCIERE ");
         			this.setEtatcarte(true);
+        			nbJrevel=nbJrevel-1;
+        			System.out.println("nbJrevel : " + nbJrevel);
         			this.setEtatjeu(false);
         			listJ.set(indexActu, this);
         			int indtamp=indexActu;
@@ -489,6 +491,10 @@ public class Joueur {
         			}
         			else {
         				System.out.println("************Identité du joueur désigné : VILLAGEOIS ");
+        				this.setEtatcarte(true);
+        				nbJrevel=nbJrevel-1;
+        				System.out.println("nbJrevel : " + nbJrevel);
+        				listJ.set(indexActu, this);
         				//il faut choisir le prochain joueur
         				itfct = listJ.iterator();
             			//on affiche les joueurs encore en jeux et pas notre joueur
@@ -506,7 +512,7 @@ public class Joueur {
         				
         			}
         			System.out.println("*******************************************************************************");
-        			nbJrevel=nbJrevel-1;
+        			
         		
         	}
         	break;

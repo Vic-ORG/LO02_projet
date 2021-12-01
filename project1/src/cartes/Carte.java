@@ -54,12 +54,19 @@ public class Carte {
             break;
     
         case "Pointed Hat":
-        	if(jAc.getDefausse().size()==0) {
-        		temp=false;
+        	if(effet=="hunt" && jAc.getDefausse().size()>0) {
+        		temp=true;
+        		System.out.println("*** pointed hat defausse size supérieur 0 \n");
+        	}
+        	else if(effet=="witch" && jAc.getDefausse().size()>0) {
+        		temp=true;
+        		System.out.println("*** pointed hat defausse size égal 0 \n");
         	}
         	else {
-        		temp=true;
+        		temp=false;
         	}
+        	return temp;
+        	//temp=false;
             //break;
         case "Hooked Nose":
         	temp=true;
