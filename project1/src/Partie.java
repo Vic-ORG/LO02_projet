@@ -229,6 +229,7 @@ public class Partie {
     	int[] restrictChoix=new int[6];
     	int restrict=0;
     	LinkedList<Carte> deffausseGen = new LinkedList<Carte>();
+    	boolean jouable=false;
     	
     	
     	
@@ -290,6 +291,7 @@ public class Partie {
 	    	Joueur jActu=listJ.get(index);
 	    	System.out.println("\n\n\n******************:");
 	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index + "  Status identité : " + jActu.isIdentite() + "  Score : " + jActu.getScore());
+	        System.out.println("Taille déffausse personnelle :" + jActu.getDefausse().size() + "  DéffauseGloble : " + deffausseGen.size());
 	        //Afficher les cartes en mains :
 	        System.out.println("Vos carte en main :");
 	        Iterator<Carte> main = jActu.getMain().iterator();
@@ -311,7 +313,7 @@ public class Partie {
 	        main = jActu.getMain().iterator();
 	        while(main.hasNext()) {
 	        	Carte C=main.next();
-	        	boolean jouable=C.jouabiliteCarte(effet, jActu);
+	        	jouable=C.jouabiliteCarte(effet, jActu);
 	        	if(jouable==true) {
 	        		overideAccuse=false;
 	        	}
@@ -321,6 +323,7 @@ public class Partie {
 	        }
 	        else {choix=jActu.actionTour();}
 	        overideAccuse=false;
+	        jouable=false;
 	        
 	        
 	        /*System.out.println("Choississez votre action : 1 pour accuser, 2 pour utiliser carte rumeur");
@@ -355,7 +358,7 @@ public class Partie {
 	        main = Jaccuser.getMain().iterator();
 	        while(main.hasNext()) {
 	        	Carte C=main.next();
-	        	boolean jouable=C.jouabiliteCarte(effet, jActu);
+	        	jouable=C.jouabiliteCarte(effet, jActu);
 	        	if(jouable==true) {
 	        		overideAccuse=false;
 	        	}
@@ -409,7 +412,7 @@ public class Partie {
 		        main = Jaccuser.getMain().iterator();
 		        while(main.hasNext()) {
 		        	Carte C=main.next();
-		        	boolean jouable=C.jouabiliteCarte(effet, Jaccuser);
+		        	jouable=C.jouabiliteCarte(effet, Jaccuser);
 		        	if(jouable==true) {
 		        	System.out.println("Les cartes jouables sont : \n");
 		        	System.out.println(C.getNom() + "ï¿½ index :  "+ Jaccuser.getMain().indexOf(C));
@@ -422,7 +425,7 @@ public class Partie {
 				
 				
 				System.out.println("Carte choisi : " + carteRecup.getNom());
-				Joueur Jtemp=Jaccuser.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse);
+				Joueur Jtemp=Jaccuser.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse, nbJrevel);
 				indextemp=listJ.indexOf(Jtemp);
 				
 				if(indextemp != index && indextemp != index2) {
@@ -454,7 +457,7 @@ public class Partie {
 		        main = jActu.getMain().iterator();
 		        while(main.hasNext()) {
 		        	Carte C=main.next();
-		        	boolean jouable=C.jouabiliteCarte(effet, jActu);
+		        	jouable=C.jouabiliteCarte(effet, jActu);
 		        	if(jouable==true) {
 		        	System.out.println("Les cartes jouables sont : \n");
 		        	System.out.println(C.getNom() + "ï¿½ index :  "+ jActu.getMain().indexOf(C));
@@ -465,7 +468,7 @@ public class Partie {
 		        Carte carteRecup=jActu.choisirCarte(restrictChoix, jActu.getMain());
 		        
 		        System.out.println("Carte choisi : " + carteRecup.getNom());
-				Joueur Jtemp=jActu.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse);
+				Joueur Jtemp=jActu.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse, nbJrevel);
 				indextemp=listJ.indexOf(Jtemp);
 				if(indextemp == index) {
 					jActu=Jtemp;

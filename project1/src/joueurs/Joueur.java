@@ -102,7 +102,7 @@ public class Joueur {
     
 
     
-    public Joueur jouerCarte(Carte carteChoisi, String effet, ArrayList<Joueur> listJ, int indexActu, int indexdelautre, LinkedList<Carte> deffausseGeneral, boolean overideAccuse) {
+    public Joueur jouerCarte(Carte carteChoisi, String effet, ArrayList<Joueur> listJ, int indexActu, int indexdelautre, LinkedList<Carte> deffausseGeneral, boolean overideAccuse, int nbJrevel) {
     	//derniereCarteJouee = carteChoisi;
     	Iterator<Joueur> itfct;
     	Iterator<Carte> cartfct;
@@ -153,6 +153,7 @@ public class Joueur {
     				System.out.println("Accusatueur :  " + this.getNom() + " pert 2points ***********");
     				System.out.println("Accusé :  " + Jdesigner.getNom() + " prend la main ***********");
     			}
+    			nbJrevel=nbJrevel-1;
     			System.out.println("*******************************************************************************");
         		
         		//carteChoisi
@@ -445,7 +446,7 @@ public class Joueur {
     					//Jdesinger reprend la main
     					
     				}
-	    			
+	    			nbJrevel=nbJrevel-1;
 	    			
 	    		}
     			//Tableau reinistialiser valeur
@@ -505,7 +506,7 @@ public class Joueur {
         				
         			}
         			System.out.println("*******************************************************************************");
-        			
+        			nbJrevel=nbJrevel-1;
         		
         	}
         	break;
@@ -583,7 +584,7 @@ public class Joueur {
         				
         			}
         			System.out.println("*******************************************************************************");
-        			
+        			nbJrevel=nbJrevel-1;
         		
         	}
         	break;

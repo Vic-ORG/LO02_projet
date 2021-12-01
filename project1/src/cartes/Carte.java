@@ -54,11 +54,11 @@ public class Carte {
             break;
     
         case "Pointed Hat":
-        	if(jAc.getDefausse().size()>=1) {
-        		temp=true;
+        	if(jAc.getDefausse().size()==0) {
+        		temp=false;
         	}
         	else {
-        		temp=false;
+        		temp=true;
         	}
             //break;
         case "Hooked Nose":
