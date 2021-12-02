@@ -3,6 +3,7 @@
 //import joueurs.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 import cartes.Carte;
@@ -168,7 +169,7 @@ public class Partie {
         
     }
     
-    public boolean round(ArrayList<Joueur> listJ) {
+    public boolean round(ArrayList<Joueur> listJ) throws InterruptedException, IOException {
     	boolean overideJoueur=false;
     	boolean overideJautre=false;
     	Scanner scanner = new Scanner(System.in);
@@ -210,6 +211,7 @@ public class Partie {
     		Joueur G=it.next();
     		G.setEtatjeu(true);
 			G.setEtatcarte(false);
+			new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
     		System.out.println("Joueur:" + G.getNom() + "  Score : " + G.getScore());
 
             System.out.println("\tidentité du joueur" + G.getNom() + " pour ce round (sor ou vil) :  ");
@@ -426,7 +428,7 @@ public class Partie {
 			else if(choix==2) {
 				effet="hunt";
 				//Afficher les cartes en mains :
-		        System.out.println("Vos carte en main :");
+		        System.out.println("Vos carte en main : ");
 		        main = jActu.getMain().iterator();
 		        while(main.hasNext()) {
 		        	Carte C=main.next();

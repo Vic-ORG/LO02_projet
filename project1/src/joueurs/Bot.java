@@ -161,7 +161,7 @@ public class Bot extends Joueur {
         		m1=this.getMain();
         		cartfct=m1.iterator();
         		
-        		System.out.println("Vos carte en main :");
+        		System.out.println("Vos carte en main : ");
 		        
 		        while(cartfct.hasNext()) {
 		        	Carte C=cartfct.next();
@@ -220,7 +220,7 @@ public class Bot extends Joueur {
         		deffoss=this.getDefausse();
         		cartfct=deffoss.iterator();
         		
-        		System.out.println("Vos carte joué et révélé :");
+        		System.out.println("Vos carte joué et révélé : ");
 		        
 		        while(cartfct.hasNext()) {
 		        	Carte C=cartfct.next();
