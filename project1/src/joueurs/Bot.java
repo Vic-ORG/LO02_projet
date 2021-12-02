@@ -573,6 +573,8 @@ public class Bot extends Joueur {
         			}
         			else {
         				System.out.println("************identité du joueur désigné : VILLAGEOIS ");
+        				this.setEtatcarte(true);
+        				listJ.set(indexActu, this);
         				//il faut choisir le prochain joueur
         				itfct = listJ.iterator();
             			//on affiche les joueurs encore en jeux et pas notre joueur

@@ -177,12 +177,15 @@ public class Partie {
     	int nbJrevel; //pour compter le nombre de joueur ayant une carte identité revelà
     	String id, effet;
     	int[] restrictChoix=new int[6];
+    	ArrayList<Integer> restrictRevel = new ArrayList<>(); 
+    	//int[] restrictRevel=new int[6];
     	int restrict=0;
     	LinkedList<Carte> deffausseGen = new LinkedList<Carte>();
     	boolean jouable=false;
-    	
-    	
-    	
+    	int opt;
+    	boolean overRevel1=false;
+    	boolean overRevel2=false;
+    	Iterator<Integer> revelindex = restrictRevel.iterator();
     	
     	//ArrayList<Joueur> listJ;
     	//listJ=joueurs;
@@ -348,6 +351,7 @@ public class Partie {
 					Jaccuser.setEtatjeu(false);
 					Jaccuser.setEtatcarte(true);
 					nbJrevel=nbJrevel-1; //Parmi la totalità des joueurs, 1 a révélé sa carte
+					restrictRevel.add(index2);
 					listJ.set(index2, Jaccuser); //on met à jour dans listJ
 					jActu.setScore(1);
 				}
@@ -360,6 +364,7 @@ public class Partie {
 				overideJoueur=true;
 				Jaccuser.setEtatcarte(true);
 				nbJrevel=nbJrevel-1;
+				restrictRevel.add(index2);
 				listJ.set(index2, Jaccuser); //on met à jour dans listJ
 					
 				}
@@ -392,9 +397,9 @@ public class Partie {
 				System.out.println("Carte choisi : " + carteRecup.getNom());
 				Joueur Jtemp=Jaccuser.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse, nbJrevel);
 				indextemp=listJ.indexOf(Jtemp);
-				if(jActu.getEtatcarte()==true || Jtemp.getEtatcarte()==true || Jaccuser.getEtatcarte()==true) {
+				/*if(jActu.getEtatcarte()==true || Jtemp.getEtatcarte()==true || Jaccuser.getEtatcarte()==true) {
 					nbJrevel--;
-				}
+				}*/
 				if(indextemp != index && indextemp != index2) {
 					overideJautre=true;
 					listJ.set(indextemp, Jtemp);
@@ -440,9 +445,41 @@ public class Partie {
 		        System.out.println("Carte choisi : " + carteRecup.getNom());
 				Joueur Jtemp=jActu.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse, nbJrevel);
 				indextemp=listJ.indexOf(Jtemp);
-				if(jActu.getEtatcarte()==true || Jtemp.getEtatcarte()==true) {
+				
+				if(restrictRevel.size()>0) {
+					revelindex = restrictRevel.iterator();
+					while(revelindex.hasNext()) {
+						int opt2 = revelindex.next();
+						if(opt2!=index && jActu.getEtatcarte()==true) {
+							nbJrevel--;
+							overRevel1 =true; 
+							
+						}
+						else if(opt2!=indextemp && Jtemp.getEtatcarte()==true) {
+							nbJrevel--;
+							overRevel2 =true;
+							
+						}
+					}
+					if(overRevel1==true) {
+						restrictRevel.add(index);
+					}
+					else if (overRevel2==true) {
+						restrictRevel.add(indextemp);
+					}
+					overRevel1=false; overRevel2=false;
+				}//fin if
+				else if(restrictRevel.size()==0 && jActu.getEtatcarte()==true) {
 					nbJrevel--;
+					restrictRevel.add(index);
 				}
+				else if(restrictRevel.size()==0 && Jtemp.getEtatcarte()==true) {
+					nbJrevel--;
+					restrictRevel.add(indextemp);
+				}
+				/*if(jActu.getEtatcarte()==true || Jtemp.getEtatcarte()==true) {
+					nbJrevel--;
+				}*/
 				if(indextemp == index) {
 					jActu=Jtemp;
 				}
