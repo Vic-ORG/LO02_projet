@@ -304,6 +304,11 @@ public class Joueur {
         		
         	}
         	else if(effet=="hunt"){
+        		//Tableau reinistialiser valeur
+				for(i=0; i<restrictChoix.length; i++) {
+					restrictChoix[i]=-1;
+				}
+	    		restrict=0;
         		itfct = listJ.iterator();
     			//on affiche les joueurs encore en jeux et pas notre joueur
     			while(itfct.hasNext()) {

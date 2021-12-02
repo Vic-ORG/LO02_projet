@@ -222,7 +222,7 @@ public class Partie {
     	boolean overideJoueur=false;
     	boolean overideJautre=false;
     	Scanner scanner = new Scanner(System.in);
-    	int choix;
+    	int choix=0;
     	boolean ScoredeFin=false; //true=qqun a plus de 5points, false l'inverse
     	int nbJrevel; //pour compter le nombre de joueur ayant une carte identitï¿½ revelï¿½
     	String id, effet;
@@ -313,7 +313,23 @@ public class Partie {
 	        
 	        effet="hunt";
 			//Afficher les cartes en mains :
+	        overideAccuse=true;
+	        main = jActu.getMain().iterator();
+	        while(main.hasNext()) {
+	        	Carte C=main.next();
+	        	jouable=C.jouabiliteCarte(effet, jActu);
+	        	if(jouable==true) {
+	        		jouable=false;
+	        		overideAccuse=false;
+	        	}	
+	        }
+	        if(overideAccuse==true || jActu.getMain().size()==0) {
+	        	System.out.println("\nPlus de carte possible à jouer, vous accusez qqun ! :");
+	        	choix=1;
+	        }
+	        else {choix=jActu.actionTour();}
 	        
+	        /*if(jActu.getMain().size()>0) {
 	        main = jActu.getMain().iterator();
 	        while(main.hasNext()) {
 	        	Carte C=main.next();
@@ -322,12 +338,13 @@ public class Partie {
 	        		jouable=false;
 	        		overideAccuse=false;
 	        	}
-	        }
-	        if(overideAccuse==true) {
+	        	else {choix=jActu.actionTour();}
+	        }}
+	        else {
 	        	choix=1;
-	        }
-	        else {choix=jActu.actionTour();}
-	        overideAccuse=false;
+	        }*/
+	        //else {choix=jActu.actionTour();}
+	        //overideAccuse=false;
 	        jouable=false;
 	        
 	        
@@ -360,7 +377,22 @@ public class Partie {
     		effet="witch";
 			//Afficher les cartes en mains :
 	        
-	        main = Jaccuser.getMain().iterator();
+    		/*if(Jaccuser.getMain().size()>0) {
+    	        main = Jaccuser.getMain().iterator();
+    	        while(main.hasNext()) {
+    	        	Carte C=main.next();
+    	        	jouable=C.jouabiliteCarte(effet, Jaccuser);
+    	        	if(jouable==true) {
+    	        		jouable=false;
+    	        		overideAccuse=false;
+    	        	}
+    	        	else {choix3=Jaccuser.actionTour();}
+    	        }}
+    	        else {
+    	        	choix3=1;
+    	        }
+    		*/
+	        /*main = Jaccuser.getMain().iterator();
 	        while(main.hasNext()) {
 	        	Carte C=main.next();
 	        	jouable=C.jouabiliteCarte(effet, jActu);
@@ -373,10 +405,26 @@ public class Partie {
 	        	choix3=1;
 	        }
 	        else {choix3=Jaccuser.repondreAccu();}
-	        overideAccuse=false;
+	        overideAccuse=false;*/
     		
 			//rï¿½pondre accusation
 			
+	        overideAccuse=true;
+	        main = Jaccuser.getMain().iterator();
+	        while(main.hasNext()) {
+	        	Carte C=main.next();
+	        	jouable=C.jouabiliteCarte(effet, Jaccuser);
+	        	if(jouable==true) {
+	        		jouable=false;
+	        		overideAccuse=false;
+	        	}	
+	        }
+	        if(overideAccuse==true || Jaccuser.getMain().size()==0) {
+	        	System.out.println("\nPlus de carte possible à jouer, vous révélez votre identité !!! :");
+	        	choix3=1;
+	        }
+	        else {choix3=Jaccuser.repondreAccu();}
+	        
 			/*System.out.println("Choississez le joueur ï¿½ accuser (sauf vous meme numero : " + index + " )");
 			index2=scanner.nextInt();
 			Joueur Jaccuser = listJ.get(index2);
