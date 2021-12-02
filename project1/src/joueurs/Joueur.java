@@ -43,6 +43,15 @@ public class Joueur {
     	main.add(carte);
     }
     
+    public int choisirRole() {
+    	int chx;
+    	Scanner scannerfct = new Scanner(System.in);
+    	System.out.println("Choississez votre action : 1 pour sorcière, 2 pour villageois");
+		chx=scannerfct.nextInt();
+		//scannerfct.close();
+    	return chx;
+    }
+    
     public int actionTour() {
     	int chx;
     	Scanner scannerfct = new Scanner(System.in);

@@ -14,6 +14,21 @@ public class Bot extends Joueur {
         //TODO Auto-generated constructor stub
     }
     
+    public int choisirRole() {
+    	int chxb=1;
+    	double x;
+    	x=Math.random();
+    	if(x<=0.5) {
+    		chxb=1;
+    		System.out.println("Bot veut être sorciere ");
+    	}
+    	else {
+    		chxb=2;
+    		System.out.println("Bot veut être villageois ");
+    	}
+    	return chxb;
+    }
+    
     public int actionTour() {
     	int chxb=1;
     	double x;

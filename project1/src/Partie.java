@@ -198,6 +198,7 @@ public class Partie {
 	    int index=0;
 	    int index2=0;
 	    int indextemp=0;
+	    int choixrole=0;
 	    boolean overideAccuse=false;
 	    
 	    it = listJ.iterator();
@@ -209,7 +210,16 @@ public class Partie {
     		System.out.println("Joueur:" + G.getNom() + "  Score : " + G.getScore());
 
             System.out.println("\tidentité du joueur" + G.getNom() + " pour ce round (sor ou vil) :  ");
-            id = ReadConsole.next();
+            choixrole=G.choisirRole();
+            if(choixrole==1) {
+            	System.out.println("Vous avez choisi SORCIERE ");
+                G.setIdentite(true);
+            }
+            else {
+            	System.out.println("Vous avez choisi Villageois ");
+                G.setIdentite(false);
+            }
+            /*id = ReadConsole.next();
             switch(id){
      	   
             case "sor": 
@@ -224,7 +234,7 @@ public class Partie {
             default:
                 System.out.println("Choix incorrect");
                 break;
-        	}
+        	}*/
             listJ.set(listJ.indexOf(G), G);
     	}
 	    
