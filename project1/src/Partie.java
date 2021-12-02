@@ -44,7 +44,7 @@ public class Partie {
     		joueurs.remove(joueur);
     	}
     	
-    	public void distribuerCartes(int tailleJ, ArrayList<Joueur> listJ, JeuCarte jeuActu) {
+    	public void distribuerCartes(int tailleJ, ArrayList<Joueur> listJ, JeuCarte jeuActu, LinkedList<Carte> deffausseGen) {
     		this.partieEnCours = true;
     		int compt=0;
     		if(tailleJ==5) {
@@ -56,8 +56,8 @@ public class Partie {
     				j.prendreCarte(jeuActu.tirerCarteDuDessus());
     			}
     		}
-    		while (cartes.estVide() == false) {
-    			deffausseG.add(jeuActu.tirerCarteDuDessus());
+    		while (jeuActu.estVide() == false) {
+    			deffausseGen.add(jeuActu.tirerCarteDuDessus());
     		}
     		}
     		else {
@@ -282,7 +282,7 @@ public class Partie {
 	    
     	JeuCarte jeuActu = new JeuCarte();
 	    jeuActu.melanger();
-	    distribuerCartes(tailleJ, listJ, jeuActu);
+	    distribuerCartes(tailleJ, listJ, jeuActu, deffausseGen);
     	
 	    it = listJ.iterator();
 	    nbJrevel=listJ.size(); //les cartes identitï¿½ sont du nombre de joueur dans la liste
@@ -294,8 +294,8 @@ public class Partie {
 	    	System.out.println("******\n nombre de cartes non revele : " + nbJrevel);
 	    	Joueur jActu=listJ.get(index);
 	    	System.out.println("\n\n\n******************:");
-	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index + "  Status identité : " + jActu.isIdentite() + "  Score : " + jActu.getScore());
-	        System.out.println("Taille déffausse personnelle :" + jActu.getDefausse().size() + "  DéffauseGloble : " + deffausseGen.size());
+	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index + "  Status identitï¿½ : " + jActu.isIdentite() + "  Score : " + jActu.getScore());
+	        System.out.println("Taille dï¿½ffausse personnelle :" + jActu.getDefausse().size() + "  Dï¿½ffauseGloble : " + deffausseGen.size());
 	        //Afficher les cartes en mains :
 	        System.out.println("Vos carte en main :");
 	        Iterator<Carte> main = jActu.getMain().iterator();
@@ -304,7 +304,7 @@ public class Partie {
 	        	Carte C=main.next();
 	        	System.out.println(C.getNom());
 	        }
-	        System.out.println("\nVos cartes révélés :");
+	        System.out.println("\nVos cartes rï¿½vï¿½lï¿½s :");
 	        while(deffausse.hasNext()) {
 	        	Carte C=deffausse.next();
 	        	System.out.println(C.getNom());
@@ -324,7 +324,7 @@ public class Partie {
 	        	}	
 	        }
 	        if(overideAccuse==true || jActu.getMain().size()==0) {
-	        	System.out.println("\nPlus de carte possible à jouer, vous accusez qqun ! :");
+	        	System.out.println("\nPlus de carte possible ï¿½ jouer, vous accusez qqun ! :");
 	        	choix=1;
 	        }
 	        else {choix=jActu.actionTour();}
@@ -420,7 +420,7 @@ public class Partie {
 	        	}	
 	        }
 	        if(overideAccuse==true || Jaccuser.getMain().size()==0) {
-	        	System.out.println("\nPlus de carte possible à jouer, vous révélez votre identité !!! :");
+	        	System.out.println("\nPlus de carte possible ï¿½ jouer, vous rï¿½vï¿½lez votre identitï¿½ !!! :");
 	        	choix3=1;
 	        }
 	        else {choix3=Jaccuser.repondreAccu();}
