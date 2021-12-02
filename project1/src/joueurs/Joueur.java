@@ -750,21 +750,7 @@ public class Joueur {
     	}
     	
     	
-    	/*
-    	public boolean aGagne() {
-    	if (main.size() == JeuCarte.NOMBRE_DE_CARTES) {
-    	return true;
-    	}
-    	else {return false;}
-    	}
     	
-    	public boolean aPerdu() {
-    		if (main.size() == 0) {
-    		return true;
-    		} else {
-    		return false;
-    		}
-    	}*/
     	
     	public String toString() {
     		StringBuffer sb = new StringBuffer();
@@ -800,9 +786,7 @@ public class Joueur {
         this.identite = identite;
     }
 
-    /*public boolean isEtat() {
-        return etat;
-    }*/
+    
 
     public void setEtatcarte(boolean etatCarte) {
         this.etatCarte = etatCarte;

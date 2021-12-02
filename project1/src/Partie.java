@@ -72,28 +72,7 @@ public class Partie {
     		}
     	}
     		
-    	/*public void jouer() {
-    		ArrayList<Carte> cartesJouees = this.jouerCartes();
-    		System.out.println("Cartes jouées : " + cartesJouees);
-    	}
     	
-    	private ArrayList<Carte> jouerCartes() {
-    		ArrayList<Carte> cartesJouees = new ArrayList<Carte>();
-    		Iterator<Joueur> itDepot = joueurs.iterator();
-    		while (itDepot.hasNext()) {
-    			Joueur j = (Joueur) itDepot.next();
-    			cartesJouees.add(j.jouerCarte());
-    		}
-    		return cartesJouees;
-    	}*/
-    		
-    	/*private void retirerPerdants() {
-    	}
-    	
-    	private Joueur joueurGagnant(Carte carte) {
-    		Joueur gagnant = null;
-    		return gagnant;
-    	}*/
     	
     	public String toString() {
     		return joueurs.toString();
@@ -155,36 +134,7 @@ public class Partie {
         	System.out.println("\tNom du joueur " + i + " :  ");
             nom = ReadConsole.next();
             ajouterJoueur(new Joueur(nom, false, true, true, 0));
-            /*System.out.println("\tidentité du joueur (sor ou vil) " + i + " :  ");
-            id = ReadConsole.next();
-            switch(id){
-     	   
-            case "sor": 
-                System.out.println("Bonjour");
-                System.out.println("\tSORCIERE ");
-            	ajouterJoueur(new Joueur(nom, false, true, true, 0));
-                break;
-        
-            case "vil":
-                System.out.println("Hello");
-                System.out.println("\t Villageois ");
-            	ajouterJoueur(new Joueur(nom, false, true, false, 0));
-                break;
-            default:
-                System.out.println("Choix incorrect");
-                break;
-        	}*/
-            /*if(id=="vil") {
-            	System.out.println("\t Villageois ");
-            	ajouterJoueur(new Joueur(nom, false, true, false, 0));
-            }
-            else if(id=="sor") {
-            	System.out.println("\tSORCIERE ");
-            	ajouterJoueur(new Joueur(nom, false, true, true, 0));
-            }*/
             
-            
-            //joueurs.add(new Joueur(nom, false, true, false, 0));
         }
         
         System.out.println("\tAjouter des bots (y/n): ");
@@ -327,27 +277,11 @@ public class Partie {
 	        }
 	        else {choix=jActu.actionTour();}
 	        
-	        /*if(jActu.getMain().size()>0) {
-	        main = jActu.getMain().iterator();
-	        while(main.hasNext()) {
-	        	Carte C=main.next();
-	        	jouable=C.jouabiliteCarte(effet, jActu);
-	        	if(jouable==true) {
-	        		jouable=false;
-	        		overideAccuse=false;
-	        	}
-	        	else {choix=jActu.actionTour();}
-	        }}
-	        else {
-	        	choix=1;
-	        }*/
-	        //else {choix=jActu.actionTour();}
-	        //overideAccuse=false;
+	        
 	        jouable=false;
 	        
 	        
-	        /*System.out.println("Choississez votre action : 1 pour accuser, 2 pour utiliser carte rumeur");
-			choix=scanner.nextInt();*/
+	        
 				
 			if(choix==1) {
 			//Accuser joueur
@@ -375,37 +309,7 @@ public class Partie {
     		effet="witch";
 			//Afficher les cartes en mains :
 	        
-    		/*if(Jaccuser.getMain().size()>0) {
-    	        main = Jaccuser.getMain().iterator();
-    	        while(main.hasNext()) {
-    	        	Carte C=main.next();
-    	        	jouable=C.jouabiliteCarte(effet, Jaccuser);
-    	        	if(jouable==true) {
-    	        		jouable=false;
-    	        		overideAccuse=false;
-    	        	}
-    	        	else {choix3=Jaccuser.actionTour();}
-    	        }}
-    	        else {
-    	        	choix3=1;
-    	        }
-    		*/
-	        /*main = Jaccuser.getMain().iterator();
-	        while(main.hasNext()) {
-	        	Carte C=main.next();
-	        	jouable=C.jouabiliteCarte(effet, jActu);
-	        	if(jouable==true) {
-	        		jouable=false;
-	        		overideAccuse=false;
-	        	}
-	        }
-	        if(overideAccuse==true) {
-	        	choix3=1;
-	        }
-	        else {choix3=Jaccuser.repondreAccu();}
-	        overideAccuse=false;*/
     		
-			//ràpondre accusation
 			
 	        overideAccuse=true;
 	        main = Jaccuser.getMain().iterator();
@@ -423,13 +327,6 @@ public class Partie {
 	        }
 	        else {choix3=Jaccuser.repondreAccu();}
 	        
-			/*System.out.println("Choississez le joueur à accuser (sauf vous meme numero : " + index + " )");
-			index2=scanner.nextInt();
-			Joueur Jaccuser = listJ.get(index2);
-			System.out.println("Joueur : "+ Jaccuser.getNom() + ", vous etes accusé.");
-			System.out.println("Choississez si vous révélez votre identité : 0 non et 1 oui");*/
-			//int choix3=scanner.nextInt();
-				
 					
 			if(choix3==1) {
 				if(Jaccuser.isIdentite()==true) { //si le joueur accusé est une sorciere
@@ -545,22 +442,7 @@ public class Partie {
 						overideJautre=true;}
 				}
 				
-			/*//Afficher carte rumeur jouable
-			//Afficher les cartes en mains :
-		    System.out.println("Vos carte en main :");
-		    main = jActu.getMain().iterator();
-		    while(main.hasNext()) {
-		        System.out.println("Carte index" + jActu.getMain().indexOf(main.next()) + " nom : " + main.next().getNom());
-		        }
-		        System.out.println("Choississez votre action : entrer l'index de la carte que vous souhaitez jouer");
-				//int choixcarte=scanner.nextInt();
-				System.out.println("Carte choisi : " + jActu.getMain().get(choixcarte).getNom());
-				//on appel la carte et utiliser ces fonctions
-				jActu.jouerCarte(jActu.getMain().get(choixcarte)); //dans joueur, complàter la fonction en fonction de la carte
-				//dans la fonction au dessus, je met la carte dans la deffausse du joueur*/
-								
-				//on retire la carte de la main du joueur
-				//jActu.getMain().remove(jActu.getMain().get(choixcarte));
+			
 			}
 			
 			//on remplace le joueur qu'on a pris avec les valeur de joueur actuelle, par exemple pour changà score
@@ -611,18 +493,10 @@ public class Partie {
 	    		G.setEtatcarte(false);
 	    		LinkedList<Carte> m1=G.getMain();
 	    		m1.removeAll(m1);
-	    		/*Iterator<Carte> cartereset=m1.iterator();
-	    		while(cartereset.hasNext()) {
-	    			Carte cr=cartereset.next();
-	    			m1.remove(cr);
-	    		}*/
+	    		
 	    		LinkedList<Carte> deffG=G.getDefausse();
 	    		deffG.removeAll(deffG);
-	    		/*cartereset=deffG.iterator();
-	    		while(cartereset.hasNext()) {
-	    			Carte cr=cartereset.next();
-	    			deffG.remove(cr);
-	    		}*/
+	    		
 		}
 	    	//Vàrifier point de joueur et mettre si ScoredeFin=true ou false
 	    	it = listJ.iterator();
