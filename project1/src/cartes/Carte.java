@@ -1,6 +1,6 @@
 package cartes;
 import joueurs.*;
-
+import java.util.*;
 
 
 public class Carte {
@@ -30,7 +30,7 @@ public class Carte {
 		this.nom = nom;
 	}
     
-	public boolean jouabiliteCarte(String effet, Joueur jAc) {
+	public boolean jouabiliteCarte(String effet, Joueur jAc, ArrayList<Joueur> listJ) {
 		boolean temp=false;
 		switch(this.getNom()){
  	   
@@ -93,7 +93,17 @@ public class Carte {
         	temp=true;
         	break;
         case "Pet Newt":
-        	temp=true;
+        	if(effet=="hunt") {
+        		Iterator<Joueur> jr = listJ.iterator();
+        		while(jr.hasNext()) {
+        			Joueur J= jr.next();
+        			if(J.getEtatjeu()==true && J.getDefausse().size()>0) {
+        				temp=true;
+        				return temp;
+        			}
+        		}
+        	}
+        	temp=false;
         	break;   	
         default:
             System.out.println("Choix incorrect");

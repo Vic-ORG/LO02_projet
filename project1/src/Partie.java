@@ -275,7 +275,7 @@ public class Partie {
 	        main = jActu.getMain().iterator();
 	        while(main.hasNext()) {
 	        	Carte C=main.next();
-	        	jouable=C.jouabiliteCarte(effet, jActu);
+	        	jouable=C.jouabiliteCarte(effet, jActu, listJ);
 	        	if(jouable==true) {
 	        		jouable=false;
 	        		overideAccuse=false;
@@ -325,7 +325,7 @@ public class Partie {
 	        main = Jaccuser.getMain().iterator();
 	        while(main.hasNext()) {
 	        	Carte C=main.next();
-	        	jouable=C.jouabiliteCarte(effet, Jaccuser);
+	        	jouable=C.jouabiliteCarte(effet, Jaccuser, listJ);
 	        	if(jouable==true) {
 	        		jouable=false;
 	        		overideAccuse=false;
@@ -371,7 +371,7 @@ public class Partie {
 		        main = Jaccuser.getMain().iterator();
 		        while(main.hasNext()) {
 		        	Carte C=main.next();
-		        	jouable=C.jouabiliteCarte(effet, Jaccuser);
+		        	jouable=C.jouabiliteCarte(effet, Jaccuser, listJ);
 		        	System.out.println("Jouable :  " +jouable);
 		        	if(jouable==true) {
 		        		
@@ -425,7 +425,7 @@ public class Partie {
 		        main = jActu.getMain().iterator();
 		        while(main.hasNext()) {
 		        	Carte C=main.next();
-		        	jouable=C.jouabiliteCarte(effet, jActu);
+		        	jouable=C.jouabiliteCarte(effet, jActu, listJ);
 		        	System.out.println("Jouable :  " +jouable);
 		        	if(jouable==true) {
 		        		jouable=false;
