@@ -13,7 +13,7 @@ import joueurs.Joueur;
 public class Partie {
 	
 	private ArrayList<Joueur> joueurs;
-	private LinkedList<Carte> deffausseG = new LinkedList<Carte>();
+	//private LinkedList<Carte> deffausseG = new LinkedList<Carte>();
 	private JeuCarte cartes;
 	private boolean partieEnCours;
 
@@ -74,7 +74,7 @@ public class Partie {
     		
     	/*public void jouer() {
     		ArrayList<Carte> cartesJouees = this.jouerCartes();
-    		System.out.println("Cartes jou�es : " + cartesJouees);
+    		System.out.println("Cartes jouées : " + cartesJouees);
     	}
     	
     	private ArrayList<Carte> jouerCartes() {
@@ -146,7 +146,7 @@ public class Partie {
         int nbJoueur = 0;
         int nbBot = 0;
         String addBot;
-        String nom, id;
+        String nom;
 
         System.out.println("\tChoisissez le nombre de joueurs humains (entre 1 et 6): ");
         nbJoueur = ReadConsole.nextInt();
@@ -155,7 +155,7 @@ public class Partie {
         	System.out.println("\tNom du joueur " + i + " :  ");
             nom = ReadConsole.next();
             ajouterJoueur(new Joueur(nom, false, true, true, 0));
-            /*System.out.println("\tIdentit� du joueur (sor ou vil) " + i + " :  ");
+            /*System.out.println("\tidentité du joueur (sor ou vil) " + i + " :  ");
             id = ReadConsole.next();
             switch(id){
      	   
@@ -203,7 +203,7 @@ public class Partie {
         else if (addBot.equals("n")){
             //lancer partie
         	Iterator<Joueur> itJ = joueurs.iterator();
-			//on affiche les joueurs ayant leur carte encore secr�te et pas notre joueur
+			//on affiche les joueurs ayant leur carte encore secràte et pas notre joueur
 			while(itJ.hasNext()) {
 				Joueur J=itJ.next();
 				System.out.println("index : " + joueurs.indexOf(J) + "  Joueur : " + J.getNom());
@@ -224,7 +224,7 @@ public class Partie {
     	Scanner scanner = new Scanner(System.in);
     	int choix=0;
     	boolean ScoredeFin=false; //true=qqun a plus de 5points, false l'inverse
-    	int nbJrevel; //pour compter le nombre de joueur ayant une carte identit� revel�
+    	int nbJrevel; //pour compter le nombre de joueur ayant une carte identité revelà
     	String id, effet;
     	int[] restrictChoix=new int[6];
     	int restrict=0;
@@ -237,10 +237,10 @@ public class Partie {
     	//ArrayList<Joueur> listJ;
     	//listJ=joueurs;
     	int tailleJ=listJ.size();
-		Iterator<Joueur> it = listJ.iterator(); //liste des joueurs compl�te
+		Iterator<Joueur> it = listJ.iterator(); //liste des joueurs complàte
 		Iterator<Joueur> itA = listJ.iterator(); //liste des joueurs pour accusation (differente car on utulise l'autre dans le while)
 			
-		//D�but d'un round
+		//Dàbut d'un round
 		//Initialisation du paquet de carte
 	    
 	    int i;
@@ -251,25 +251,23 @@ public class Partie {
 	    boolean overideAccuse=false;
 	    
 	    it = listJ.iterator();
-    	//on affiche les joueurs ayant leur carte encore secr�te et pas notre joueur
+    	//on affiche les joueurs ayant leur carte encore secràte et pas notre joueur
     	while(it.hasNext()) {
     		Joueur G=it.next();
     		G.setEtatjeu(true);
 			G.setEtatcarte(false);
     		System.out.println("Joueur:" + G.getNom() + "  Score : " + G.getScore());
 
-            System.out.println("\tIdentit� du joueur" + G.getNom() + " pour ce round (sor ou vil) :  ");
+            System.out.println("\tidentité du joueur" + G.getNom() + " pour ce round (sor ou vil) :  ");
             id = ReadConsole.next();
             switch(id){
      	   
             case "sor": 
-                System.out.println("Bonjour");
                 System.out.println("SORCIERE ");
                 G.setIdentite(true);
                 break;
         
             case "vil":
-                System.out.println("Hello");
                 System.out.println("\t Villageois ");
                 G.setIdentite(false);
                 break;
@@ -285,17 +283,17 @@ public class Partie {
 	    distribuerCartes(tailleJ, listJ, jeuActu, deffausseGen);
     	
 	    it = listJ.iterator();
-	    nbJrevel=listJ.size(); //les cartes identit� sont du nombre de joueur dans la liste
+	    nbJrevel=listJ.size(); //les cartes identité sont du nombre de joueur dans la liste
 	    System.out.println("******\n nombre de cartes non revele : " + nbJrevel);
 	        
-	    while(nbJrevel>1) //un round ne s'arrete que lorsque 1 personne a encore sa carte identit� cach�
+	    while(nbJrevel>1) //un round ne s'arrete que lorsque 1 personne a encore sa carte identité cachà
 	    {
 	    	
 	    	System.out.println("******\n nombre de cartes non revele : " + nbJrevel);
 	    	Joueur jActu=listJ.get(index);
 	    	System.out.println("\n\n\n******************:");
-	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index + "  Status identit� : " + jActu.isIdentite() + "  Score : " + jActu.getScore());
-	        System.out.println("Taille d�ffausse personnelle :" + jActu.getDefausse().size() + "  D�ffauseGloble : " + deffausseGen.size());
+	        System.out.println("Joueur actuel :" + jActu.getNom() + "  Index dans list : " +index + "  Status identité : " + jActu.isIdentite() + "  Score : " + jActu.getScore());
+	        System.out.println("Taille déffausse personnelle :" + jActu.getDefausse().size() + "  déffausseGloble : " + deffausseGen.size());
 	        //Afficher les cartes en mains :
 	        System.out.println("Vos carte en main :");
 	        Iterator<Carte> main = jActu.getMain().iterator();
@@ -304,7 +302,7 @@ public class Partie {
 	        	Carte C=main.next();
 	        	System.out.println(C.getNom());
 	        }
-	        System.out.println("\nVos cartes r�v�l�s :");
+	        System.out.println("\nVos cartes révélés :");
 	        while(deffausse.hasNext()) {
 	        	Carte C=deffausse.next();
 	        	System.out.println(C.getNom());
@@ -324,7 +322,7 @@ public class Partie {
 	        	}	
 	        }
 	        if(overideAccuse==true || jActu.getMain().size()==0) {
-	        	System.out.println("\nPlus de carte possible � jouer, vous accusez qqun ! :");
+	        	System.out.println("\nPlus de carte possible à jouer, vous accusez qqun ! :");
 	        	choix=1;
 	        }
 	        else {choix=jActu.actionTour();}
@@ -355,7 +353,7 @@ public class Partie {
 			//Accuser joueur
 			System.out.println("Liste de joueurs accusable :");
 			itA = listJ.iterator();
-			//on affiche les joueurs ayant leur carte encore secr�te et pas notre joueur
+			//on affiche les joueurs ayant leur carte encore secràte et pas notre joueur
 			while(itA.hasNext()) {
 				Joueur A=itA.next();
 				if(A.getEtatcarte()==false && listJ.indexOf(A)!=index) {
@@ -364,7 +362,7 @@ public class Partie {
 				System.out.println("index : " + listJ.indexOf(A) + "Joueur : " + A.getNom());} 
 			}
 			//Choisir qui accuser
-			System.out.println("\nChoississez le joueur � accuser : ");
+			System.out.println("\nChoississez le joueur à accuser : ");
 			Joueur Jaccuser=jActu.choisirVictime(restrictChoix, listJ);
 			index2=listJ.indexOf(Jaccuser);
 			
@@ -407,7 +405,7 @@ public class Partie {
 	        else {choix3=Jaccuser.repondreAccu();}
 	        overideAccuse=false;*/
     		
-			//r�pondre accusation
+			//ràpondre accusation
 			
 	        overideAccuse=true;
 	        main = Jaccuser.getMain().iterator();
@@ -420,42 +418,42 @@ public class Partie {
 	        	}	
 	        }
 	        if(overideAccuse==true || Jaccuser.getMain().size()==0) {
-	        	System.out.println("\nPlus de carte possible � jouer, vous r�v�lez votre identit� !!! :");
+	        	System.out.println("\nPlus de carte possible à jouer, vous révélez votre identité !!! :");
 	        	choix3=1;
 	        }
 	        else {choix3=Jaccuser.repondreAccu();}
 	        
-			/*System.out.println("Choississez le joueur � accuser (sauf vous meme numero : " + index + " )");
+			/*System.out.println("Choississez le joueur à accuser (sauf vous meme numero : " + index + " )");
 			index2=scanner.nextInt();
 			Joueur Jaccuser = listJ.get(index2);
-			System.out.println("Joueur : "+ Jaccuser.getNom() + ", vous etes accus�.");
-			System.out.println("Choississez si vous r�v�lez votre identit� : 0 non et 1 oui");*/
+			System.out.println("Joueur : "+ Jaccuser.getNom() + ", vous etes accusé.");
+			System.out.println("Choississez si vous révélez votre identité : 0 non et 1 oui");*/
 			//int choix3=scanner.nextInt();
 				
 					
 			if(choix3==1) {
-				if(Jaccuser.isIdentite()==true) { //si le joueur accus� est une sorciere
-					System.out.println("Le joueur : " + Jaccuser.getNom() + "accus� est une sorciere !");
-					System.out.println("Le joueur accus� " + Jaccuser.getNom() + " est exclus du round !");
-					System.out.println("Le joueur qui a accus� gagne 1 point. Il rejout !");
+				if(Jaccuser.isIdentite()==true) { //si le joueur accusé est une sorciere
+					System.out.println("Le joueur : " + Jaccuser.getNom() + "accusé est une sorciere !");
+					System.out.println("Le joueur accusé " + Jaccuser.getNom() + " est exclus du round !");
+					System.out.println("Le joueur qui a accusé gagne 1 point. Il rejout !");
 					//Comme il rejout, index ne change pas pour qu'il reprenne la main lors du prochain tour de boucle
 					//listJ.remove(index2);
 					Jaccuser.setEtatjeu(false);
 					Jaccuser.setEtatcarte(true);
-					nbJrevel=nbJrevel-1; //Parmi la totalit� des joueurs, 1 a r�v�l� sa carte
-					listJ.set(index2, Jaccuser); //on met � jour dans listJ
+					nbJrevel=nbJrevel-1; //Parmi la totalità des joueurs, 1 a révélé sa carte
+					listJ.set(index2, Jaccuser); //on met à jour dans listJ
 					jActu.setScore(1);
 				}
 				else {
-				System.out.println("Le joueur accus� � index   " + index2 + Jaccuser.getNom() +  "   est un villageois !");
-				System.out.println("Le joueur accus� reprend la main (commence le prochain tour) !");
+				System.out.println("Le joueur accusé à index   " + index2 + Jaccuser.getNom() +  "   est un villageois !");
+				System.out.println("Le joueur accusé reprend la main (commence le prochain tour) !");
 				System.out.println("Personne ne gagne ou perd de points !");
-				//comme il reprend la main l'index du joueur accus� devient l'index qui sera utilis� pour le d�but de boucle
-				//faire en sorte que Jaccuser soit le bon en recommen�ant la boucle
+				//comme il reprend la main l'index du joueur accusé devient l'index qui sera utilisà pour le dàbut de boucle
+				//faire en sorte que Jaccuser soit le bon en recommenàant la boucle
 				overideJoueur=true;
 				Jaccuser.setEtatcarte(true);
 				nbJrevel=nbJrevel-1;
-				listJ.set(index2, Jaccuser); //on met � jour dans listJ
+				listJ.set(index2, Jaccuser); //on met à jour dans listJ
 					
 				}
 			}
@@ -472,11 +470,11 @@ public class Partie {
 		        		
 		        		jouable=false;
 		        	System.out.println("Les cartes jouables sont : \n");
-		        	System.out.println(C.getNom() + "� index :  "+ Jaccuser.getMain().indexOf(C));
+		        	System.out.println(C.getNom() + " à index :  "+ Jaccuser.getMain().indexOf(C));
 		        	restrictChoix[restrict]=Jaccuser.getMain().indexOf(C);
 					restrict++;}
 		        	else {
-		        		System.out.println("Carte injouable :  " +C.getNom() + "� index :  "+ Jaccuser.getMain().indexOf(C));
+		        		System.out.println("Carte injouable :  " +C.getNom() + "à index :   "+ Jaccuser.getMain().indexOf(C));
 		        	}
 		        }
 		        System.out.println("Choississez votre action : entrer l'index de la carte que vous souhaitez jouer");
@@ -501,7 +499,7 @@ public class Partie {
 					listJ.set(index2, Jaccuser);
 				}
 				else if(indextemp==index) {
-					//Jaccuser a �t� modifi� en appelant la fonction mais pas accusateur qui est dans Jtemp 
+					//Jaccuser a àtà modifià en appelant la fonction mais pas accusateur qui est dans Jtemp 
 					//Utile pour Hooked nose
 					overideJoueur=true;
 					jActu=Jtemp;
@@ -525,7 +523,7 @@ public class Partie {
 		        	if(jouable==true) {
 		        		jouable=false;
 		        	System.out.println("Les cartes jouables sont : \n");
-		        	System.out.println(C.getNom() + "� index :  "+ jActu.getMain().indexOf(C));
+		        	System.out.println(C.getNom() + " à index :  "+ jActu.getMain().indexOf(C));
 		        	restrictChoix[restrict]=jActu.getMain().indexOf(C);
 					restrict++;}
 		        }
@@ -558,17 +556,17 @@ public class Partie {
 				//int choixcarte=scanner.nextInt();
 				System.out.println("Carte choisi : " + jActu.getMain().get(choixcarte).getNom());
 				//on appel la carte et utiliser ces fonctions
-				jActu.jouerCarte(jActu.getMain().get(choixcarte)); //dans joueur, compl�ter la fonction en fonction de la carte
+				jActu.jouerCarte(jActu.getMain().get(choixcarte)); //dans joueur, complàter la fonction en fonction de la carte
 				//dans la fonction au dessus, je met la carte dans la deffausse du joueur*/
 								
 				//on retire la carte de la main du joueur
 				//jActu.getMain().remove(jActu.getMain().get(choixcarte));
 			}
 			
-			//on remplace le joueur qu'on a pris avec les valeur de joueur actuelle, par exemple pour chang� score
+			//on remplace le joueur qu'on a pris avec les valeur de joueur actuelle, par exemple pour changà score
 			listJ.set(index, jActu);
 			
-			//Si Joueur suivant chang�, on affecte la valeur de son index2 � l'index.
+			//Si Joueur suivant changà, on affecte la valeur de son index2 à l'index.
 			if(overideJoueur==true) {
 				index=index2;
 				overideJoueur=false;
@@ -591,24 +589,24 @@ public class Partie {
 	        	
 	        }//fin boucle round avec condition le nbcarterevel
 	    
-	        //V�rifier point de joueur et mettre si ScoredeFin=true ou false
+	        //Vàrifier point de joueur et mettre si ScoredeFin=true ou false
 	    	it = listJ.iterator();
-	    	//on affiche les joueurs ayant leur carte encore secr�te et pas notre joueur
+	    	//on affiche les joueurs ayant leur carte encore secràte et pas notre joueur
 	    	while(it.hasNext()) {
 	    		Joueur G=it.next();
 	    		if(G.getEtatcarte()==false) {
-	    			System.out.println("index : " + listJ.indexOf(G) + "Joueur : " + G.getNom() + "est le dernier a avoir sa carte identit� secr�te");
+	    			System.out.println("index : " + listJ.indexOf(G) + "Joueur : " + G.getNom() + "est le dernier a avoir sa carte identité secràte");
 	    			if(G.isIdentite()==true) {
-	    				System.out.println("Son identit� est : sorci�re, il gagne 2 points");
+	    				System.out.println("Son identité est : sorcière, il gagne 2 points");
 	    				G.setScore(2);
 	    			}
 	    			else {
-	    				System.out.println("Son identit� est : villageois. Il gagne 1 points");
+	    				System.out.println("Son identité est : villageois. Il gagne 1 points");
 	    				G.setScore(1);
 	    			}
 	    			listJ.set(listJ.indexOf(G), G);
 	    		}
-	    		//On r�nitialise les jours et on vide leur main
+	    		//On rànitialise les jours et on vide leur main
 	    		G.setEtatjeu(true);
 	    		G.setEtatcarte(false);
 	    		LinkedList<Carte> m1=G.getMain();
@@ -626,7 +624,7 @@ public class Partie {
 	    			deffG.remove(cr);
 	    		}*/
 		}
-	    	//V�rifier point de joueur et mettre si ScoredeFin=true ou false
+	    	//Vàrifier point de joueur et mettre si ScoredeFin=true ou false
 	    	it = listJ.iterator();
 	    	while (it.hasNext()) {
 				Joueur j = (Joueur) it.next();
