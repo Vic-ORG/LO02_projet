@@ -177,15 +177,15 @@ public class Partie {
     	int nbJrevel; //pour compter le nombre de joueur ayant une carte identité revelà
     	String id, effet;
     	int[] restrictChoix=new int[6];
-    	ArrayList<Integer> restrictRevel = new ArrayList<>(); 
+    	//ArrayList<Integer> restrictRevel = new ArrayList<>(); 
     	//int[] restrictRevel=new int[6];
     	int restrict=0;
     	LinkedList<Carte> deffausseGen = new LinkedList<Carte>();
     	boolean jouable=false;
-    	int opt;
-    	boolean overRevel1=false;
-    	boolean overRevel2=false;
-    	Iterator<Integer> revelindex = restrictRevel.iterator();
+    	//int opt;
+    	//boolean overRevel1=false;
+    	//boolean overRevel2=false;
+    	//Iterator<Integer> revelindex = restrictRevel.iterator();
     	
     	//ArrayList<Joueur> listJ;
     	//listJ=joueurs;
@@ -351,7 +351,7 @@ public class Partie {
 					Jaccuser.setEtatjeu(false);
 					Jaccuser.setEtatcarte(true);
 					nbJrevel=nbJrevel-1; //Parmi la totalità des joueurs, 1 a révélé sa carte
-					restrictRevel.add(index2);
+					//restrictRevel.add(index2);
 					listJ.set(index2, Jaccuser); //on met à jour dans listJ
 					jActu.setScore(1);
 				}
@@ -364,7 +364,7 @@ public class Partie {
 				overideJoueur=true;
 				Jaccuser.setEtatcarte(true);
 				nbJrevel=nbJrevel-1;
-				restrictRevel.add(index2);
+				//restrictRevel.add(index2);
 				listJ.set(index2, Jaccuser); //on met à jour dans listJ
 					
 				}
@@ -446,7 +446,19 @@ public class Partie {
 				Joueur Jtemp=jActu.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse, nbJrevel);
 				indextemp=listJ.indexOf(Jtemp);
 				
-				if(restrictRevel.size()>0) {
+				int nbJrevel2=0;
+				Iterator<Joueur> itJrevel=listJ.iterator();
+				while(itJrevel.hasNext()) {
+					Joueur J=itJrevel.next();
+					if(J.getEtatcarte()==false) {
+						nbJrevel2++;
+					}
+				}
+				if(nbJrevel2<nbJrevel) {
+					nbJrevel=nbJrevel2;
+				}
+				
+				/*if(restrictRevel.size()>0) {
 					revelindex = restrictRevel.iterator();
 					while(revelindex.hasNext()) {
 						int opt2 = revelindex.next();
@@ -476,7 +488,7 @@ public class Partie {
 				else if(restrictRevel.size()==0 && Jtemp.getEtatcarte()==true) {
 					nbJrevel--;
 					restrictRevel.add(indextemp);
-				}
+				}*/
 				/*if(jActu.getEtatcarte()==true || Jtemp.getEtatcarte()==true) {
 					nbJrevel--;
 				}*/
