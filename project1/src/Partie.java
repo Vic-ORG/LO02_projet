@@ -121,6 +121,21 @@ public class Partie {
         }
 
     }
+	
+	public int strategie() {
+    	int chxb=1;
+    	double x;
+    	x=Math.random();
+    	if(x<=0.5) {
+    		chxb=0;
+    		System.out.println("Bot mode aléatoire ");
+    	}
+    	else {
+    		chxb=1;
+    		System.out.println("Bot mode agressif ");
+    	}
+    	return chxb;
+    }
 
     public void initGame() {
         int nbJoueur = 0;
@@ -146,7 +161,8 @@ public class Partie {
             for(i=1; i<=nbBot; i++) {
             	System.out.println("\tNom du Bot " + i + " :  ");
                 nom = ReadConsole.next();
-                ajouterJoueur(new Bot(nom, false, true, false, 0, 0));
+                int chstrateg=strategie();
+                ajouterJoueur(new Bot(nom, false, true, false, 0, chstrateg));
                 //joueurs.add(new Bot(nom, false, true, false, 0, 0));
                 //Bot.add(new Bot(nom, true, false, 0, 0));
             	}
@@ -286,7 +302,7 @@ public class Partie {
 	        		overideAccuse=false;
 	        	}	
 	        }
-	        if(overideAccuse==true || jActu.getMain().size()==0) {
+	        if(overideAccuse==true || jActu.getMain().size()==0 || jActu.getStrategie()==1 ) {
 	        	System.out.println("\nPlus de carte possible à jouer, vous accusez qqun ! :");
 	        	choix=1;
 	        }

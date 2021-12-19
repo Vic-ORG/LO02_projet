@@ -8,9 +8,11 @@ import java.util.Random;
 import cartes.Carte;
 
 public class Bot extends Joueur {
+	private int strategie; //0 : aleatoire, 1 : agressif
 
     public Bot(String nom, boolean etatCarte, boolean etatJeu, boolean identite, int score, int strategie) {
         super(nom, etatCarte, etatJeu, identite, score);
+        this.strategie=strategie;
         //TODO Auto-generated constructor stub
     }
     
@@ -29,7 +31,17 @@ public class Bot extends Joueur {
     	return chxb;
     }
     
-    public int actionTour() {
+    
+    
+    public int getStrategie() {
+		return strategie;
+	}
+
+	public void setStrategie(int strategie) {
+		this.strategie = strategie;
+	}
+
+	public int actionTour() {
     	int chxb=1;
     	double x;
     	x=Math.random();

@@ -30,6 +30,9 @@ public class Joueur {
     }
     
     //------------------------------------
+    public int getStrategie() {
+    	return 3;
+    }
     
     public LinkedList<Carte> getMain(){
     	return this.main;
