@@ -312,11 +312,10 @@ public class Partie {
 	        jouable=false;
 	        
 	        
-	        
 				
 			if(choix==1) {
 			//Accuser joueur
-			System.out.println("Liste de joueurs accusable :");
+			System.out.println("Liste des joueurs accusable :");
 			itA = listJ.iterator();
 			//on affiche les joueurs ayant leur carte encore secràte et pas notre joueur
 			while(itA.hasNext()) {
