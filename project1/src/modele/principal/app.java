@@ -1,8 +1,8 @@
-import joueurs.Joueur;
-
-
+package modele.principal;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import modele.joueurs.Joueur;
 
 //import cartes.JeuCarte;
 //import java.util.Scanner;

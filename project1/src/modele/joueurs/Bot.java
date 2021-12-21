@@ -1,11 +1,11 @@
-package joueurs;
+package modele.joueurs;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
-import cartes.Carte;
+import modele.cartes.Carte;
 
 public class Bot extends Joueur {
 	private int strategie; //0 : aleatoire, 1 : agressif

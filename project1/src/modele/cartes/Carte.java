@@ -1,6 +1,7 @@
-package cartes;
-import joueurs.*;
+package modele.cartes;
 import java.util.*;
+
+import modele.joueurs.*;
 
 
 public class Carte {

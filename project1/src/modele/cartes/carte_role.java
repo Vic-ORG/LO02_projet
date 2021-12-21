@@ -1,4 +1,4 @@
-package cartes;
+package modele.cartes;
 
 public class carte_role extends Carte{
     public carte_role(String typeo, String nom) {

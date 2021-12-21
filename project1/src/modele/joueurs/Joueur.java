@@ -1,10 +1,9 @@
-package joueurs;
-import cartes.Carte;
-
+package modele.joueurs;
 import java.util.*;
 //import java.util.stream.IntStream;
 
-import cartes.carte_role;
+import modele.cartes.Carte;
+import modele.cartes.carte_role;
 
 
 public class Joueur {

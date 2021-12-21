@@ -1,3 +1,4 @@
+package modele.principal;
 //import cartes.*;
 
 //import joueurs.*;
@@ -6,10 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-import cartes.Carte;
-import cartes.JeuCarte;
-import joueurs.Bot;
-import joueurs.Joueur;
+import modele.cartes.Carte;
+import modele.cartes.JeuCarte;
+import modele.joueurs.Bot;
+import modele.joueurs.Joueur;
 
 public class Partie {
 	

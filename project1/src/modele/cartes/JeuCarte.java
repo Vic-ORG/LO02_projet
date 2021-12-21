@@ -1,4 +1,4 @@
-package cartes;
+package modele.cartes;
 //import cartes.Carte;
 
 
