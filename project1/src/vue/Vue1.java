@@ -1,6 +1,9 @@
 package vue;
 
-import modele.*;
+//import modele.cartes.*;
+//import modele.joueurs.*;
+//import modele.principal.Partie;
+
 
 import java.awt.EventQueue;
 

@@ -1,6 +1,7 @@
 package controlleur;
 
-import modele.*;
+//import modele.*;
+
 import modele.principal.Partie;
 
 import java.awt.event.ActionEvent;
