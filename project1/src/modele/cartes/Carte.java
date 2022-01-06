@@ -4,10 +4,18 @@ import java.util.*;
 import modele.joueurs.*;
 
 
+/**Classe carte et des actions que l'on peut faire avec
+ * @author victo
+ *
+ */
 public class Carte {
 	String typeo;
 	String nom;
 	
+	/**Constructeur
+	 * @param typeo
+	 * @param nom
+	 */
 	public Carte(String typeo, String nom) {
 		this.typeo=typeo;
 		this.nom=nom;
@@ -31,6 +39,13 @@ public class Carte {
 		this.nom = nom;
 	}
     
+	/** Vérifie si carte est jouable ou non. 
+	 * Est appelé par une carte. Le nom de cette carte sert d'entrer dans le switch
+	 * @param effet witch ou hunt
+	 * @param jAc le joueur Actuel
+	 * @param listJ la liste de joueur Arraylist
+	 * @return un boolean (si la carte est joable ou nom
+	 */
 	public boolean jouabiliteCarte(String effet, Joueur jAc, ArrayList<Joueur> listJ) {
 		boolean temp=false;
 		switch(this.getNom()){

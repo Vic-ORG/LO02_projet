@@ -10,12 +10,24 @@ import modele.cartes.Carte;
 public class Bot extends Joueur {
 	private int strategie; //0 : aleatoire, 1 : agressif
 
+    /**Constructeur
+     * @param nom nom du joeur
+     * @param etatCarte si identité révélé
+     * @param etatJeu si hors jeu ou non (sorciere révélé par exemple)
+     * @param identite (soricere ou villageois)
+     * @param score compte le score du jour
+     * @param strategie 0 aleatoire et 1 pour aggressif
+     */
     public Bot(String nom, boolean etatCarte, boolean etatJeu, boolean identite, int score, int strategie) {
         super(nom, etatCarte, etatJeu, identite, score);
         this.strategie=strategie;
         //TODO Auto-generated constructor stub
     }
     
+    
+    /**FOnction aléatoire pour le choix d'identité du joueur bot
+     * @return un entier qui définit si il est villageois ou sorciere
+     */
     public int choisirRole() {
     	int chxb=1;
     	double x;
@@ -33,14 +45,24 @@ public class Bot extends Joueur {
     
     
     
+    /** Fonction donnant la statégie du bot pour cette partie
+     * @return un entier qui donne la stratégie de la partie du bot
+     */
     public int getStrategie() {
 		return strategie;
 	}
 
+	/**Fonction permettant de définir la stratégie du bot
+	 * @param strategie (entier qui dit si le bot est aléatoire ou aggressif)
+	 */
 	public void setStrategie(int strategie) {
 		this.strategie = strategie;
 	}
 
+	/**Fonction permettant de définir l'action pour ce tour du bot
+	 *Est toujours utilisé dans le cas des bot aléatoire
+	 *Les aggressifs n'ont pas le choix, ils accusent direct
+	 */
 	public int actionTour() {
     	int chxb=1;
     	double x;
@@ -56,6 +78,11 @@ public class Bot extends Joueur {
     	return chxb;
     }
     
+    /** Permet de sélectionner un joueur parmi une liste donné en parametre
+     *@param restrictChoix : est un tableau de valeur d'entier ne contenant que les valeurs des joueurs sélectionnable
+     *@param listJ : liste de Joueur de la partie (ArrayList)
+     *@return un joueur
+     */
     public Joueur choisirVictime(int[] restrictChoix, ArrayList<Joueur> listJ) {
     	Random rand = new Random();
     	int index2=0;
@@ -72,6 +99,9 @@ public class Bot extends Joueur {
     	
     }
     
+    /**Fonction permettant de réagir face à une accusation (aléatoire)
+     *@return un entier définnant l'action pour répondre à l'accusation
+     */
     public int repondreAccu() {
     	System.out.println("Joueur : "+ this.getNom() + ", vous etes accusé.");
     	System.out.println("Choississez si vous révélez votre identité : 0 non et 1 oui");
@@ -90,6 +120,11 @@ public class Bot extends Joueur {
 		return choix3;
 		}
     
+    /**Fonction permettant de choisir une carte de manière aléatoire parmi carte jouable
+     @param restrictChoix : est un tableau de valeur d'entier ne contenant que les valeurs des cartes sélectionnable
+     *@param listCd : liste de carte de la partie (ArrayList)
+     *@return une carte
+     */
     public Carte choisirCarte(int[] restrictChoix, LinkedList<Carte> listCd) {
     	Random rand = new Random();
     	
@@ -108,6 +143,18 @@ public class Bot extends Joueur {
     	
     }
     
+    /** Fonction permettant au bot de joueur une carte
+     * @param carteChoisi : carte sélectionné par le joueur
+     * @param effet : si la carte choisi est joué en hunt ou witch
+     * @param listJ : liste de Joueur de la partie
+     * @param indexActu : entier indiquant l'index du joueur actuel dans la liste listJ
+     * @param indexdelautre : entier indiquant l'index d'un autre joueur concerné par la carte (exemple accusé)
+     * @param deffausseGeneral : liste de carte de la défausse commune à tous
+     * @param overideAccuse : permet de savoir s'il faut forcer l'accusation au prochain tour
+     * @param nbJrevel : nombre de carte identité révélé au cours de la partie
+     * @return un Joueur
+     *
+     */
     public Joueur jouerCarte(Carte carteChoisi, String effet, ArrayList<Joueur> listJ, int indexActu, int indexdelautre, LinkedList<Carte> deffausseGeneral, boolean overideAccuse, int nbJrevel) {
     	//derniereCarteJouee = carteChoisi;
     	Iterator<Joueur> itfct;
