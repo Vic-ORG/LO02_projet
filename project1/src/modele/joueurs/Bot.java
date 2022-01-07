@@ -7,6 +7,10 @@ import java.util.Random;
 
 import modele.cartes.Carte;
 
+/**Classe Bot qui hérite de classe Joueur
+ * @author victo
+ *
+ */
 public class Bot extends Joueur {
 	private int strategie; //0 : aleatoire, 1 : agressif
 

@@ -25,6 +25,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import controlleur.*;
 
+/**Classe Vue graphique 1 début de jeu
+ * @author victo
+ *
+ */
 public class Vue1 implements Observer {
 
 	private JFrame frame;
@@ -34,6 +38,8 @@ public class Vue1 implements Observer {
 
 	/**
 	 * Launch the application.
+	 * @param args du main
+	 * @throws Exception exception
 	 */
 	public static void main(String[] args) throws Exception  {
 		Partie partieV = new Partie();
@@ -103,6 +109,7 @@ public class Vue1 implements Observer {
 
 	/**
 	 * Create the application.
+	 * @param partieF partie crée et du moment
 	 */
 	public Vue1(Partie partieF) {
 		initialize();
@@ -131,6 +138,10 @@ public class Vue1 implements Observer {
 		frame.getContentPane().add(btnStart, BorderLayout.WEST);
 	}
 
+	/**
+	 *@param o o
+	 *@param arg arg
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub

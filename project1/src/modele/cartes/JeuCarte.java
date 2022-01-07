@@ -9,6 +9,9 @@ import java.util.*;
  *
  */
 public class JeuCarte {
+	/**nombre de carte fixe du jeu
+	 * 
+	 */
 	public final static int NOMBRE_DE_CARTES = 12;
 	private LinkedList<Carte> tasDeCartes;
 	
@@ -46,7 +49,7 @@ public class JeuCarte {
 	
 	/**Prendre la carte du dessus du paquet
 	 * Pas de parametre
-	 * 
+	 * @return la carte du dessus du tas
 	 */
 	public Carte tirerCarteDuDessus() {
 		return tasDeCartes.pop();

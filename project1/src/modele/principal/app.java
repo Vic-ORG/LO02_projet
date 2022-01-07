@@ -4,12 +4,18 @@ import java.util.Iterator;
 
 import modele.joueurs.Joueur;
 
+
+
 //import cartes.JeuCarte;
 //import java.util.Scanner;
 //import cartes.*;
+/**Classe de l'application console
+ * @author victo
+ *
+ */
 public class app {
 	
-    /*public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
     	//boolean overideJoueur=false;
     	//Scanner scanner = new Scanner(System.in);
     	//int choix;
@@ -48,7 +54,7 @@ public class app {
 			}
 		System.out.println("Gagnant : " + gagnant.getNom());
 		}
-    }*/
+    }
     }
 			
 			

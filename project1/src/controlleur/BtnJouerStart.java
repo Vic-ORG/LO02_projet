@@ -9,10 +9,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+/**Classe bouton controlleur pour démarrer jeu console
+ * @author victo
+ *
+ */
 public class BtnJouerStart {
 	
 	private JButton unBouton;
 
+	/**bouton à appuyer et son action
+	 * @param partieT partie en cours à affecter
+	 * @param bouton le bouton en question à agir dessus
+	 */
 	public BtnJouerStart(Partie partieT, JButton bouton) {
 		// TODO Auto-generated constructor stub
 		unBouton=bouton;

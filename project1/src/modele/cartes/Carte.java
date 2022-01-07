@@ -13,8 +13,8 @@ public class Carte {
 	String nom;
 	
 	/**Constructeur
-	 * @param typeo
-	 * @param nom
+	 * @param typeo string
+	 * @param nom string
 	 */
 	public Carte(String typeo, String nom) {
 		this.typeo=typeo;
@@ -23,18 +23,30 @@ public class Carte {
 	}
     private boolean type;
 
+    /**
+     * @return boolean
+     */
     public boolean isType() {
         return type;
     }
 
+    /**
+     * @param type boolean
+     */
     public void setType(boolean type) {
         this.type = type;
     }
 
+	/**obtenir le nom de la carte
+	 * @return string le nom
+	 */
 	public String getNom() {
 		return nom;
 	}
 
+	/**définir le nom d'une carte
+	 * @param nom string
+	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}

@@ -6,6 +6,11 @@ import modele.cartes.Carte;
 import modele.cartes.carte_role;
 
 
+/**Classe Joueur (définition et ses actions)
+ * @author victo
+ *
+ */
+
 public class Joueur {
     private String nom;
     private boolean etatCarte; //true=idendità revelà, false = identité encore secràte
@@ -18,6 +23,13 @@ public class Joueur {
     
     private Carte derniereCarteJouee;
 
+    /** Constructeur classe Joueur
+     * @param nom : celui du joeur pour la partie
+     * @param etatCarte : révélé ou non
+     * @param etatJeu : hors jeu ou non (exemple sorciere révélé)
+     * @param identite soricere ou villageois
+     * @param score : celui de la partie en cours
+     */
     public Joueur(String nom, boolean etatCarte, boolean etatJeu, boolean identite, int score) {
         this.nom = nom;
         this.etatCarte = etatCarte;
@@ -29,22 +41,37 @@ public class Joueur {
     }
     
     //------------------------------------
+    /** Surement inutile
+     * @return 3
+     */
     public int getStrategie() {
     	return 3;
     }
     
+    /**Fonction permettant d'obtenir les cartes en main du joueur appelant la fonction
+     * @return liste des cartes en main
+     */
     public LinkedList<Carte> getMain(){
     	return this.main;
     }
     
+    /**Fonction permettant d'obtenir les cartes joué et révélé du joueur appelant la fonction
+     * @return liste des cartes joué et révélé du joueur appelant la fonction
+     */
     public LinkedList<Carte> getDefausse(){
     	return this.defausse;
     }
     
+    /** FOnction ajoutant une carte à la main du joueur
+     * @param carte carte à ajouté à la main du joueur
+     */
     public void prendreCarte(Carte carte) {
     	main.add(carte);
     }
     
+    /**Fonction permettant de choisir en entrant un entier dans la console le role du joueur
+     * @return entier qui permet de savoir si sorciere ou villageois
+     */
     public int choisirRole() {
     	int chx;
     	Scanner scannerfct = new Scanner(System.in);
@@ -54,6 +81,9 @@ public class Joueur {
     	return chx;
     }
     
+    /**Fonction permettant de choisir l'action à réaliser pour ce tour en entrant un entier dans la console)
+     * @return entier déterminant l'action de ce tour
+     */
     public int actionTour() {
     	int chx;
     	Scanner scannerfct = new Scanner(System.in);
@@ -63,6 +93,11 @@ public class Joueur {
     	return chx;
     }
     
+    /**Fonction pour viser un joueur pour une action (accusation, choisir prochain joueur,...)
+     * @param restrictChoix : tableau d'entier correspondant aux entier parmi lesquels choisir.
+     * @param listJ : liste des joueurs de la partie
+     * @return le joueur sélectionné
+     */
     public Joueur choisirVictime(int[] restrictChoix, ArrayList<Joueur> listJ) {
     	Scanner scannerfct = new Scanner(System.in);
     	int indexchoisi=0;
@@ -80,6 +115,11 @@ public class Joueur {
     	
     }
     
+    /** FOnction permettant de choisir une carte parmis celle en main
+     * @param restrictChoix : tableau d'entier correspondant aux entier parmi lesquels choisir.
+     * @param listCd : liste de carte
+     * @return la carte choisi
+     */
     public Carte choisirCarte(int[] restrictChoix, LinkedList<Carte> listCd) {
     	Scanner scannerfct = new Scanner(System.in);
     	int indexchoisi=0;
@@ -97,6 +137,9 @@ public class Joueur {
     	
     }
     
+    /**Fonction permettant de réagir face à une accusation en entrant un entier dans la console.
+     * @return entier qui définit l'action à suivre
+     */
     public int repondreAccu() {
     	Scanner scannerfct = new Scanner(System.in);
     	System.out.println("Joueur : "+ this.getNom() + ", vous etes accusé.");
@@ -104,16 +147,27 @@ public class Joueur {
 		int choix3=scannerfct.nextInt();
 		return choix3;
 		}
-    
+    /*
     public int jouerTourSuivant() {
     	
     	
     	return 1;
-    }
+    }*/
     
     
 
     
+    /**Fonction permettant de jouer une carte appelé par un joueur
+     * @param carteChoisi : carte à jouer
+     * @param effet : witch ou hunt
+     * @param listJ : liste de Joueur
+     * @param indexActu : index du joueur actuel
+     * @param indexdelautre : index d'un autre joueur si besoin (exemple accusé)
+     * @param deffausseGeneral : liste des cartes en défausse générale
+     * @param overideAccuse : boolean qui détermine si il faut forcer l'accusation ensuite
+     * @param nbJrevel : nombre de carte identité révélé dans ce round
+     * @return un joueur
+     */
     public Joueur jouerCarte(Carte carteChoisi, String effet, ArrayList<Joueur> listJ, int indexActu, int indexdelautre, LinkedList<Carte> deffausseGeneral, boolean overideAccuse, int nbJrevel) {
     	//derniereCarteJouee = carteChoisi;
     	Iterator<Joueur> itfct;
@@ -758,6 +812,9 @@ public class Joueur {
     	
     	}
     	
+    /**
+     * @return la dernieère carte joué
+     */
     public Carte derniereCarteJouee() {
     	return derniereCarteJouee;
     	}
@@ -765,6 +822,9 @@ public class Joueur {
     	
     	
     	
+    	/**Version texte d'un joueur
+    	 *
+    	 */
     	public String toString() {
     		StringBuffer sb = new StringBuffer();
     		sb.append(nom);
@@ -776,48 +836,85 @@ public class Joueur {
     
     //--------------------------
     
+    /**surement inutile
+     * 
+     */
     public Joueur() {
     }
 
+    /**obtenir le nom du joueur
+     * @return string
+     */
     public String getNom() {
         return nom;
     }
 
+    /**obtenir score du joueur
+     * @return entier
+     */
     public int getScore() {
         return score;
     }
 
+    /**définir le score du joueur en augment le score actuel avec la nouvelle valeur
+     * @param score entier
+     */
     public void setScore(int score) {
         this.score = this.score+score;
     }
 
+    /**obtenir identité du joueur
+     * @return boolean
+     */
     public boolean isIdentite() {
         return identite;
     }
 
+    /**Définir identité du joueur
+     * @param identite boolean
+     */
     public void setIdentite(boolean identite) {
         this.identite = identite;
     }
 
     
 
+    /**définir état de la carte identité
+     * @param etatCarte boolean
+     */
     public void setEtatcarte(boolean etatCarte) {
         this.etatCarte = etatCarte;
     }
+    /**obtenir état de jeu du joueur en question
+     * @return boolean
+     */
     public boolean getEtatcarte() {
         return this.etatCarte;
     }
+    /**définir état de jeu du joueur en question
+     * @param etatJeu boolean
+     */
     public void setEtatjeu(boolean etatJeu) {
         this.etatJeu = etatJeu;
     }
+    
+    /**obtenir l'état de jeu du joueur en question
+     * @return boolean
+     */
     public boolean getEtatjeu() {
         return this.etatJeu;
     }
 
+    /**définir nom joueur
+     * @param nom string
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
     
+    /**obtenir résultat
+     * @return entier
+     */
     public int getResultat() {
         return this.resultat;
     }

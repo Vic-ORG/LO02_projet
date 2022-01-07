@@ -5,6 +5,10 @@ package modele.cartes;
  *
  */
 public class carte_role extends Carte{
+    /**constructeur
+     * @param typeo string
+     * @param nom string
+     */
     public carte_role(String typeo, String nom) {
 		super(typeo, nom);
 		// TODO Auto-generated constructor stub
@@ -35,7 +39,7 @@ public class carte_role extends Carte{
     }
 
     /** Mettre le nom de la carte (non utilisé)
-     * @param nomCarte
+     * @param nomCarte string
      */
     public void setNomCarte(String nomCarte) {
         this.nomCarte = nomCarte;

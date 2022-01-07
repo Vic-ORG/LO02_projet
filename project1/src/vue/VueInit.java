@@ -8,6 +8,10 @@ import java.awt.BorderLayout;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+/**Classe supposé être vu grphique de l'initialisation des joueurs
+ * @author victo
+ *
+ */
 public class VueInit {
 
 	private JFrame frame;
@@ -15,6 +19,7 @@ public class VueInit {
 
 	/**
 	 * Launch the application.
+	 * @param args args du main
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

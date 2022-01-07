@@ -12,6 +12,10 @@ import modele.cartes.JeuCarte;
 import modele.joueurs.Bot;
 import modele.joueurs.Joueur;
 
+/**Classe Partie (un round)
+ * @author victo
+ *
+ */
 public class Partie {
 	
 	private ArrayList<Joueur> joueurs;
@@ -24,6 +28,9 @@ public class Partie {
     
     
     
+    /**Constructeur d'une partie
+     * 
+     */
     public Partie() {
     	joueurs = new ArrayList<Joueur>();
     	cartes = new JeuCarte();
@@ -31,21 +38,36 @@ public class Partie {
     	partieEnCours = false;
     	}
     
+    /**Obtenir la liste de joueur de la partie
+     * @return liste de joueur
+     */
     public ArrayList<Joueur> recupListeJ() {
     	return joueurs;
     	
     }
     
+    	/**Ajouter joueur à liste de joueur
+    	 * @param joueur joueur à ajouter
+    	 */
     	public void ajouterJoueur(Joueur joueur) {
     	if (partieEnCours == false) {
     	joueurs.add(joueur);
     	}
     	}
     	
+    	/**Retire joueur de liste de joueur
+    	 * @param joueur joueur à retirer
+    	 */
     	public void retirerJoueur(Joueur joueur) {
     		joueurs.remove(joueur);
     	}
     	
+    	/**Distribuer les cartes entre les joueurs
+    	 * @param tailleJ taille de la liste de joueur
+    	 * @param listJ liste des joueurs de la partie
+    	 * @param jeuActu tas de carte de la partie à distribuer
+    	 * @param deffausseGen liste de la défausse générale
+    	 */
     	public void distribuerCartes(int tailleJ, ArrayList<Joueur> listJ, JeuCarte jeuActu, LinkedList<Carte> deffausseGen) {
     		this.partieEnCours = true;
     		int compt=0;
@@ -76,12 +98,18 @@ public class Partie {
     		
     	
     	
+    	/**Version texte de joueur
+    	 *@return string texte du joueur
+    	 */
     	public String toString() {
     		return joueurs.toString();
     	}
     
     
     //--------------------------------------------------------
+    /**Menu de démarrage console du jeu
+     * @throws FileNotFoundException exception
+     */
     public void menu() throws FileNotFoundException{
     
         int sousmenu = 0;
@@ -113,6 +141,9 @@ public class Partie {
         }
     }
 
+	/**Lire les règles
+	 * @throws FileNotFoundException exception fichier non trouvé
+	 */
 	private static void rule() throws FileNotFoundException{
         File regle = new File("project1\\rules.txt");
         scan = new Scanner(regle);
@@ -123,6 +154,9 @@ public class Partie {
 
     }
 	
+	/**Définir stratégie du bot pour la partie
+	 * @return entier définissant stratégie du bot
+	 */
 	public int strategie() {
     	int chxb=1;
     	double x;
@@ -138,6 +172,9 @@ public class Partie {
     	return chxb;
     }
 
+    /**Initialisation d'une partie (nombre de joueurs, etc...)
+     * 
+     */
     public void initGame() {
         int nbJoueur = 0;
         int nbBot = 0;
@@ -186,6 +223,12 @@ public class Partie {
         
     }
     
+    /**Joueur un round complet (ou manche)
+     * @param listJ liste de joueur
+     * @return un boolean précisant si un score de fin (>5) a été atteint.
+     * @throws InterruptedException exception interruption
+     * @throws IOException exceptionIO
+     */
     public boolean round(ArrayList<Joueur> listJ) throws InterruptedException, IOException {
     	boolean overideJoueur=false;
     	boolean overideJautre=false;
