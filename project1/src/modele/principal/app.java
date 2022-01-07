@@ -15,6 +15,10 @@ import modele.joueurs.Joueur;
  */
 public class app {
 	
+    /**Main de la version console
+     * @param args args du main
+     * @throws Exception exception enc as d'erreur
+     */
     public static void main(String[] args) throws Exception {
     	//boolean overideJoueur=false;
     	//Scanner scanner = new Scanner(System.in);
