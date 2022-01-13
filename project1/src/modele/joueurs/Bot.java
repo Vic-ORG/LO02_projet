@@ -148,6 +148,10 @@ public class Bot extends Joueur {
     }
     
     /** Fonction permettant au bot de joueur une carte
+     * Principe :<br>
+     * La carte choisi par le joueur est envoyé en paramètre ainsi que si il faut la jouer en hunt ou witch<br>
+     * EN fonction du nom de la carte et de l'effet envoyé en paramètre, l'effet est joué.<br><br>
+     * 
      * @param carteChoisi : carte sélectionné par le joueur
      * @param effet : si la carte choisi est joué en hunt ou witch
      * @param listJ : liste de Joueur de la partie

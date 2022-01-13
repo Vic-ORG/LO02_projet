@@ -19,7 +19,7 @@ import modele.joueurs.Joueur;
 public class Partie {
 	
 	private ArrayList<Joueur> joueurs;
-	//private LinkedList<Carte> deffausseG = new LinkedList<Carte>();
+	
 	private JeuCarte cartes;
 	private boolean partieEnCours;
 
@@ -201,8 +201,7 @@ public class Partie {
                 nom = ReadConsole.next();
                 int chstrateg=strategie();
                 ajouterJoueur(new Bot(nom, false, true, false, 0, chstrateg));
-                //joueurs.add(new Bot(nom, false, true, false, 0, 0));
-                //Bot.add(new Bot(nom, true, false, 0, 0));
+                
             	}
             }
         else if (addBot.equals("n")){
@@ -223,7 +222,21 @@ public class Partie {
         
     }
     
-    /**Joueur un round complet (ou manche)
+    /**Joueur un round complet (ou manche)<br>
+     * Principe de la fonction :<br>
+     * On prend la liste de joueurs déjà initialisé précedemment<br>
+     * On leur fait choisir le rôle entre villageois et Sorcière<br>
+     * On distribue les cartes<br>
+     * Tant que le nombre de carte identité encore non révélé des joueurs est supérieur à 1 on continuera les action ci dessous :<br>
+     * Choisir entre accuser ou jouer une carte effet hunt (si pas de carte jouable, accusation forcé)<br>
+     * Si accusation choisi, on choisit un joueur et ce dernier choisit s'il répond ou non en jouant une carte<br>
+     * Si jouer carte hunt est choisi, on choisit une carte et son affet s'applique<br>
+     * On met à jour l'état des joueurs dans la liste de Joueurs<br>
+     * ---Fin Tant que---<br><br>
+     * On vérifie ensuite si joueur à le score suffisant pour ne pas relancer de round<br>
+     * On vide la défausse générale et les mains des joueurs des éléments qui pourrait leur rester<br>
+     * 
+     * 
      * @param listJ liste de joueur
      * @return un boolean précisant si un score de fin (>5) a été atteint.
      * @throws InterruptedException exception interruption
@@ -238,18 +251,11 @@ public class Partie {
     	int nbJrevel; //pour compter le nombre de joueur ayant une carte identité revelà
     	String id, effet;
     	int[] restrictChoix=new int[6];
-    	//ArrayList<Integer> restrictRevel = new ArrayList<>(); 
-    	//int[] restrictRevel=new int[6];
+    	
     	int restrict=0;
     	LinkedList<Carte> deffausseGen = new LinkedList<Carte>();
     	boolean jouable=false;
-    	//int opt;
-    	//boolean overRevel1=false;
-    	//boolean overRevel2=false;
-    	//Iterator<Integer> revelindex = restrictRevel.iterator();
     	
-    	//ArrayList<Joueur> listJ;
-    	//listJ=joueurs;
     	int tailleJ=listJ.size();
 		Iterator<Joueur> it = listJ.iterator(); //liste des joueurs complàte
 		Iterator<Joueur> itA = listJ.iterator(); //liste des joueurs pour accusation (differente car on utulise l'autre dans le while)
@@ -284,22 +290,7 @@ public class Partie {
             	System.out.println("Vous avez choisi Villageois ");
                 G.setIdentite(false);
             }
-            /*id = ReadConsole.next();
-            switch(id){
-     	   
-            case "sor": 
-                System.out.println("SORCIERE ");
-                G.setIdentite(true);
-                break;
-        
-            case "vil":
-                System.out.println("\t Villageois ");
-                G.setIdentite(false);
-                break;
-            default:
-                System.out.println("Choix incorrect");
-                break;
-        	}*/
+            
             listJ.set(listJ.indexOf(G), G);
     	}
 	    
@@ -408,11 +399,11 @@ public class Partie {
 					System.out.println("Le joueur accusé " + Jaccuser.getNom() + " est exclus du round !");
 					System.out.println("Le joueur qui a accusé gagne 1 point. Il rejout !");
 					//Comme il rejout, index ne change pas pour qu'il reprenne la main lors du prochain tour de boucle
-					//listJ.remove(index2);
+					
 					Jaccuser.setEtatjeu(false);
 					Jaccuser.setEtatcarte(true);
 					nbJrevel=nbJrevel-1; //Parmi la totalità des joueurs, 1 a révélé sa carte
-					//restrictRevel.add(index2);
+					
 					listJ.set(index2, Jaccuser); //on met à jour dans listJ
 					jActu.setScore(1);
 				}
@@ -425,7 +416,7 @@ public class Partie {
 				overideJoueur=true;
 				Jaccuser.setEtatcarte(true);
 				nbJrevel=nbJrevel-1;
-				//restrictRevel.add(index2);
+				
 				listJ.set(index2, Jaccuser); //on met à jour dans listJ
 					
 				}
@@ -458,9 +449,7 @@ public class Partie {
 				System.out.println("Carte choisi : " + carteRecup.getNom());
 				Joueur Jtemp=Jaccuser.jouerCarte(carteRecup, effet, listJ, index, index2, deffausseGen, overideAccuse, nbJrevel);
 				indextemp=listJ.indexOf(Jtemp);
-				/*if(jActu.getEtatcarte()==true || Jtemp.getEtatcarte()==true || Jaccuser.getEtatcarte()==true) {
-					nbJrevel--;
-				}*/
+				
 				if(indextemp != index && indextemp != index2) {
 					overideJautre=true;
 					listJ.set(indextemp, Jtemp);
@@ -519,40 +508,7 @@ public class Partie {
 					nbJrevel=nbJrevel2;
 				}
 				
-				/*if(restrictRevel.size()>0) {
-					revelindex = restrictRevel.iterator();
-					while(revelindex.hasNext()) {
-						int opt2 = revelindex.next();
-						if(opt2!=index && jActu.getEtatcarte()==true) {
-							nbJrevel--;
-							overRevel1 =true; 
-							
-						}
-						else if(opt2!=indextemp && Jtemp.getEtatcarte()==true) {
-							nbJrevel--;
-							overRevel2 =true;
-							
-						}
-					}
-					if(overRevel1==true) {
-						restrictRevel.add(index);
-					}
-					else if (overRevel2==true) {
-						restrictRevel.add(indextemp);
-					}
-					overRevel1=false; overRevel2=false;
-				}//fin if
-				else if(restrictRevel.size()==0 && jActu.getEtatcarte()==true) {
-					nbJrevel--;
-					restrictRevel.add(index);
-				}
-				else if(restrictRevel.size()==0 && Jtemp.getEtatcarte()==true) {
-					nbJrevel--;
-					restrictRevel.add(indextemp);
-				}*/
-				/*if(jActu.getEtatcarte()==true || Jtemp.getEtatcarte()==true) {
-					nbJrevel--;
-				}*/
+				
 				if(indextemp == index) {
 					jActu=Jtemp;
 				}
@@ -628,8 +584,7 @@ public class Partie {
 					ScoredeFin=true;
 				}
 				}
-	        //System.out.println("Programme fini gagnant : " + gagnant);
-			//scanner.close();
+	        
 	        return ScoredeFin;
     }
     

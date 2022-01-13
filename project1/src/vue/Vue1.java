@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
 import controlleur.*;
 
 /**Classe Vue graphique 1 début de jeu
- * @author victo
+ * @author victor
  *
  */
 public class Vue1 implements Observer {

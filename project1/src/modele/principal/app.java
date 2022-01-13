@@ -15,30 +15,30 @@ import modele.joueurs.Joueur;
  */
 public class app {
 	
-    /**Main de la version console
+    /**Main de la version console<br>
+     * Créer une partie qui lancera l'initialisation des Joueurs type et role<br>
+     * Une boucle while vérifie si le moindre des joueurs a plus de 5 points. Si ce n'est pas le cas, on relance un round<br>
+     * 
      * @param args args du main
      * @throws Exception exception enc as d'erreur
      */
     public static void main(String[] args) throws Exception {
-    	//boolean overideJoueur=false;
-    	//Scanner scanner = new Scanner(System.in);
-    	//int choix;
-    	//int choix2=0;
+    	
     	boolean ScoredeFin=false; //true=qqun a plus de 5points, false l'inverse
     	int nbgagnant=0; //On comptabilise le nombre de joueurs qui pourrait avoir plus de 5pt
     	Joueur gagnant = new Joueur();
-    	//int nbJrevel; //pour compter le nombre de joueur ayant une carte identité revelà
+    	
     	
     	ArrayList<Joueur> listJ;
     	
     	Partie partie = new Partie();
     	partie.menu();
-        //partie.initGame();
+        
     	
         
         listJ = partie.recupListeJ();
 		Iterator<Joueur> it = listJ.iterator(); //liste des joueurs complàte
-		//Iterator<Joueur> itA = listJ.iterator(); //liste des joueurs pour accusation (differente car on utulise l'autre dans le while)
+		
 		
 		
 		while(ScoredeFin==false) {

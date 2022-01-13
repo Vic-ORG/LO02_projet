@@ -77,7 +77,7 @@ public class Joueur {
     	Scanner scannerfct = new Scanner(System.in);
     	System.out.println("Choississez votre action : 1 pour sorcière, 2 pour villageois");
 		chx=scannerfct.nextInt();
-		//scannerfct.close();
+		
     	return chx;
     }
     
@@ -89,7 +89,7 @@ public class Joueur {
     	Scanner scannerfct = new Scanner(System.in);
     	System.out.println("Choississez votre action : 1 pour accuser, 2 pour utiliser carte rumeur");
 		chx=scannerfct.nextInt();
-		//scannerfct.close();
+		
     	return chx;
     }
     
@@ -147,17 +147,16 @@ public class Joueur {
 		int choix3=scannerfct.nextInt();
 		return choix3;
 		}
-    /*
-    public int jouerTourSuivant() {
-    	
-    	
-    	return 1;
-    }*/
+    
     
     
 
     
-    /**Fonction permettant de jouer une carte appelé par un joueur
+    /**Fonction permettant de jouer une carte appelé par un joueur<br>
+     * Principe :<br>
+     * La carte choisi par le joueur est envoyé en paramètre ainsi que si il faut la jouer en hunt ou witch<br>
+     * EN fonction du nom de la carte et de l'effet envoyé en paramètre, l'effet est joué.<br><br>
+     * 
      * @param carteChoisi : carte à jouer
      * @param effet : witch ou hunt
      * @param listJ : liste de Joueur
@@ -169,7 +168,7 @@ public class Joueur {
      * @return un joueur
      */
     public Joueur jouerCarte(Carte carteChoisi, String effet, ArrayList<Joueur> listJ, int indexActu, int indexdelautre, LinkedList<Carte> deffausseGeneral, boolean overideAccuse, int nbJrevel) {
-    	//derniereCarteJouee = carteChoisi;
+    	
     	Iterator<Joueur> itfct;
     	Iterator<Carte> cartfct;
     	LinkedList<Carte> deffoss;
@@ -187,7 +186,7 @@ public class Joueur {
         	if(effet=="witch") {
         		//prendre le tour suivant
         		System.out.println("Le joueur actuel   " + this.getNom() + "  joue le prochain tour");
-        		//System.out.println("Vous rejouez un tour !");
+        		
         	}
         	else if(effet=="hunt"){
         		itfct = listJ.iterator();
@@ -246,8 +245,7 @@ public class Joueur {
 				System.out.println("Carte choisi et en défausse générale : " + carteRecup.getNom());
 				this.getMain().remove(carteRecup);
 				deffausseGeneral.add(carteRecup);
-		        //erreur de compràhension de ma part sur les cartes rejetàs
-				//this.getDefausse().add(carteRecup);
+		        
 				
 		      //Tableau reinistialiser valeur
 				for(i=0; i<restrictChoix.length; i++) {
@@ -347,7 +345,7 @@ public class Joueur {
     			//Choisir qui joueur
     			System.out.println("Choississez le joueur qui commencera le tour prochain");
     			Jdesigner=this.choisirVictime(restrictChoix, listJ);
-    			//indexdeux=listJ.indexOf(Jdesigner);
+    			
         		
         	}
             
@@ -365,7 +363,7 @@ public class Joueur {
         		
         		//prendre le tour suivant
         		System.out.println("Le joueur actuel   " + this.getNom() + "  joue le prochain tour");
-        		//cas de force majeur mais àa devrait marcher j'espàre ????
+        		
         		listJ.set(indexActu, Accusateur);
         		
         	}
@@ -419,7 +417,7 @@ public class Joueur {
     			//Choisir qui joueur
     			System.out.println("Choississez le joueur qui commencera le tour prochain");
     			Jdesigner=this.choisirVictime(restrictChoix, listJ);
-    			//indexdeux=listJ.indexOf(Jdesigner);
+    			
         		
         	}
         	break;
@@ -460,7 +458,7 @@ public class Joueur {
     			//Choisir qui joueur
     			System.out.println("Choississez le joueur qui commencera le tour prochain");
     			Jdesigner=this.choisirVictime(restrictChoix, listJ);
-    			//indexdeux=listJ.indexOf(Jdesigner);
+    			
         		
         	}
         	else if(effet=="hunt"){
@@ -496,10 +494,7 @@ public class Joueur {
     				System.out.println("Carte choisi et en défausse générale : " + carteRecup.getNom());
     				Jdesigner.getMain().remove(carteRecup);
     				deffausseGeneral.add(carteRecup);
-    		        //erreur de compràhension de ma part sur les cartes rejetàs
-    				//this.getDefausse().add(carteRecup);
-    				
-    				//Jdesigner reprend la main
+    		        
     				
     			}
     			else {
@@ -602,7 +597,7 @@ public class Joueur {
     			System.out.println("Choississez le joueur qui commencera le tour prochain");
     			overideAccuse=true;
     			Jdesigner=this.choisirVictime(restrictChoix, listJ);
-    			//indexdeux=listJ.indexOf(Jdesigner);
+    			
         		
         	}
         	else if(effet=="hunt"){
@@ -619,7 +614,7 @@ public class Joueur {
     			System.out.println("Choississez le joueur qui commencera le tour prochain");
     			overideAccuse=true;
     			Jdesigner=this.choisirVictime(restrictChoix, listJ);
-    			//indexdeux=listJ.indexOf(Jdesigner);
+    			
         		
         	}
         	break;
@@ -662,7 +657,7 @@ public class Joueur {
             			//Choisir qui joueur
             			System.out.println("Choississez le joueur qui commencera le tour prochain");
             			Jdesigner=this.choisirVictime(restrictChoix, listJ);
-            			//indexdeux=listJ.indexOf(Jdesigner);
+            			
         				
         			}
         			System.out.println("*******************************************************************************");
@@ -694,8 +689,7 @@ public class Joueur {
     				System.out.println("Carte choisi et prise en main " + carteRecup.getNom());
     				this.getMain().add(carteRecup);
     				deffausseGeneral.remove(carteRecup);
-    		        //erreur de compràhension de ma part sur les cartes rejetàs
-    				//this.getDefausse().add(carteRecup);
+    		        
     				
     		      //Tableau reinistialiser valeur
     				for(i=0; i<restrictChoix.length; i++) {
@@ -790,7 +784,7 @@ public class Joueur {
     			//Choisir qui joueur
     			System.out.println("Choississez le joueur qui commencera le tour prochain");
     			Jdesigner=this.choisirVictime(restrictChoix, listJ);
-    			//indexdeux=listJ.indexOf(Jdesigner);
+    			
 	    		
         	}
         	break;     	
@@ -836,7 +830,7 @@ public class Joueur {
     
     //--------------------------
     
-    /**surement inutile
+    /**Constructeur vide
      * 
      */
     public Joueur() {
